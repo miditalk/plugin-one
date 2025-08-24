@@ -13,12 +13,13 @@ export default defineConfig({
       eslint: {
         useFlatConfig: true, // for me this fix the problem
         lintCommand: 'eslint .',
-        /*
         dev: {
           logLevel: ['warning', 'error'],
         },
-        */
       },
+      overlay: {
+        initialIsOpen: 'error'
+      }
     }),
   ],
   build: {
