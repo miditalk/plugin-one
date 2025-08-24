@@ -9,7 +9,7 @@
 namespace BinaryData
 {
     extern const char*   webviewplugingui_1_0_0_zip;
-    const int            webviewplugingui_1_0_0_zipSize = 1143942;
+    const int            webviewplugingui_1_0_0_zipSize = 1144056;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
     const int namedResourceListSize = 1;
