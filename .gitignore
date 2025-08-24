@@ -4,6 +4,9 @@
 **/node_modules
 WebViewGUI/build
 
+/Assets
+/JuceLibraryCode/BinaryData.cpp
+/JuceLibraryCode/BinaryData.h
 
 # testing
 /coverage
