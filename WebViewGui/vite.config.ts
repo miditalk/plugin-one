@@ -5,6 +5,9 @@ import checker from 'vite-plugin-checker';
 
 export default defineConfig({
   base: '/',
+  server: {
+    open: true
+  },
   plugins: [
     react(),
     svgr(),
