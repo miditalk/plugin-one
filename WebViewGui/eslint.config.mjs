@@ -53,7 +53,7 @@ export default tseslint.config([
       'import/no-named-as-default': 'off',
 
       'semi': ['error', 'always'],
-      'quotes': ['error', 'single'],
+      'quotes': ['warn', 'single'],
       'no-multiple-empty-lines': ['error', { 'max': 1, 'maxEOF': 0 }], // 빈줄 최대 1개
 
       'no-underscore-dangle': 'warn',
@@ -112,6 +112,7 @@ export default tseslint.config([
       'react/jsx-wrap-multilines': 0, // jsx에서 여러 줄에 걸쳐서 정의할 때 복잡한 rule 해제
       'react/jsx-curly-newline': 'off',
       'react/require-default-props': 'off',
+      /*
       'import/extensions': [
         'error',
         'ignorePackages',
@@ -122,6 +123,7 @@ export default tseslint.config([
           'tsx': 'never'
         }
       ],
+      */
       'import/no-extraneous-dependencies': [
         'error',
         { 'devDependencies': true }

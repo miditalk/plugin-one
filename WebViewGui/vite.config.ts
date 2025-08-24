@@ -26,6 +26,9 @@ export default defineConfig({
     outDir: 'build'
   },
   resolve: {
-    alias: [{ find: '@', replacement: '/src' }],  // '@'를 '/src' 폴더로 대체
+    alias: [
+      { find: '@/src', replacement: '/src' },
+      { find: '@', replacement: '/src' },
+    ],
   },
 });
