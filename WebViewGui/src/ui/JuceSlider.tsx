@@ -5,7 +5,7 @@ import Box from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 
-const controlParameterIndexAnnotation = 'controlparameterindex';
+import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
 type JuceSliderProps = {
   identifier: string,

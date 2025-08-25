@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const controlParameterIndexAnnotation = 'controlparameterindex';
+import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
 type JuceComboBoxProps = {
   identifier: string,

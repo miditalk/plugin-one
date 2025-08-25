@@ -12,7 +12,7 @@ import JuceSlider from '@/ui/JuceSlider';
 import JuceCheckbox from '@/ui/JuceCheckbox';
 import JuceComboBox from '@/ui/JuceComboBox';
 
-const controlParameterIndexAnnotation = 'controlparameterindex';
+import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
 const sayHello = Juce.getNativeFunction('sayHello');
 
