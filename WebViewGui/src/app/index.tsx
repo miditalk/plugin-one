@@ -1,3 +1,5 @@
+import Box from '@mui/material/Box';
+
 import '@fontsource/Pretendard/300.css';
 import '@fontsource/Pretendard/400.css';
 import '@fontsource/Pretendard/500.css';
@@ -9,7 +11,9 @@ import MuiProvider from './Provider/MuiProvider';
 function App() {
   return (
     <MuiProvider>
-      <Main />
+      <Box>
+        <Main />
+      </Box>
     </MuiProvider>
   );
 }
