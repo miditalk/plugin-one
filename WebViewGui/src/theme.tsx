@@ -15,16 +15,6 @@ const greyMain = '#636B74';
 export const themeVars = {
   cssVariables: true,
 
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 500,
-      md: 760,
-      lg: 1000,
-      xl: 1360,
-    },
-  },
-
   typography: {
     fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif',
     h1: {
@@ -58,8 +48,8 @@ export const themeVars = {
   },
   fontWeight: {
     sm: 300,
-    md: 500,
-    lg: 600,
+    md: 400,
+    lg: 500,
     xl: 700,
   },
   fontSize: {
