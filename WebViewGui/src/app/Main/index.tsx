@@ -1,8 +1,7 @@
 import * as Juce from 'juce-framework-frontend';
 
-import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
 
 import JuceSlider from '@/ui/JuceSlider';
 import JuceCheckbox from '@/ui/JuceCheckbox';
@@ -23,33 +22,35 @@ export default function App() {
   });
 
   return (
-    <Stack
-      direction="row"
-      divider={<Divider orientation="vertical" flexItem />}
+    <Grid
+      container
       spacing={2}
       sx={{
-        flexGrow: 1
+        flexGrow: 1,
+        '--Grid-borderWidth': '1px',
+        '& > div': {
+          borderRight: 'var(--Grid-borderWidth) solid',
+          borderColor: 'divider',
+        },
       }}
     >
-      <Stack
-        alignItems="center"
-        sx={{
-          flexGrow: 2
-        }}
-      >
-        <JuceSlider identifier="cutoffSlider" title="Cutoff" />
-        <CallBackendButton />
-        <FetchDataButton />
-        <JuceCheckbox identifier="muteToggle" />
-        <JuceComboBox identifier="filterTypeCombo" />
-      </Stack>
-      <Box
-        sx={{
-          flexGrow: 1
-        }}
-      >
+      <Grid size={9}>
+        <Stack
+          alignItems="center"
+          sx={{
+            flexGrow: 2
+          }}
+        >
+          <JuceSlider identifier="cutoffSlider" title="Cutoff" />
+          <CallBackendButton />
+          <FetchDataButton />
+          <JuceCheckbox identifier="muteToggle" />
+          <JuceComboBox identifier="filterTypeCombo" />
+        </Stack>
+      </Grid>
+      <Grid size={3}>
         test
-      </Box>
-    </Stack>
+      </Grid>
+    </Grid>
   );
 }
