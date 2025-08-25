@@ -87,17 +87,14 @@ export default function JuceSlider({
           }}
         />
         <Box
+          component="span"
           className="thumb"
           sx={{
-            // left: `${x}px`,
-            // top: `${y}px`,
             position: 'absolute',
             width: `${thumbWidth}px`,
             height: `${thumbWidth}px`,
             borderRadius: '50%',
             backgroundColor: 'currentColor',
-            // x: `${halfDistance}px`,
-            // y: `${halfDistance}px`,
             transform: `
               translate(${distanceHalf}px, ${distanceHalf}px)
               translate(-50%, -50%)

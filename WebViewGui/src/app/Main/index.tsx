@@ -54,7 +54,7 @@ export default function App() {
           justifyContent="center"
           spacing={2}
         >
-          <JuceSliderKnob identifier="outputSlider" title="Output" />
+          <JuceSliderKnob identifier="cutoffSlider" title="Output" />
         </Stack>
       </Grid>
     </Grid>
