@@ -1,6 +1,6 @@
 'use client';
 
-import Snackbar from '@mui/material/Snackbar';
+import Snackbar, { type SnackbarCloseReason } from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -9,7 +9,7 @@ import { useSnackbarStore } from '@/src/store/SnackbarStore';
 export default function App() {
   const { open, onClose, message } = useSnackbarStore();
 
-  const handleClose = (event: any, reason: any) => {
+  const handleClose = (event: any, reason?: SnackbarCloseReason) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -18,8 +18,6 @@ export default function App() {
   };
 
   const action = (
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     <IconButton
       size="small"
       aria-label="close"
