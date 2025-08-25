@@ -39,9 +39,9 @@ export const themeVars = {
   },
 
   fontWeight: {
-    sm: 300,
-    md: 400,
-    lg: 500,
+    sm: 400,
+    md: 500,
+    lg: 600,
     xl: 700,
   },
 
