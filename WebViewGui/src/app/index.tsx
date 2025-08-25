@@ -20,11 +20,7 @@ export default function App() {
           minHeight: '100dvh'
         }}
       >
-        <Stack
-          sx={{
-            flexGrow: 1
-          }}
-        >
+        <Stack>
           <Header />
           <Main />
           <Footer />

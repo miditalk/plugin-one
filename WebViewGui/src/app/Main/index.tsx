@@ -34,12 +34,11 @@ export default function App() {
         },
       }}
     >
-      <Grid size={9}>
+      <Grid container size={9}>
         <Stack
           alignItems="center"
-          sx={{
-            flexGrow: 2
-          }}
+          justifyContent="center"
+          spacing={2}
         >
           <JuceSlider identifier="cutoffSlider" title="Cutoff" />
           <CallBackendButton />
@@ -48,7 +47,7 @@ export default function App() {
           <JuceComboBox identifier="filterTypeCombo" />
         </Stack>
       </Grid>
-      <Grid size={3}>
+      <Grid container size={3}>
         test
       </Grid>
     </Grid>
