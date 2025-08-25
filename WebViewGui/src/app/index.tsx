@@ -6,16 +6,14 @@ import '@fontsource/Pretendard/500.css';
 import '@fontsource/Pretendard/700.css';
 
 import Main from './Main';
-import MuiProvider from './Provider/MuiProvider';
+import Provider from './Provider';
 
-function App() {
+export default function App() {
   return (
-    <MuiProvider>
+    <Provider>
       <Box>
         <Main />
       </Box>
-    </MuiProvider>
+    </Provider>
   );
 }
-
-export default App;

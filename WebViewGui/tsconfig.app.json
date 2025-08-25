@@ -42,12 +42,8 @@
     "outDir": "./build" /* Redirect output structure to the directory. */,
     "typeRoots":["./node_modules/@types", "./@types"],
     "paths": {
-      "@/app/*": ["src/app/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/ui/*": ["src/ui/*"],
       "@/src/*": ["src/*"],
-      "@/types/*": ["src/@types/*"],
-      "@/utils/*": ["src/utils/*"],
+      "@/*": ["src/*"],
     },
   },
   "include": ["src"],
