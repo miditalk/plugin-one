@@ -16,9 +16,7 @@ export default function App() {
       variant="contained"
       sx={{ marginTop: 2 }}
       onClick={() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        sayHello('JUCE').then((result: any) => {
+        (sayHello('JUCE') as Promise<string>).then((result: string) => {
           setOpen(result);
 
           return null;

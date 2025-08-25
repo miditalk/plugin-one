@@ -5,7 +5,7 @@ import Box from '@mui/material/Container';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Select, { type SelectChangeEvent } from '@mui/material/Select';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
@@ -22,7 +22,7 @@ export default function JuceComboBox({
   const [value, setValue] = useState(comboBoxState.getChoiceIndex());
   const [properties, setProperties] = useState(comboBoxState.properties);
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: SelectChangeEvent) => {
     comboBoxState.setChoiceIndex(event.target.value);
     setValue(event.target.value);
   };
@@ -57,7 +57,7 @@ export default function JuceComboBox({
           label={properties.name}
           onChange={handleChange}
         >
-          {properties.choices.map((choice: any, i: number) => (
+          {properties.choices.map((choice: number|string, i: number) => (
             <MenuItem value={i} key={i}>
               {choice}
             </MenuItem>

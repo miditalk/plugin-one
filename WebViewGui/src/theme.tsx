@@ -62,7 +62,6 @@ export const themeVars = {
   },
 
   palette: {
-    mode: 'light',
     background: {
       default: '#f2f2f2',
     },
@@ -96,8 +95,6 @@ export const themeVars = {
   },
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 const theme = createTheme(themeVars);
 
 export default theme;
