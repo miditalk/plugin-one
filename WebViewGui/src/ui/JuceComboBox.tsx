@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import * as Juce from 'juce-framework-frontend';
 
@@ -16,7 +18,6 @@ type JuceComboBoxProps = {
 export default function JuceComboBox({
   identifier
 }: JuceComboBoxProps) {
-
   const comboBoxState = Juce.getComboBoxState(identifier);
 
   const [value, setValue] = useState(comboBoxState.getChoiceIndex());

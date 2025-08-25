@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import * as Juce from 'juce-framework-frontend';
 
@@ -15,7 +17,6 @@ type JuceCheckboxProps = {
 export default function JuceCheckbox({
   identifier
 }: JuceCheckboxProps) {
-
   const checkboxState = Juce.getToggleState(identifier);
 
   const [value, setValue] = useState(checkboxState.getValue());

@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 
 import JuceSlider from '@/ui/JuceSlider';
+import JuceSliderKnob from '@/ui/JuceSliderKnob';
 import JuceCheckbox from '@/ui/JuceCheckbox';
 import JuceComboBox from '@/ui/JuceComboBox';
 
@@ -34,7 +35,7 @@ export default function App() {
         },
       }}
     >
-      <Grid container size={9}>
+      <Grid container size={6}>
         <Stack
           alignItems="center"
           justifyContent="center"
@@ -47,8 +48,14 @@ export default function App() {
           <JuceComboBox identifier="filterTypeCombo" />
         </Stack>
       </Grid>
-      <Grid container size={3}>
-        test
+      <Grid container size={6}>
+        <Stack
+          alignItems="center"
+          justifyContent="center"
+          spacing={2}
+        >
+          <JuceSliderKnob identifier="outputSlider" title="Output" />
+        </Stack>
       </Grid>
     </Grid>
   );

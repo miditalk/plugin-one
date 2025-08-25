@@ -5,7 +5,7 @@ import * as Juce from 'juce-framework-frontend';
 
 import Box from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Slider from '@mui/material/Slider';
+import Knob from './Knob';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
@@ -22,7 +22,7 @@ export default function JuceSlider({
   const [value, setValue] = useState(sliderState.getNormalisedValue());
   const [properties, setProperties] = useState(sliderState.properties);
 
-  const handleChange = (event: Event, newValue: number) => {
+  const handleChange = (event: Event, newValue: number | number[]) => {
     sliderState.setNormalisedValue(newValue);
     setValue(newValue);
   };
@@ -31,7 +31,7 @@ export default function JuceSlider({
     sliderState.sliderDragStarted();
   };
 
-  const changeCommitted = (event: Event | React.SyntheticEvent<Element, Event>, newValue: number) => {
+  const changeCommitted = (event: Event | React.SyntheticEvent<Element, Event>, newValue: number | number[]) => {
     sliderState.setNormalisedValue(newValue);
     sliderState.sliderDragEnded();
   };
@@ -64,7 +64,7 @@ export default function JuceSlider({
       <Typography sx={{ mt: 1.5 }}>
         {properties.name}: {sliderState.getScaledValue()} {properties.label}
       </Typography>
-      <Slider
+      <Knob
         aria-label={title}
         value={value}
         scale={calculateValue}
