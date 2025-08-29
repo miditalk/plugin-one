@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Knob from './Knob';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
-import { toFixedDigits } from '@/src/define';
+import { toFixedDigits, valueTouchViewTimer } from '@/src/define';
 
 type JuceSliderProps = {
   identifier: string,
@@ -21,7 +21,7 @@ export default function JuceSlider({
 }: JuceSliderProps) {
   const sliderState = Juce.getSliderState(identifier);
 
-  const defaultTimer = 500;
+  const defaultTimer = valueTouchViewTimer;
   const [view, setView] = useState<'name' | 'value'>('name');
   const [timer, setTimer] = useState(0);
   const [value, setValue] = useState(sliderState.getNormalisedValue());
