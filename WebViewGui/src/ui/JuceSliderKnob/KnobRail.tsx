@@ -9,11 +9,11 @@ export default function JuceSlider() {
         width: '80%',
         height: '80%',
         borderRadius: '50%',
-        backgroundColor: 'currentColor',
-        opacity: 0.38,
+        backgroundColor: 'var(--mui-palette-primary-lighten)',
         transform: `
-            translate(-50%, -50%)
-          `,
+          translate(-50%, -50%)
+        `,
+        zIndex: 200
       }}
     />
   );

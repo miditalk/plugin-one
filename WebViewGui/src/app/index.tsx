@@ -17,7 +17,8 @@ export default function App() {
       <Box
         sx={{
           display: 'flex',
-          minHeight: '100dvh'
+          minHeight: '100dvh',
+          overflow: 'hidden'
         }}
       >
         <Stack>

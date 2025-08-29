@@ -13,7 +13,7 @@ import Slider, { type SliderProps } from '@mui/material/Slider';
 
 import KnobRail from './KnobRail';
 import KnobThumb from './KnobThumb';
-import KnobGuide from './KnobGuide';
+import KnobFill from './KnobFill';
 
 export interface KnobProps
   extends
@@ -91,8 +91,8 @@ export default function JuceSlider({
           }}
         >
           <KnobRail />
-          <KnobGuide />
           <KnobThumb value={props.value} />
+          <KnobFill value={props.value} />
         </Box>
       </Box>
 

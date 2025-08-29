@@ -17,6 +17,7 @@ export default function JuceSlider({
           translate(-50%, -50%)
           rotate(${(value * 270) + 270}deg)
         `,
+        zIndex: 300
       }}
     >
       <Box
