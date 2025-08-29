@@ -11,27 +11,18 @@ export default function JuceSlider({
     <Box
       sx={{
         position: 'absolute',
-        width: 'var(--distance-thumb)',
-        height: 'var(--distance-thumb)',
+        width: 'var(--thumb-width)',
+        height: 'var(--thumb-height)',
+        backgroundColor: 'var(--mui-palette-primary-moreDark)',
+        transformOrigin: '50% 100%',
+        borderRadius: '5px',
         transform: `
-          translate(-50%, -50%)
-          rotate(${(value * 270) + 270}deg)
+          translate(-50%, -100%)
+          rotate(${(value * 270) + 225}deg)
         `,
         zIndex: 300
       }}
     >
-      <Box
-        component="div"
-        sx={{
-          width: 'var(--thumb-width)',
-          height: 'var(--thumb-height)',
-          backgroundColor: 'currentColor',
-          borderRadius: '10px',
-          transform: `
-            rotate(45deg)
-          `,
-        }}
-      />
     </Box>
   );
 }

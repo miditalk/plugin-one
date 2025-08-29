@@ -6,8 +6,8 @@ export default function JuceSlider() {
       className="rail"
       sx={{
         position: 'absolute',
-        width: '80%',
-        height: '80%',
+        width: 'var(--distance-rail)',
+        height: 'var(--distance-rail)',
         borderRadius: '50%',
         backgroundColor: 'var(--mui-palette-primary-lighten)',
         transform: `

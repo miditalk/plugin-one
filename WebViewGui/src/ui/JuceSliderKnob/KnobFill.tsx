@@ -58,6 +58,20 @@ export default function JuceSlider({
           zIndex: 150
         }}
       />
+    <Box
+      className="rail"
+      sx={{
+        position: 'absolute',
+        width: 'var(--distance-fill)',
+        height: 'var(--distance-fill)',
+        borderRadius: '50%',
+        backgroundColor: 'var(--mui-palette-background-default)',
+        transform: `
+          translate(-50%, -50%)
+        `,
+        zIndex: 180
+      }}
+    />
     </>
   );
 }

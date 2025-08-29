@@ -73,6 +73,7 @@ export const themeVars = {
       moreLight: lighten(primaryMain, 0.50),
       light: lighten(primaryMain, 0.2),
       dark: darken(primaryMain, 0.2),
+      moreDark: darken(primaryMain, 0.5),
       contrastText: getContrastRatio(primaryMain, '#fff') > 2.5 ? '#fff' : '#111',
     },
     secondry: {
