@@ -34,13 +34,13 @@ export default function App() {
       }}
     >
       <Grid container size={4}>
-        <JuceSliderKnob identifier="inputSlider" title="Output" />
+        <JuceSliderKnob identifier="inputSlider" title="Output" subDigit={0} />
       </Grid>
       <Grid container size={4}>
-        <JuceSliderKnob identifier="driveSlider" title="Output" />
+        <JuceSliderKnob identifier="driveSlider" title="Output" subDigit={0} />
       </Grid>
       <Grid container size={4}>
-        <JuceSliderKnob identifier="outputSlider" title="Output" />
+        <JuceSliderKnob identifier="outputSlider" title="Output" subDigit={0} />
       </Grid>
     </Grid>
   );

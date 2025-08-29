@@ -13,13 +13,17 @@ import { toFixedDigits } from '@/src/define';
 type JuceSliderProps = {
   identifier: string,
   title: string,
+  subDigit?: number
 }
 
 export default function JuceSlider({
-  identifier, title
+  identifier, title, subDigit=toFixedDigits
 }: JuceSliderProps) {
   const sliderState = Juce.getSliderState(identifier);
 
+  const defaultTimer = 500;
+  const [view, setView] = useState<'name' | 'value'>('name');
+  const [timer, setTimer] = useState(0);
   const [value, setValue] = useState(sliderState.getNormalisedValue());
   const [properties, setProperties] = useState(sliderState.properties);
 
@@ -50,6 +54,25 @@ export default function JuceSlider({
       sliderState.propertiesChangedEvent.removeListener(propertiesListenerId);
     };
   });
+  useEffect(() => {
+    setView('value');
+    if (timer !== defaultTimer) {
+      setTimer(defaultTimer);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[value]);
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      if (timer <= 0) {
+        setView('name');
+      } else setTimer(timer - 100);
+    }, 100);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  },[timer]);
 
   function calculateValue() {
     return sliderState.getScaledValue();
@@ -80,7 +103,10 @@ export default function JuceSlider({
           userSelect: 'none'
         }}
       >
-        {properties.name}: {sliderState.getScaledValue().toFixed(toFixedDigits)} {properties.label}
+        &nbsp;
+        {view === 'name' && properties.name}
+        {view === 'value' && `${sliderState.getScaledValue().toFixed(subDigit)} ${properties.label}`}
+        &nbsp;
       </Typography>
     </Box>
   );
