@@ -5,13 +5,14 @@ import {
   useMotionValue,
   useTransform,
   useDragControls,
-  useMotionValueEvent
+  useMotionValueEvent,
 } from 'framer-motion';
 
 import Box from '@mui/material/Box';
 import Slider, { type SliderProps } from '@mui/material/Slider';
 import KnobThumb from './KnobThumb';
 import KnobGuide from './KnobGuide';
+import React from 'react';
 
 export interface KnobProps
   extends
@@ -19,8 +20,8 @@ export interface KnobProps
     SliderProps,
     | 'value'
   > {
-  value: number
-  dragRange?: number
+  value: number;
+  dragRange?: number;
 }
 
 export default function JuceSlider({
@@ -38,26 +39,25 @@ export default function JuceSlider({
   });
 
   return (
-    <>
+    <React.Fragment>
       <Box
         className="slider-container"
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onMouseDown={(e: any) => {
-            if (props.onMouseDown) {
-              props.onMouseDown(e);
-            }
-
-            return dragControls.start(e, { snapToCursor: false, distanceThreshold: 0 });
+          if (props.onMouseDown) {
+            props.onMouseDown(e);
           }
-        }
+
+          return dragControls.start(e, { snapToCursor: false, distanceThreshold: 0 });
+        }}
         sx={{
           position: 'relative',
           width: '100%',
           aspectRatio: 1,
           color: 'var(--mui-palette-primary-main)',
           display: 'flex',
-          alignItems:'center',
-          justifyContent:'center',
+          alignItems: 'center',
+          justifyContent: 'center',
           '--thumb-width': '17%',
           '--thumb-height': '7%',
           '--guide-width': '10%',
@@ -79,7 +79,7 @@ export default function JuceSlider({
           }}
           style={{
             y: handleValue,
-            display: 'none'
+            display: 'none',
           }}
         />
         <Box
@@ -91,7 +91,7 @@ export default function JuceSlider({
             height: '80%',
             borderRadius: '50%',
             backgroundColor: 'currentColor',
-            opacity: 0.38
+            opacity: 0.38,
           }}
         />
 
@@ -104,6 +104,6 @@ export default function JuceSlider({
         value={props.value}
         sx={{ display: 'none' }}
       />
-    </>
+    </React.Fragment>
   );
 }

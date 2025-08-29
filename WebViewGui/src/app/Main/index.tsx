@@ -10,9 +10,6 @@ import JuceComboBox from '@/ui/JuceComboBox';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
-import FetchDataButton from './FetchDataButton';
-import CallBackendButton from './CallBackendButton';
-
 export default function App() {
   const controlParameterIndexUpdater = new Juce.ControlParameterIndexUpdater(
     controlParameterIndexAnnotation
@@ -42,18 +39,18 @@ export default function App() {
           spacing={2}
         >
           <JuceSlider identifier="cutoffSlider" title="Cutoff" />
-          <CallBackendButton />
-          <FetchDataButton />
           <JuceCheckbox identifier="muteToggle" />
           <JuceComboBox identifier="filterTypeCombo" />
         </Stack>
       </Grid>
       <Grid container size={6}>
         <Stack
+          direction="row"
           alignItems="center"
           justifyContent="center"
           spacing={2}
         >
+          <JuceSliderKnob identifier="cutoffSlider" title="Output" />
           <JuceSliderKnob identifier="cutoffSlider" title="Output" />
         </Stack>
       </Grid>
