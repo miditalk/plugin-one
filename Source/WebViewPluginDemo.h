@@ -479,15 +479,8 @@ static ZipFile* getZipFile()
     const auto resourceFile = resourceDir.getChildFile ("webviewplugin-gui_1.0.0.zip");
     
     DBG('test' << resourceFile.getFullPathName());
-    // const auto zipArchive = File::getCurrentWorkingDirectory().getChildFile("webviewplugin-gui_1.0.0.zip");
     static auto stream = resourceFile.createInputStream();
-    // if (inputStream == nullptr)
-    //    return nullptr;
 
-    // const ZipFile f { inputStream.get(), false };
-    // return &f;
-
-    // static auto stream = createAssetInputStream ("webviewplugin-gui_1.0.0.zip", AssertAssetExists::no);
     if (stream == nullptr)
         return nullptr;
 

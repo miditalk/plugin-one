@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Knob from './Knob';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
+import { toFixedDigits } from '@/src/define';
 
 type JuceSliderProps = {
   identifier: string,
@@ -61,9 +62,6 @@ export default function JuceSlider({
           sliderState.properties.parameterIndex,
       }}
     >
-      <Typography sx={{ mt: 1.5 }}>
-        {properties.name}: {sliderState.getScaledValue()} {properties.label}
-      </Typography>
       <Knob
         aria-label={title}
         value={value}
@@ -75,6 +73,14 @@ export default function JuceSlider({
         onChangeCommitted={changeCommitted}
         onMouseDown={mouseDown}
       />
+      <Typography
+        sx={{
+          mt: 1.5,
+          userSelect: 'none'
+        }}
+      >
+        {properties.name}: {sliderState.getScaledValue().toFixed(toFixedDigits)} {properties.label}
+      </Typography>
     </Box>
   );
 }
