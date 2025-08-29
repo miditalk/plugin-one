@@ -74,6 +74,7 @@ export default function JuceSlider({
         onMouseDown={mouseDown}
       />
       <Typography
+        textAlign="center"
         sx={{
           mt: 1.5,
           userSelect: 'none'
