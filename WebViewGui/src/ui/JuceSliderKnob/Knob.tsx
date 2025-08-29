@@ -18,13 +18,11 @@ export interface KnobProps
     | 'value'
   > {
   value: number
-  width?: number;
-  thumbWidth?: number
+  width?: number
 }
 
 export default function JuceSlider({
   width = 100,
-  thumbWidth = 20,
   ...props
 }: KnobProps) {
   const handleValue = useMotionValue(props.value);
@@ -37,8 +35,17 @@ export default function JuceSlider({
     }
   });
 
+  const thumbWidth = width * 0.2;
+  const thumbHeight = width * 0.1;
   const distanceHalf = width * 0.5;
   const distanceThumb = width * 0.25;
+  const distanceGuide = width * 0.43;
+
+  const step = 9;
+  const stepArray = Array.from({ length: step });
+
+  const guideWidth = width * 0.1;
+  const guideHeight = width * 0.03;
 
   return (
     <>
@@ -86,23 +93,59 @@ export default function JuceSlider({
             opacity: 0.38
           }}
         />
-        <Box
-          component="span"
-          className="thumb"
-          sx={{
-            position: 'absolute',
-            width: `${thumbWidth}px`,
-            height: `${thumbWidth}px`,
-            borderRadius: '50%',
-            backgroundColor: 'currentColor',
-            transform: `
-              translate(${distanceHalf}px, ${distanceHalf}px)
-              translate(-50%, -50%)
-              rotate(${(props.value * 270) + 90}deg)
-              translate(${distanceThumb}px, ${distanceThumb}px)
-            `
-          }}
-        />
+          <Box
+            component="div"
+            className="thumb"
+            sx={{
+              position: 'absolute',
+              transform: `
+                translate(${distanceHalf}px, ${distanceHalf}px)
+                translate(-50%, -50%)
+                rotate(${(props.value * 270) + 90}deg)
+                translate(${distanceThumb}px, ${distanceThumb}px)
+              `
+            }}
+          >
+            <Box
+              component="div"
+              sx={{
+                width: `${thumbWidth}px`,
+                height: `${thumbHeight}px`,
+                backgroundColor: 'currentColor',
+                transform: `
+                rotate(45deg)
+                `,
+              }}
+            />
+          </Box>
+        {stepArray.map((value, index) => (
+          <Box
+            key={`guide${index}`}
+            component="div"
+            className="guide"
+            sx={{
+              position: 'absolute',
+              transform: `
+                translate(${distanceHalf}px, ${distanceHalf}px)
+                translate(-50%, -50%)
+                rotate(${(index * (270 / (step - 1))) + 90}deg)
+                translate(${distanceGuide}px, ${distanceGuide}px)
+              `
+            }}
+          >
+            <Box
+              component="div"
+              sx={{
+                width: `${guideWidth}px`,
+                height: `${guideHeight}px`,
+                backgroundColor: 'currentColor',
+                transform: `
+                rotate(45deg)
+                `,
+              }}
+            />
+          </Box>
+        ))}
       </div>
 
       <Slider
