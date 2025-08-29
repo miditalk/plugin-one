@@ -1,4 +1,6 @@
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 export default function App() {
   return (
@@ -7,9 +9,21 @@ export default function App() {
       sx={{
         position: 'static',
         px: 2,
-        py: 1,
+        py: 0.5,
+        fontSize: 'var(--mui-fontSize-sm)'
       }}
     >
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+      >
+        <Box>
+          JoEunsoo Production
+        </Box>
+        <Box>
+          v1.0.0
+        </Box>
+      </Stack>
     </AppBar>
   );
 }

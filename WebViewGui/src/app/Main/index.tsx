@@ -1,12 +1,8 @@
 import * as Juce from 'juce-framework-frontend';
 
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 
-import JuceSlider from '@/ui/JuceSlider';
 import JuceSliderKnob from '@/ui/JuceSliderKnob';
-import JuceCheckbox from '@/ui/JuceCheckbox';
-import JuceComboBox from '@/ui/JuceComboBox';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
@@ -30,29 +26,21 @@ export default function App() {
           borderRight: 'var(--Grid-borderWidth) solid',
           borderColor: 'divider',
         },
+        '& .MuiGrid-root': {
+          flexDirection:'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }
       }}
     >
-      <Grid container size={6}>
-        <Stack
-          alignItems="center"
-          justifyContent="center"
-          spacing={2}
-        >
-          <JuceSlider identifier="cutoffSlider" title="Cutoff" />
-          <JuceCheckbox identifier="muteToggle" />
-          <JuceComboBox identifier="filterTypeCombo" />
-        </Stack>
+      <Grid container size={4}>
+        <JuceSliderKnob identifier="inputSlider" title="Output" />
       </Grid>
-      <Grid container size={6}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          spacing={2}
-        >
-          <JuceSliderKnob identifier="cutoffSlider" title="Output" />
-          <JuceSliderKnob identifier="cutoffSlider" title="Output" />
-        </Stack>
+      <Grid container size={4}>
+        <JuceSliderKnob identifier="driveSlider" title="Output" />
+      </Grid>
+      <Grid container size={4}>
+        <JuceSliderKnob identifier="outputSlider" title="Output" />
       </Grid>
     </Grid>
   );
