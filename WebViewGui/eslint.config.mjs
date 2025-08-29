@@ -129,7 +129,7 @@ export default tseslint.config([
       'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 
       'no-console': 'off',
-      'indent': ['error', 2], // 탭으로 분리(ide에서 4로 설정할 것), 데코레이터 이후의 노드는 무시
+      // 'indent': ['error', 2], // 탭으로 분리(ide에서 4로 설정할 것), 데코레이터 이후의 노드는 무시
       /*
       'prettier/prettier': [
         'warn',

@@ -5,13 +5,7 @@ export default function JuceSlider() {
   const stepArray = Array.from({ length: step });
 
   return (
-    <Box
-      sx={{
-        position: 'absolute',
-        width:'var(--distance-guide)',
-        height:'var(--distance-guide)',
-      }}
-    >
+    <>
       {stepArray.map((value, index) => (
         <Box
           key={`guide${index}`}
@@ -19,11 +13,12 @@ export default function JuceSlider() {
           className="guide"
           sx={{
             position: 'absolute',
-            width:'100%',
-            height:'100%',
+            width: 'var(--distance-guide)',
+            height: 'var(--distance-guide)',
             transform: `
+              translate(-50%, -50%)
               rotate(${(index * (270 / (step - 1))) + 270}deg)
-            `
+            `,
           }}
         >
           <Box
@@ -39,6 +34,6 @@ export default function JuceSlider() {
           />
         </Box>
       ))}
-    </Box>
+    </>
   );
 }

@@ -10,9 +10,10 @@ import {
 
 import Box from '@mui/material/Box';
 import Slider, { type SliderProps } from '@mui/material/Slider';
+
+import KnobRail from './KnobRail';
 import KnobThumb from './KnobThumb';
 import KnobGuide from './KnobGuide';
-import React from 'react';
 
 export interface KnobProps
   extends
@@ -39,7 +40,7 @@ export default function JuceSlider({
   });
 
   return (
-    <React.Fragment>
+    <Box>
       <Box
         className="slider-container"
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,9 +56,6 @@ export default function JuceSlider({
           width: '100%',
           aspectRatio: 1,
           color: 'var(--mui-palette-primary-main)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
           '--thumb-width': '17%',
           '--thumb-height': '7%',
           '--guide-width': '10%',
@@ -82,21 +80,20 @@ export default function JuceSlider({
             display: 'none',
           }}
         />
+
         <Box
-          component="span"
-          className="rail"
           sx={{
             position: 'absolute',
-            width: '80%',
-            height: '80%',
-            borderRadius: '50%',
-            backgroundColor: 'currentColor',
-            opacity: 0.38,
+            width: '100%',
+            height: '100%',
+            left: '50%',
+            top: '50%',
           }}
-        />
-
-        <KnobGuide />
-        <KnobThumb value={props.value} />
+        >
+          <KnobRail />
+          <KnobGuide />
+          <KnobThumb value={props.value} />
+        </Box>
       </Box>
 
       <Slider
@@ -104,6 +101,6 @@ export default function JuceSlider({
         value={props.value}
         sx={{ display: 'none' }}
       />
-    </React.Fragment>
+    </Box>
   );
 }

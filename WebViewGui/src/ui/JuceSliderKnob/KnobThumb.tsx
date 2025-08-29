@@ -13,32 +13,24 @@ export default function JuceSlider({
         position: 'absolute',
         width: 'var(--distance-thumb)',
         height: 'var(--distance-thumb)',
+        transform: `
+          translate(-50%, -50%)
+          rotate(${(value * 270) + 270}deg)
+        `,
       }}
     >
       <Box
         component="div"
-        className="thumb"
         sx={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
+          width: 'var(--thumb-width)',
+          height: 'var(--thumb-height)',
+          backgroundColor: 'currentColor',
+          borderRadius: '10px',
           transform: `
-          rotate(${(value * 270) + 270}deg)
-        `
+            rotate(45deg)
+          `,
         }}
-      >
-        <Box
-          component="div"
-          sx={{
-            width: 'var(--thumb-width)',
-            height: 'var(--thumb-height)',
-            backgroundColor: 'currentColor',
-            transform: `
-                rotate(45deg)
-              `,
-          }}
-        />
-      </Box>
+      />
     </Box>
   );
 }
