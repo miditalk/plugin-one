@@ -20,12 +20,10 @@ export interface KnobProps
     | 'value'
   > {
   value: number
-  width?: number
   dragRange?: number
 }
 
 export default function JuceSlider({
-  width = 100,
   dragRange = 150,
   ...props
 }: KnobProps) {
@@ -54,12 +52,18 @@ export default function JuceSlider({
         }
         sx={{
           position: 'relative',
-          width: `${width}px`,
-          height: `${width}px`,
-          aspectRatio: 'auto 1 / 1',
+          width: '100%',
+          aspectRatio: 1,
           color: 'var(--mui-palette-primary-main)',
-          boxSizing: 'content-box',
-          display: 'inline-block'
+          display: 'flex',
+          alignItems:'center',
+          justifyContent:'center',
+          '--thumb-width': '17%',
+          '--thumb-height': '7%',
+          '--guide-width': '10%',
+          '--guide-height': '3%',
+          '--distance-thumb': '50%',
+          '--distance-guide': '70%',
         }}
       >
         <motion.div
@@ -83,16 +87,16 @@ export default function JuceSlider({
           className="rail"
           sx={{
             position: 'absolute',
-            width: `${width}px`,
-            height: `${width}px`,
+            width: '80%',
+            height: '80%',
             borderRadius: '50%',
             backgroundColor: 'currentColor',
             opacity: 0.38
           }}
         />
 
-        <KnobThumb width={width} value={props.value} />
-        <KnobGuide width={width} />
+        <KnobGuide />
+        <KnobThumb value={props.value} />
       </Box>
 
       <Slider

@@ -2,44 +2,43 @@ import Box from '@mui/material/Box';
 
 export interface KnobProps {
   value: number
-  width?: number
 }
 
 export default function JuceSlider({
-  width = 100,
   value
 }: KnobProps) {
-  const distanceHalf = width * 0.5;
-  const distanceThumb = width * 0.28;
-
-  const thumbWidth = width * 0.2;
-  const thumbHeight = width * 0.07;
-
   return (
     <Box
-      component="div"
-      className="thumb"
       sx={{
         position: 'absolute',
-        transform: `
-          translate(${distanceHalf}px, ${distanceHalf}px)
-          translate(-50%, -50%)
-          rotate(${(value * 270) + 90}deg)
-          translate(${distanceThumb}px, ${distanceThumb}px)
-        `
+        width: 'var(--distance-thumb)',
+        height: 'var(--distance-thumb)',
       }}
     >
       <Box
         component="div"
+        className="thumb"
         sx={{
-          width: `${thumbWidth}px`,
-          height: `${thumbHeight}px`,
-          backgroundColor: 'currentColor',
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
           transform: `
-                rotate(45deg)
-                `,
+          rotate(${(value * 270) + 270}deg)
+        `
         }}
-      />
+      >
+        <Box
+          component="div"
+          sx={{
+            width: 'var(--thumb-width)',
+            height: 'var(--thumb-height)',
+            backgroundColor: 'currentColor',
+            transform: `
+                rotate(45deg)
+              `,
+          }}
+        />
+      </Box>
     </Box>
   );
 }

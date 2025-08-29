@@ -1,23 +1,17 @@
 import Box from '@mui/material/Box';
 
-export interface KnobProps {
-  width?: number
-}
-
-export default function JuceSlider({
-  width = 100,
-}: KnobProps) {
-  const distanceHalf = width * 0.5;
-  const distanceGuide = width * 0.43;
-
+export default function JuceSlider() {
   const step = 9;
   const stepArray = Array.from({ length: step });
 
-  const guideWidth = width * 0.1;
-  const guideHeight = width * 0.03;
-
   return (
-    <>
+    <Box
+      sx={{
+        position: 'absolute',
+        width:'var(--distance-guide)',
+        height:'var(--distance-guide)',
+      }}
+    >
       {stepArray.map((value, index) => (
         <Box
           key={`guide${index}`}
@@ -25,27 +19,26 @@ export default function JuceSlider({
           className="guide"
           sx={{
             position: 'absolute',
+            width:'100%',
+            height:'100%',
             transform: `
-                translate(${distanceHalf}px, ${distanceHalf}px)
-                translate(-50%, -50%)
-                rotate(${(index * (270 / (step - 1))) + 90}deg)
-                translate(${distanceGuide}px, ${distanceGuide}px)
-              `
+              rotate(${(index * (270 / (step - 1))) + 270}deg)
+            `
           }}
         >
           <Box
             component="div"
             sx={{
-              width: `${guideWidth}px`,
-              height: `${guideHeight}px`,
+              width: 'var(--guide-width)',
+              height: 'var(--guide-height)',
               backgroundColor: 'currentColor',
               transform: `
                 rotate(45deg)
-                `,
+              `,
             }}
           />
         </Box>
       ))}
-    </>
+    </Box>
   );
 }
