@@ -7,10 +7,10 @@
 */
 
 #include <JuceHeader.h>
-#include "WebViewPluginDemo.h"
+#include "PluginWrapper.h"
 
 //==============================================================================
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new WebViewPluginAudioProcessorWrapper();
+    return new PluginAudioProcessorWrapper();
 }
