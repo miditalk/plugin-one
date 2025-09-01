@@ -70,8 +70,8 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     private:
     PluginAudioProcessor& processorRef;
     
+    WebSliderRelay       inputGainSliderRelay    { "inputGainSlider" };
     WebSliderRelay       cutoffSliderRelay    { "cutoffSlider" };
-    WebToggleButtonRelay muteToggleRelay      { "muteToggle" };
     WebComboBoxRelay     filterTypeComboRelay { "filterTypeCombo" };
     
     WebControlParameterIndexReceiver controlParameterIndexReceiver;
@@ -81,14 +81,10 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withWinWebView2Options (WebBrowserComponent::Options::WinWebView2{}
                                      .withUserDataFolder (File::getSpecialLocation (File::SpecialLocationType::tempDirectory)))
             .withNativeIntegrationEnabled()
+            .withOptionsFrom (inputGainSliderRelay)
             .withOptionsFrom (cutoffSliderRelay)
-            .withOptionsFrom (muteToggleRelay)
             .withOptionsFrom (filterTypeComboRelay)
             .withOptionsFrom (controlParameterIndexReceiver)
-            .withNativeFunction ("sayHello", [](auto& var, auto complete)
-                                 {
-                complete ("Hello " + var[0].toString());
-            })
             .withResourceProvider ([this] (const auto& url)
                                    {
                 return getResource (url);
@@ -96,8 +92,8 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
                                    URL { localDevServerAddress }.getOrigin()) };
     
     WebSliderParameterAttachment       cutoffAttachment;
-    WebToggleButtonParameterAttachment muteAttachment;
     WebComboBoxParameterAttachment     filterTypeAttachment;
+    WebSliderParameterAttachment       inputGainAttachment;
     
     std::deque<Array<var>> spectrumDataFrames;
     
@@ -230,12 +226,12 @@ WebViewPluginAudioProcessorEditor::WebViewPluginAudioProcessorEditor (PluginAudi
 cutoffAttachment (*processorRef.state.getParameter (ID::cutoffFreqHz.getParamID()),
                   cutoffSliderRelay,
                   processorRef.state.undoManager),
-muteAttachment (*processorRef.state.getParameter (ID::mute.getParamID()),
-                muteToggleRelay,
-                processorRef.state.undoManager),
 filterTypeAttachment (*processorRef.state.getParameter (ID::filterType.getParamID()),
                       filterTypeComboRelay,
-                      processorRef.state.undoManager)
+                      processorRef.state.undoManager),
+inputGainAttachment (*processorRef.state.getParameter (ID::inputGain.getParamID()),
+                  inputGainSliderRelay,
+                  processorRef.state.undoManager)
 {
     addAndMakeVisible (webComponent);
     

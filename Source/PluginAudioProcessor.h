@@ -58,18 +58,23 @@ class PluginAudioProcessor  : public AudioProcessor
                                                           NormalisableRange<float> { 200.0f, 14000.0f, 1.0f, 0.5f },
                                                           11000.0f,
                                                           AudioParameterFloatAttributes{}.withLabel ("Hz"))),
-        mute (addToLayout<AudioParameterBool> (layout, ID::mute, "Mute", false)),
         filterType (addToLayout<AudioParameterChoice> (layout,
                                                        ID::filterType,
                                                        "Filter type",
                                                        StringArray { "Low-pass", "High-pass", "Band-pass" },
-                                                       0))
+                                                       0)),
+        inputGain (addToLayout<AudioParameterFloat> (layout,
+                                                          ID::inputGain,
+                                                          "Input Gain",
+                                                          NormalisableRange<float> { -24.0f, 24.0f, 1.0f, 0.5f },
+                                                          0.0f,
+                                                          AudioParameterFloatAttributes{}.withLabel ("dB")))
         {
         }
         
         AudioParameterFloat&  cutoffFreqHz;
-        AudioParameterBool&   mute;
         AudioParameterChoice& filterType;
+        AudioParameterFloat& inputGain;
         
         private:
         template <typename Param>
@@ -103,6 +108,7 @@ class PluginAudioProcessor  : public AudioProcessor
     SpectralBars spectralBars;
     
     dsp::LadderFilter<float> filter;
+    dsp::Gain<float> inputGain;
     
     private:
     //==============================================================================
@@ -134,6 +140,8 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     
     filter.prepare ({ sampleRate, (uint32_t) samplesPerBlock, (uint32_t) channels });
     filter.reset();
+    inputGain.setGainDecibels(0.0f);
+    inputGain.reset();
 }
 
 bool PluginAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
@@ -160,7 +168,9 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         buffer.clear (i, 0, buffer.getNumSamples());
     
     filter.setCutoffFrequencyHz (parameters.cutoffFreqHz.get());
-    
+    inputGain.setGainDecibels(parameters.inputGain.get());
+
+
     const auto filterMode = [this]
     {
         switch (parameters.filterType.getIndex())
@@ -180,9 +190,8 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     
     auto outBlock = dsp::AudioBlock<float> { buffer }.getSubsetChannelBlock (0, (size_t) getTotalNumOutputChannels());
     
-    if (parameters.mute.get())
-        outBlock.clear();
-    
+    inputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
+
     filter.process (dsp::ProcessContextReplacing<float> (outBlock));
     
     spectralBars.push (Span { buffer.getReadPointer (0), (size_t) buffer.getNumSamples() });

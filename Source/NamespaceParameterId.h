@@ -17,6 +17,7 @@ namespace ID
 PARAMETER_ID (cutoffFreqHz)
 PARAMETER_ID (mute)
 PARAMETER_ID (filterType)
+PARAMETER_ID (inputGain)
 
 #undef PARAMETER_ID
 }
