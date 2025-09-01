@@ -116,7 +116,7 @@ static ZipFile* getZipFile()
 #else
     const auto resourceDir = File::getSpecialLocation (File::currentExecutableFile)
         .getParentDirectory().getParentDirectory().getChildFile ("Resources");
-    const auto resourceFile = resourceDir.getChildFile ("webviewplugin-gui_1.0.0.zip");
+    const auto resourceFile = resourceDir.getChildFile ("gui.zip");
     
     static auto stream = resourceFile.createInputStream();
     

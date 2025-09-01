@@ -1,5 +1,5 @@
 {
-  "name": "webviewplugin-gui",
+  "name": "gui",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -20,7 +20,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "zip": "npm-build-zip --destination=../Assets"
+    "zip": "npm-build-zip --name=gui --name_only=true --destination=../Assets"
   },
   "browserslist": {
     "production": [

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT name="WebViewPluginDemo" companyName="JUCE" version="1.0.0" userNotes="Saturation Plugin"
+<JUCERPROJECT name="JERustyTone" companyName="JoEunsoo" version="1.0.0" userNotes="Saturation Plugin"
               companyWebsite="http://joeunsoo.com" defines="PIP_JUCE_EXAMPLES_DIRECTORY=L1VzZXJzL2pvZXVuc29vL0pVQ0UvZXhhbXBsZXM="
-              projectType="audioplug" pluginAUIsSandboxSafe="1" pluginManufacturer="JUCE"
-              pluginFormats="buildVST3,buildAU,buildStandalone" useAppConfig="0"
+              projectType="audioplug" pluginAUIsSandboxSafe="1" pluginManufacturer="JoEunsoo"
+              pluginFormats="buildAAX,buildAU,buildStandalone,buildVST3" useAppConfig="0"
               addUsingNamespaceToJuceHeader="1" id="juqXJH" jucerFormatVersion="1"
-              pluginVST3Category="Distortion" companyEmail="info@joeunsoo.com">
-  <MAINGROUP id="eUJieJ" name="WebViewPluginDemo">
+              pluginVST3Category="Distortion" companyEmail="info@joeunsoo.com"
+              pluginName="JE Rusty Tone">
+  <MAINGROUP id="eUJieJ" name="JERustyTone">
     <GROUP id="{35A8EC3B-9539-F605-D986-D2058D0701EB}" name="Source">
       <FILE id="HXE5Zi" name="NamespaceParameterId.h" compile="0" resource="0"
             file="Source/NamespaceParameterId.h"/>
@@ -20,8 +21,8 @@
     </GROUP>
     <GROUP id="A9VZOH" name="Assets">
       <FILE id="SVPm6a" name="DemoUtilities.h" compile="0" resource="0" file="Source/DemoUtilities.h"/>
-      <FILE id="ZDlsSC" name="webviewplugin-gui_1.0.0.zip" compile="0" resource="1"
-            file="Assets/webviewplugin-gui_1.0.0.zip" xcodeResource="1"/>
+      <FILE id="lLMVeR" name="gui.zip" compile="0" resource="1" file="Assets/gui.zip"
+            xcodeResource="1"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
@@ -43,10 +44,10 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" xcodeValidArchs="arm64,x86_64">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WebViewPluginDemo"
-                       macOSDeploymentTarget="12.0" osxCompatibility="12.0 SDK"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="WebViewPluginDemo"
-                       osxCompatibility="12.0 SDK" macOSDeploymentTarget="12.0"/>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" macOSDeploymentTarget="12.0"
+                       osxCompatibility="12.0 SDK"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" osxCompatibility="12.0 SDK"
+                       macOSDeploymentTarget="12.0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path=""/>
@@ -66,8 +67,8 @@
     </XCODE_MAC>
     <VS2022 targetFolder="Builds/VisualStudio2022" extraCompilerFlags="/bigobj">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WebViewPluginDemo"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="WebViewPluginDemo"/>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path=""/>

@@ -23,7 +23,7 @@
  #define JucePlugin_Build_AUv3             0
 #endif
 #ifndef  JucePlugin_Build_AAX
- #define JucePlugin_Build_AAX              0
+ #define JucePlugin_Build_AAX              1
 #endif
 #ifndef  JucePlugin_Build_Standalone
  #define JucePlugin_Build_Standalone       1
@@ -41,13 +41,13 @@
  #define JucePlugin_Enable_ARA             0
 #endif
 #ifndef  JucePlugin_Name
- #define JucePlugin_Name                   "WebViewPluginDemo"
+ #define JucePlugin_Name                   "JE Rusty Tone"
 #endif
 #ifndef  JucePlugin_Desc
- #define JucePlugin_Desc                   "WebViewPluginDemo"
+ #define JucePlugin_Desc                   "JERustyTone"
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "JUCE"
+ #define JucePlugin_Manufacturer           "JoEunsoo"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
  #define JucePlugin_ManufacturerWebsite    "http://joeunsoo.com"
@@ -101,19 +101,19 @@
  #define JucePlugin_AUSubType              JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_AUExportPrefix
- #define JucePlugin_AUExportPrefix         WebViewPluginDemoAU
+ #define JucePlugin_AUExportPrefix         JERustyToneAU
 #endif
 #ifndef  JucePlugin_AUExportPrefixQuoted
- #define JucePlugin_AUExportPrefixQuoted   "WebViewPluginDemoAU"
+ #define JucePlugin_AUExportPrefixQuoted   "JERustyToneAU"
 #endif
 #ifndef  JucePlugin_AUManufacturerCode
  #define JucePlugin_AUManufacturerCode     JucePlugin_ManufacturerCode
 #endif
 #ifndef  JucePlugin_CFBundleIdentifier
- #define JucePlugin_CFBundleIdentifier     com.JUCE.WebViewPluginDemo
+ #define JucePlugin_CFBundleIdentifier     com.JoEunsoo.JERustyTone
 #endif
 #ifndef  JucePlugin_AAXIdentifier
- #define JucePlugin_AAXIdentifier          com.JUCE.WebViewPluginDemo
+ #define JucePlugin_AAXIdentifier          com.JoEunsoo.JERustyTone
 #endif
 #ifndef  JucePlugin_AAXManufacturerCode
  #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
@@ -137,7 +137,7 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "JUCE: WebViewPluginDemo"
+ #define JucePlugin_IAAName                "JoEunsoo: JE Rusty Tone"
 #endif
 #ifndef  JucePlugin_VSTNumMidiInputs
  #define JucePlugin_VSTNumMidiInputs       16
@@ -152,10 +152,10 @@
  #define JucePlugin_ARATransformationFlags  0
 #endif
 #ifndef  JucePlugin_ARAFactoryID
- #define JucePlugin_ARAFactoryID           "com.JUCE.WebViewPluginDemo.factory"
+ #define JucePlugin_ARAFactoryID           "com.JoEunsoo.JERustyTone.factory"
 #endif
 #ifndef  JucePlugin_ARADocumentArchiveID
- #define JucePlugin_ARADocumentArchiveID   "com.JUCE.WebViewPluginDemo.aradocumentarchive.1.0.0"
+ #define JucePlugin_ARADocumentArchiveID   "com.JoEunsoo.JERustyTone.aradocumentarchive.1.0.0"
 #endif
 #ifndef  JucePlugin_ARACompatibleArchiveIDs
  #define JucePlugin_ARACompatibleArchiveIDs  ""
