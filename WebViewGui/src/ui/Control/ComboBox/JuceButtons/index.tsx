@@ -5,7 +5,7 @@ import * as Juce from 'juce-framework-frontend';
 
 import Box from '@mui/material/Container';
 
-import type { SelectChangeEvent } from 'node_modules/@mui/material/Select';
+import type { SelectChangeEvent } from '@mui/material/Select';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 import Typography from '@mui/material/Typography';

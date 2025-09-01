@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 
 import JuceKnob from '@/src/ui/Control/Slider/JuceKnob';
 import JuceButtons from '@/src/ui/Control/ComboBox/JuceButtons';
-import JuceComboBox from '@/src/ui/Control/ComboBox/JuceComboBox';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
