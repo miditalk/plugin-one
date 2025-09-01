@@ -9,6 +9,7 @@ import Knob from './Knob';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 import { toFixedDigits, valueTouchViewTimer } from '@/src/define';
+import { LabelTypographySx } from '@/ui/Style';
 
 type JuceSliderProps = {
   identifier: string,
@@ -101,9 +102,8 @@ export default function JuceSlider({
       <Typography
         textAlign="center"
         sx={{
-          mt: '-1.0em',
-          cursor: '',
-          userSelect: 'default',
+          ...LabelTypographySx,
+          mt: '-1.5em',
         }}
       >
         &nbsp;

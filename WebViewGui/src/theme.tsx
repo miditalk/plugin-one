@@ -26,7 +26,7 @@ export const themeVars = {
     },
     h3: {
       fontSize: 'var(--mui-fontSize-xl2, 1.5rem)',
-      fontWeight: 'var(--mui-fontWeight-lg, 600)'
+      fontWeight: 'var(--mui-t-lg, 600)'
     },
     h4: {
       fontSize: 'var(--mui-fontSize-xl, 1.25rem)',
@@ -74,6 +74,7 @@ export const themeVars = {
       light: lighten(primaryMain, 0.2),
       dark: darken(primaryMain, 0.2),
       moreDark: darken(primaryMain, 0.5),
+      darken: darken(primaryMain, 0.7),
       contrastText: getContrastRatio(primaryMain, '#fff') > 2.5 ? '#fff' : '#111',
     },
     secondry: {
@@ -81,10 +82,11 @@ export const themeVars = {
       lightest: lighten(secondryMain, 0.93),
       lighter: lighten(secondryMain, 0.85),
       lighten: lighten(secondryMain, 0.7),
-      moreLight: lighten(secondryMain, 0.50),
+      moreLight: lighten(secondryMain, 0.5),
       light: lighten(secondryMain, 0.2),
       dark: darken(secondryMain, 0.2),
       moreDark: darken(secondryMain, 0.5),
+      darken: darken(secondryMain, 0.7),
       contrastText: getContrastRatio(secondryMain, '#fff') > 2.5 ? '#fff' : '#111',
     },
     info: {
