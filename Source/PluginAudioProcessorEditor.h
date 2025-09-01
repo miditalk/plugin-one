@@ -73,6 +73,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     WebSliderRelay       inputGainSliderRelay    { "inputGainSlider" };
     WebSliderRelay       cutoffSliderRelay    { "cutoffSlider" };
     WebComboBoxRelay     filterTypeComboRelay { "filterTypeCombo" };
+    WebSliderRelay       outputGainSliderRelay    { "outputGainSlider" };
     
     WebControlParameterIndexReceiver controlParameterIndexReceiver;
     
@@ -84,6 +85,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withOptionsFrom (inputGainSliderRelay)
             .withOptionsFrom (cutoffSliderRelay)
             .withOptionsFrom (filterTypeComboRelay)
+            .withOptionsFrom (outputGainSliderRelay)
             .withOptionsFrom (controlParameterIndexReceiver)
             .withResourceProvider ([this] (const auto& url)
                                    {
@@ -94,6 +96,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     WebSliderParameterAttachment       cutoffAttachment;
     WebComboBoxParameterAttachment     filterTypeAttachment;
     WebSliderParameterAttachment       inputGainAttachment;
+    WebSliderParameterAttachment       outputGainAttachment;
     
     std::deque<Array<var>> spectrumDataFrames;
     
@@ -231,6 +234,9 @@ filterTypeAttachment (*processorRef.state.getParameter (ID::filterType.getParamI
                       processorRef.state.undoManager),
 inputGainAttachment (*processorRef.state.getParameter (ID::inputGain.getParamID()),
                   inputGainSliderRelay,
+                  processorRef.state.undoManager),
+outputGainAttachment (*processorRef.state.getParameter (ID::outputGain.getParamID()),
+                  outputGainSliderRelay,
                   processorRef.state.undoManager)
 {
     addAndMakeVisible (webComponent);
