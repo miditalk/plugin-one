@@ -1,5 +1,8 @@
-export const LabelTypographySx = {
+export const noDragSx = {
   cursor: 'default',
   userSelect: 'none',
-  fontWeight: 'var(--mui-fontWeight-lg)',
+};
+
+export const LabelTypographySx = {
+
 };

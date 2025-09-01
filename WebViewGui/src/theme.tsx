@@ -6,6 +6,7 @@ import {
   darken,
   lighten,
 } from '@mui/material/styles';
+import { noDragSx } from '@/ui/Style';
 
 const primaryMain = '#525960';
 const secondryMain = '#7A2E2E';
@@ -13,6 +14,8 @@ const greyMain = '#2C3036';
 
 export const themeVars = {
   cssVariables: true,
+
+  spacing: (factor: number) => `${0.25 * factor}rem`, // (Bootstrap strategy)
 
   typography: {
     fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif',
@@ -113,10 +116,19 @@ export const themeVars = {
         },
       },
     },
-
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          ...noDragSx,
+          fontWeight: 'var(--mui-fontWeight-lg)',
+        },
+      },
+    }
   },
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const theme = createTheme(themeVars);
 
 export default theme;
