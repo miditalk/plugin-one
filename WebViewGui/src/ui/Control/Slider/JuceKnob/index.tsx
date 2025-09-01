@@ -23,6 +23,7 @@ export default function JuceSlider({
   const sliderState = Juce.getSliderState(identifier);
 
   const defaultTimer = valueTouchViewTimer;
+  const [mount, setMount] = useState(false);
   const [view, setView] = useState<'name' | 'value'>('name');
   const [timer, setTimer] = useState(0);
   const [value, setValue] = useState<number>(sliderState.getNormalisedValue());
@@ -57,8 +58,15 @@ export default function JuceSlider({
       sliderState.propertiesChangedEvent.removeListener(propertiesListenerId);
     };
   });
+
   useEffect(() => {
-    setView('value');
+    setMount(true);
+  }, []);
+
+  useEffect(() => {
+    if (mount) {
+      setView('value');
+    }
     if (timer !== defaultTimer) {
       setTimer(defaultTimer);
     }
@@ -75,7 +83,7 @@ export default function JuceSlider({
     return () => {
       clearTimeout(timerId);
     };
-  },[timer]);
+  },[mount, timer]);
 
   function calculateValue() {
     return sliderState.getScaledValue();

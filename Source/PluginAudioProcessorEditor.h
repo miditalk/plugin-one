@@ -105,7 +105,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
 
 static ZipFile* getZipFile()
 {
-#if true
+#if ! true
     static auto stream = createAssetInputStream ("webviewplugin-gui_1.0.0.zip", AssertAssetExists::no);
     
     if (stream == nullptr)
@@ -249,10 +249,10 @@ outputGainAttachment (*processorRef.state.getParameter (ID::outputGain.getParamI
 {
     addAndMakeVisible (webComponent);
     
-    // webComponent.goToURL (localDevServerAddress);
-    webComponent.goToURL (WebBrowserComponent::getResourceProviderRoot());
+    webComponent.goToURL (localDevServerAddress);
+    // webComponent.goToURL (WebBrowserComponent::getResourceProviderRoot());
     
-    setSize (500, 500);
+    setSize (500, 300);
     
     startTimerHz (20);
 }
