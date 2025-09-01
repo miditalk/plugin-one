@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
 import {
   motion,
   useMotionValue,
@@ -29,15 +31,22 @@ export default function JuceSlider({
   dragRange = 150,
   ...props
 }: KnobProps) {
+  const [isDrag, setIsDrag] = useState(false);
   const handleValue = useMotionValue(props.value * (1-dragRange));
   const progressScaleValue = useTransform(handleValue, [0, -dragRange], [0, 1]);
   const dragControls = useDragControls();
 
   useMotionValueEvent(progressScaleValue, 'change', (latest) => {
-    if (props.onChange) {
+    if (isDrag && props.onChange) {
       props.onChange(new Event('change'), latest, 0);
     }
   });
+
+  useEffect(() => {
+    if (!isDrag) {
+      handleValue.set(props.value * (1-dragRange));
+    }
+  },[dragRange, handleValue, isDrag, props.value]);
 
   return (
     <Box>
@@ -64,17 +73,18 @@ export default function JuceSlider({
           dragConstraints={{ top: -dragRange, bottom: 0 }}
           dragControls={dragControls}
           dragMomentum={false}
+          onDragStart={() => {
+            setIsDrag(true);
+          }}
           onDragEnd={(event) => {
             if (props.onChangeCommitted) {
               props.onChangeCommitted(event, progressScaleValue.get());
             }
+            setIsDrag(false);
           }}
           style={{
             y: handleValue,
-            // display:'none',
-            backgroundColor: '#ff0000',
-            width: '5px',
-            height: '5px'
+            display:'none',
           }}
         />
 

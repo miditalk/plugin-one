@@ -42,7 +42,6 @@ export default function JuceSlider({
   };
 
   const mouseDown = (e: React.MouseEvent) => {
-    console.log(e);
     if (e.metaKey) {
       sliderState.setNormalisedValue(defaultValue);
       setValue(defaultValue);
