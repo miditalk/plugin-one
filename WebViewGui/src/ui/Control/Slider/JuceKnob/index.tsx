@@ -37,10 +37,19 @@ export default function JuceSlider({
     }
   };
 
+  const resetValue = () => {
+    sliderState.setNormalisedValue(defaultValue);
+    setValue(defaultValue);
+  };
+
+  const doubleClick = () => {
+    console.log('db');
+    resetValue();
+  };
+
   const mouseDown = (e: React.MouseEvent) => {
     if (e.metaKey) {
-      sliderState.setNormalisedValue(defaultValue);
-      setValue(defaultValue);
+      resetValue();
     } else {
       sliderState.sliderDragStarted();
     }
@@ -80,7 +89,6 @@ export default function JuceSlider({
         textAlign="center"
         sx={{
           ...LabelTypographySx,
-          mt: '1.5em',
         }}
       >
         {sliderState.getScaledValue().toFixed(subDigit)} {properties.label}
@@ -95,12 +103,13 @@ export default function JuceSlider({
         step={1 / (properties.numSteps - 1)}
         onChangeCommitted={changeCommitted}
         onMouseDown={mouseDown}
+        onDoubleClick={doubleClick}
       />
       <Typography
         textAlign="center"
         sx={{
           ...LabelTypographySx,
-          mt: '-1.5em',
+          mt: '-0.5em',
         }}
       >
         {properties.name}

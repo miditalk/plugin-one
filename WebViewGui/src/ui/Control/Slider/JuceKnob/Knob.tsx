@@ -10,7 +10,7 @@ import {
   useMotionValueEvent,
 } from 'framer-motion';
 
-import Box from '@mui/material/Box';
+import Box, { type BoxProps } from '@mui/material/Box';
 import Slider, { type SliderProps } from '@mui/material/Slider';
 
 import KnobRail from './KnobRail';
@@ -27,12 +27,24 @@ export interface KnobProps
   dragRange?: number;
 }
 
+function sliderToBox({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  defaultValue,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onChange,
+  ...props
+}: KnobProps): BoxProps {
+  return {
+    ...props,
+  };
+}
+
 export default function JuceSlider({
   dragRange = 150,
   ...props
 }: KnobProps) {
   const [isDrag, setIsDrag] = useState(false);
-  const handleValue = useMotionValue(props.value * (1-dragRange));
+  const handleValue = useMotionValue(props.value * (1 - dragRange));
   const progressScaleValue = useTransform(handleValue, [0, -dragRange], [0, 1]);
   const dragControls = useDragControls();
 
@@ -44,12 +56,14 @@ export default function JuceSlider({
 
   useEffect(() => {
     if (!isDrag) {
-      handleValue.set(props.value * (1-dragRange));
+      handleValue.set(props.value * (1 - dragRange));
     }
-  },[dragRange, handleValue, isDrag, props.value]);
+  }, [dragRange, handleValue, isDrag, props.value]);
 
   return (
-    <Box>
+    <Box
+      {...sliderToBox(props)}
+    >
       <Box
         className="slider-container"
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,7 +77,7 @@ export default function JuceSlider({
         sx={{
           position: 'relative',
           width: '100%',
-          aspectRatio: 1,
+          aspectRatio: 200 / 160,
           color: 'var(--mui-palette-primary-main)',
         }}
       >
@@ -84,12 +98,12 @@ export default function JuceSlider({
           }}
           style={{
             y: handleValue,
-            display:'none',
+            display: 'none',
           }}
         />
 
         <svg
-          viewBox="0 0 200 200"
+          viewBox="0 10 200 170"
         >
           <KnobFill value={props.value} />
           <KnobRail />
