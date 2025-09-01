@@ -70,11 +70,11 @@ class PluginAudioProcessor  : public AudioProcessor
                                                      0.0f,
                                                      AudioParameterFloatAttributes{}.withLabel ("dB"))),
         outputGain (addToLayout<AudioParameterFloat> (layout,
-                                                     ID::outputGain,
-                                                     "Output Gain",
-                                                     NormalisableRange<float> { -24.0f, 24.0f, 0.5f, 1.0f },
-                                                     0.0f,
-                                                     AudioParameterFloatAttributes{}.withLabel ("dB")))
+                                                      ID::outputGain,
+                                                      "Output Gain",
+                                                      NormalisableRange<float> { -24.0f, 24.0f, 0.5f, 1.0f },
+                                                      0.0f,
+                                                      AudioParameterFloatAttributes{}.withLabel ("dB")))
         {
         }
         
@@ -205,7 +205,7 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     filter.process (dsp::ProcessContextReplacing<float> (outBlock));
     
     outputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
-
+    
     spectralBars.push (Span { buffer.getReadPointer (0), (size_t) buffer.getNumSamples() });
     
     {

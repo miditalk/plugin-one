@@ -107,17 +107,17 @@ static ZipFile* getZipFile()
 {
 #if true
     static auto stream = createAssetInputStream ("webviewplugin-gui_1.0.0.zip", AssertAssetExists::no);
-
+    
     if (stream == nullptr)
         return nullptr;
-
+    
     static ZipFile f { stream.get(), false };
     return &f;
 #else
     const auto resourceDir = File::getSpecialLocation (File::currentExecutableFile)
         .getParentDirectory().getParentDirectory().getChildFile ("Resources");
     const auto resourceFile = resourceDir.getChildFile ("webviewplugin-gui_1.0.0.zip");
-
+    
     static auto stream = resourceFile.createInputStream();
     
     if (stream == nullptr)
@@ -241,11 +241,11 @@ filterTypeAttachment (*processorRef.state.getParameter (ID::filterType.getParamI
                       filterTypeComboRelay,
                       processorRef.state.undoManager),
 inputGainAttachment (*processorRef.state.getParameter (ID::inputGain.getParamID()),
-                  inputGainSliderRelay,
-                  processorRef.state.undoManager),
+                     inputGainSliderRelay,
+                     processorRef.state.undoManager),
 outputGainAttachment (*processorRef.state.getParameter (ID::outputGain.getParamID()),
-                  outputGainSliderRelay,
-                  processorRef.state.undoManager)
+                      outputGainSliderRelay,
+                      processorRef.state.undoManager)
 {
     addAndMakeVisible (webComponent);
     
