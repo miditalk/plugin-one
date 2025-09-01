@@ -6,10 +6,10 @@
 
 class PluginAudioProcessorWrapper  : public PluginAudioProcessor
 {
-public:
+    public:
     PluginAudioProcessorWrapper()  : PluginAudioProcessor ({})
     {}
-
+    
     bool hasEditor() const override               { return true; }
     AudioProcessorEditor* createEditor() override { return new WebViewPluginAudioProcessorEditor (*this); }
 };
