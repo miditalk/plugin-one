@@ -1,70 +1,53 @@
-'use client';
+import Stack from '@mui/material/Stack';
 
-import { useState, useEffect } from 'react';
-import * as Juce from 'juce-framework-frontend';
+import { type SelectProps } from '@mui/material/Select';
 
-import Box from '@mui/material/Container';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { type SelectChangeEvent } from '@mui/material/Select';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
-
-type JuceComboBoxProps = {
-  identifier: string,
+export interface JuceComboBoxProps
+  extends Omit<
+    SelectProps,
+    | 'value'
+    | 'onChange'
+  > {
+  value: number | string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  choices: any;
 }
 
 export default function JuceComboBox({
-  identifier
+  choices,
+  ...props
 }: JuceComboBoxProps) {
-  const comboBoxState = Juce.getComboBoxState(identifier);
-
-  const [value, setValue] = useState(comboBoxState.getChoiceIndex());
-  const [properties, setProperties] = useState(comboBoxState.properties);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    comboBoxState.setChoiceIndex(event.target.value);
-    setValue(event.target.value);
+  const handleChange = (event: React.MouseEvent<HTMLElement>, nextValue: string) => {
+    props.onChange(event, nextValue);
   };
 
-  useEffect(() => {
-    const valueListenerId = comboBoxState.valueChangedEvent.addListener(() => {
-      setValue(comboBoxState.getChoiceIndex());
-    });
-    const propertiesListenerId =
-      comboBoxState.propertiesChangedEvent.addListener(() => {
-        setProperties(comboBoxState.properties);
-      });
-
-    return function cleanup() {
-      comboBoxState.valueChangedEvent.removeListener(valueListenerId);
-      comboBoxState.propertiesChangedEvent.removeListener(propertiesListenerId);
-    };
-  });
-
   return (
-    <Box
-      {...{
-        [controlParameterIndexAnnotation]:
-          comboBoxState.properties.parameterIndex,
-      }}
+    <Stack
+      alignItems="center"
     >
-      <FormControl fullWidth>
-        <InputLabel id={identifier}>{properties.name}</InputLabel>
-        <Select
-          labelId={identifier}
-          value={value}
-          label={properties.name}
-          onChange={handleChange}
-        >
-          {properties.choices.map((choice: number|string, i: number) => (
-            <MenuItem value={i} key={i}>
-              {choice}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Box>
+      <ToggleButtonGroup
+        orientation="vertical"
+        value={props.value}
+        exclusive
+        onChange={handleChange}
+        sx={{
+          width:'fit-content'
+        }}
+      >
+        {choices.map((choice: number | string, i: number) => (
+          <ToggleButton
+            key={i}
+            value={i}
+          >
+            {choice}
+          </ToggleButton>
+        ))}
+      </ToggleButtonGroup>
+    </Stack>
   );
 }

@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react';
 import * as Juce from 'juce-framework-frontend';
 
 import Box from '@mui/material/Container';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { type SelectChangeEvent } from '@mui/material/Select';
+
+import type { SelectChangeEvent } from 'node_modules/@mui/material/Select';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
+import Typography from '@mui/material/Typography';
+import { LabelTypographySx } from '@/src/ui/Style';
+
+import Select from './Select';
 
 type JuceComboBoxProps = {
   identifier: string,
@@ -23,9 +25,9 @@ export default function JuceComboBox({
   const [value, setValue] = useState(comboBoxState.getChoiceIndex());
   const [properties, setProperties] = useState(comboBoxState.properties);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    comboBoxState.setChoiceIndex(event.target.value);
-    setValue(event.target.value);
+  const handleChange = (event: SelectChangeEvent, nextValue: string | number) => {
+    comboBoxState.setChoiceIndex(nextValue);
+    setValue(nextValue);
   };
 
   useEffect(() => {
@@ -50,21 +52,20 @@ export default function JuceComboBox({
           comboBoxState.properties.parameterIndex,
       }}
     >
-      <FormControl fullWidth>
-        <InputLabel id={identifier}>{properties.name}</InputLabel>
-        <Select
-          labelId={identifier}
-          value={value}
-          label={properties.name}
-          onChange={handleChange}
-        >
-          {properties.choices.map((choice: number|string, i: number) => (
-            <MenuItem value={i} key={i}>
-              {choice}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Select
+        value={value}
+        choices={properties.choices}
+        onChange={handleChange}
+      />
+      <Typography
+        textAlign="center"
+        sx={{
+          ...LabelTypographySx,
+          mt: '1.0em'
+        }}
+      >
+        {properties.name}
+      </Typography>
     </Box>
   );
 }

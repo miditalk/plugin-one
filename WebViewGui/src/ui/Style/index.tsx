@@ -1,5 +1,5 @@
 export const LabelTypographySx = {
-  cursor: '',
-  userSelect: 'default',
+  cursor: 'default',
+  userSelect: 'none',
   fontWeight: 'var(--mui-fontWeight-lg)',
 };
