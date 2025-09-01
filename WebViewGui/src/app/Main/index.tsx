@@ -3,7 +3,7 @@ import * as Juce from 'juce-framework-frontend';
 import Grid from '@mui/material/Grid';
 
 import JuceKnob from '@/src/ui/Control/Slider/JuceKnob';
-import JuceButtons from '@/src/ui/Control/ComboBox/JuceButtons';
+import JuceButtons from '@/src/ui/Control/ComboBox/JuceButtonGroup';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
