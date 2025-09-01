@@ -105,8 +105,12 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
 
 static ZipFile* getZipFile()
 {
-#if ! true
-    static auto stream = createAssetInputStream ("webviewplugin-gui_1.0.0.zip", AssertAssetExists::no);
+#if DEBUG
+    const auto resourceDir = File::getSpecialLocation (File::currentExecutableFile)
+        .getParentDirectory().getParentDirectory().getChildFile ("Resources");
+    const auto resourceFile = resourceDir.getChildFile ("gui.zip");
+    
+    static auto stream = resourceFile.createInputStream();
     
     if (stream == nullptr)
         return nullptr;
@@ -114,11 +118,8 @@ static ZipFile* getZipFile()
     static ZipFile f { stream.get(), false };
     return &f;
 #else
-    const auto resourceDir = File::getSpecialLocation (File::currentExecutableFile)
-        .getParentDirectory().getParentDirectory().getChildFile ("Resources");
-    const auto resourceFile = resourceDir.getChildFile ("gui.zip");
-    
-    static auto stream = resourceFile.createInputStream();
+
+    static auto stream = createAssetInputStream ("webviewplugin-gui_1.0.0.zip", AssertAssetExists::no);
     
     if (stream == nullptr)
         return nullptr;
@@ -248,9 +249,12 @@ outputGainAttachment (*processorRef.state.getParameter (ID::outputGain.getParamI
                       processorRef.state.undoManager)
 {
     addAndMakeVisible (webComponent);
-    
+
+#if DEBUG
     webComponent.goToURL (localDevServerAddress);
-    // webComponent.goToURL (WebBrowserComponent::getResourceProviderRoot());
+#else
+    webComponent.goToURL (WebBrowserComponent::getResourceProviderRoot());
+#endif
     
     setSize (500, 300);
     

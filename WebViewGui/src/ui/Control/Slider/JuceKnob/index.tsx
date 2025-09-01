@@ -43,7 +43,6 @@ export default function JuceSlider({
   };
 
   const doubleClick = () => {
-    console.log('db');
     resetValue();
   };
 
