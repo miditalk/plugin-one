@@ -21,6 +21,7 @@ export default function App() {
       spacing={2}
       sx={{
         flexGrow: 1,
+        userSelect: 'none',
         '--Grid-borderWidth': '1px',
         '& > div': {
           borderRight: 'var(--Grid-borderWidth) solid',
@@ -34,13 +35,13 @@ export default function App() {
       }}
     >
       <Grid container size={4}>
-        <JuceSliderKnob identifier="inputGainSlider" title="Input Gain" subDigit={2} />
+        <JuceSliderKnob identifier="inputGainSlider" title="Input Gain" subDigit={1} />
       </Grid>
       <Grid container size={4}>
         <JuceSliderKnob identifier="driveSlider" title="Output" subDigit={0} />
       </Grid>
       <Grid container size={4}>
-        <JuceSliderKnob identifier="outputGainSlider" title="Output Gain" subDigit={2} />
+        <JuceSliderKnob identifier="outputGainSlider" title="Output Gain" subDigit={1} />
       </Grid>
     </Grid>
   );

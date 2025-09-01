@@ -24,7 +24,7 @@ export default function Component({
           A ${distance} ${distance} 0 ${angle < 0 ? 0 : 1} 1 ${x1} ${y1}
         `}
         fill="none"
-        stroke="currentColor"
+        stroke="var(--mui-palette-primary-main"
         strokeWidth="15"
         style={{}}
       />

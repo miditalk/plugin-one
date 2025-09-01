@@ -3,8 +3,8 @@ export default function Component() {
     <circle
       cx={100}
       cy={100}
-      r={70}
-      fill="var(--mui-palette-primary-lighten)"
+      r={75}
+      fill="var(--mui-palette-primary-moreDark)"
     />
   );
 }

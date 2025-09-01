@@ -101,8 +101,9 @@ export default function JuceSlider({
       <Typography
         textAlign="center"
         sx={{
-          mt: 1.5,
-          userSelect: 'none'
+          mt: '-1.0em',
+          cursor: '',
+          userSelect: 'default',
         }}
       >
         &nbsp;
