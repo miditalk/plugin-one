@@ -71,7 +71,10 @@ export default function JuceSlider({
           }}
           style={{
             y: handleValue,
-            display:'none',
+            // display:'none',
+            backgroundColor: '#ff0000',
+            width: '5px',
+            height: '5px'
           }}
         />
 

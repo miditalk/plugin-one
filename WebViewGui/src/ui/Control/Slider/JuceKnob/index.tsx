@@ -5,20 +5,25 @@ import * as Juce from 'juce-framework-frontend';
 
 import Box from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Knob from './Knob';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 import { toFixedDigits, valueTouchViewTimer } from '@/src/define';
 import { LabelTypographySx } from '@/ui/Style';
 
+import Knob from './Knob';
+
 type JuceSliderProps = {
   identifier: string,
   title: string,
   subDigit?: number
+  defaultValue?: number
 }
 
 export default function JuceSlider({
-  identifier, title, subDigit=toFixedDigits
+  identifier,
+  title,
+  defaultValue = 0,
+  subDigit = toFixedDigits
 }: JuceSliderProps) {
   const sliderState = Juce.getSliderState(identifier);
 
@@ -36,8 +41,14 @@ export default function JuceSlider({
     }
   };
 
-  const mouseDown = () => {
-    sliderState.sliderDragStarted();
+  const mouseDown = (e: React.MouseEvent) => {
+    console.log(e);
+    if (e.metaKey) {
+      sliderState.setNormalisedValue(defaultValue);
+      setValue(defaultValue);
+    } else {
+      sliderState.sliderDragStarted();
+    }
   };
 
   const changeCommitted = (event: Event | React.SyntheticEvent<Element, Event>, newValue: number | number[]) => {
@@ -70,8 +81,8 @@ export default function JuceSlider({
     if (timer !== defaultTimer) {
       setTimer(defaultTimer);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -83,7 +94,7 @@ export default function JuceSlider({
     return () => {
       clearTimeout(timerId);
     };
-  },[mount, timer]);
+  }, [mount, timer]);
 
   function calculateValue() {
     return sliderState.getScaledValue();
@@ -96,6 +107,8 @@ export default function JuceSlider({
           sliderState.properties.parameterIndex,
       }}
     >
+      {sliderState.getNormalisedValue()}<br />
+      {sliderState.getScaledValue()}
       <Knob
         aria-label={title}
         value={value}

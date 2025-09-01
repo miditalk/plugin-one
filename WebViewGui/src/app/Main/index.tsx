@@ -29,20 +29,30 @@ export default function App() {
           borderColor: 'divider',
         },
         '& .MuiGrid-root': {
-          flexDirection:'column',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
         }
       }}
     >
       <Grid container size={4}>
-        <JuceKnob identifier="inputGainSlider" title="Input Gain" subDigit={1} />
+        <JuceKnob
+          identifier="inputGainSlider"
+          title="Input Gain"
+          defaultValue={0.5}
+          subDigit={1}
+        />
       </Grid>
       <Grid container size={4}>
         <JuceButtons identifier="filterTypeCombo" />
       </Grid>
       <Grid container size={4}>
-        <JuceKnob identifier="outputGainSlider" title="Output Gain" subDigit={1} />
+        <JuceKnob
+          identifier="outputGainSlider"
+          title="Output Gain"
+          defaultValue={0.5}
+          subDigit={1}
+        />
       </Grid>
     </Grid>
   );
