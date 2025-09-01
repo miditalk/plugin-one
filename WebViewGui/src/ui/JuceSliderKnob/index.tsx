@@ -24,7 +24,7 @@ export default function JuceSlider({
   const defaultTimer = valueTouchViewTimer;
   const [view, setView] = useState<'name' | 'value'>('name');
   const [timer, setTimer] = useState(0);
-  const [value, setValue] = useState<number>(0.5); // sliderState.getNormalisedValue()
+  const [value, setValue] = useState<number>(sliderState.getNormalisedValue());
   const [properties, setProperties] = useState(sliderState.properties);
 
   const handleChange = (event: Event, newValue: number | number[]) => {

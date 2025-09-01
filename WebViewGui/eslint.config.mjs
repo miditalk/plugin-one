@@ -63,6 +63,7 @@ export default tseslint.config([
       'react/jsx-filename-extension': 'off',
       'react/jsx-no-target-blank': 'warn',
       'object-curly-newline': 'off',
+      'jsx-quotes': ['error', 'prefer-double'],
 
       'linebreak-style': 'warn',
       'no-param-reassign': 'warn',

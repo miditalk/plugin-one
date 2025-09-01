@@ -56,14 +56,11 @@ export default function JuceSlider({
           width: '100%',
           aspectRatio: 1,
           color: 'var(--mui-palette-primary-main)',
-          '--thumb-width': '4%',
-          '--thumb-height': '37%',
           '--guide-width': '10%',
           '--guide-height': '3%',
           '--distance-thumb': '50%',
           '--distance-guide': '70%',
           '--distance-rail': '75%',
-          '--distance-fill': '80%',
         }}
       >
         <motion.div
@@ -83,19 +80,13 @@ export default function JuceSlider({
           }}
         />
 
-        <Box
-          sx={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            left: '50%',
-            top: '50%',
-          }}
+        <svg
+          viewBox="0 0 200 200"
         >
           <KnobRail />
           <KnobThumb value={props.value} />
           <KnobFill value={props.value} />
-        </Box>
+        </svg>
       </Box>
 
       <Slider

@@ -1,77 +1,20 @@
-import Box from '@mui/material/Box';
-
 export interface KnobProps {
   value: number
 }
 
-export default function JuceSlider({
+export default function Component({
   value
 }: KnobProps) {
   return (
-    <>
-      <Box
-        sx={{
-          position: 'absolute',
-          width: '50%',
-          height: '100%',
-          transformOrigin: '100% 50%',
-          backgroundColor: 'currentColor',
-          borderRadius: '100% 0 0 100% / 50% 0 0 50%',
-          transform: `
-            translate(-100%, -50%)
-            rotate(${(value * 270) + 225}deg)
-          `,
-          zIndex: 130
-        }}
-      />
-      <Box
-        sx={{
-          display: value * 270 > 180 ? 'block' : 'none',
-          position: 'absolute',
-          width: '50%',
-          height: '100%',
-          transformOrigin: '100% 50%',
-          backgroundColor: 'currentColor',
-          borderRadius: '100% 0 0 100% / 50% 0 0 50%',
-          transform: `
-            translate(-100%, -50%)
-            rotate(45deg)
-          `,
-          zIndex: 100
-        }}
-      />
-      <Box
-        sx={{
-          display: value * 270 > 180 ? 'none' : 'block',
-          position: 'absolute',
-          width: '50%',
-          height: '100%',
-          transformOrigin: '100% 50%',
-          boxSizing: 'content-box',
-          border:'2px solid var(--mui-palette-background-default)',
-          backgroundColor: 'var(--mui-palette-background-default)',
-          borderRadius: '100% 0 0 100% / 50% 0 0 50%',
-          transform: `
-            translate(-100%, -50%)
-            rotate(225deg)
-          `,
-          zIndex: 150
-        }}
-      />
-    <Box
-      className="rail"
-      sx={{
-        position: 'absolute',
-        width: 'var(--distance-fill)',
-        height: 'var(--distance-fill)',
-        borderRadius: '50%',
-        backgroundColor: 'var(--mui-palette-background-default)',
-        transform: `
-          translate(-50%, -50%)
-        `,
-        zIndex: 180
-      }}
+    <path
+      d="
+        M 50 120
+        L 50 -80
+        A 50 50 0 0 0 -50 -80"
+      fill="none"
+      stroke="black"
+      stroke-width="45"
+      stroke-linecap="round"
     />
-    </>
   );
 }
