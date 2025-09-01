@@ -78,9 +78,9 @@ export default function JuceSlider({
         <svg
           viewBox="0 0 200 200"
         >
+          <KnobFill value={props.value} />
           <KnobRail />
           <KnobThumb value={props.value} />
-          <KnobFill value={props.value} />
         </svg>
       </Box>
 

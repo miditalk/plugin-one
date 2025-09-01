@@ -7,7 +7,7 @@ export default function Component({
 }: KnobProps) {
   const angle = (value * 270) - 180;
   const radian = angle * Math.PI / 180;
-  const distance = 90;
+  const distance = 80;
   const x1 = distance * Math.cos(radian);
   const y1 = distance * Math.sin(radian);
 
@@ -24,8 +24,8 @@ export default function Component({
           A ${distance} ${distance} 0 ${angle < 0 ? 0 : 1} 1 ${x1} ${y1}
         `}
         fill="none"
-        stroke="var(--mui-palette-primary-main"
-        strokeWidth="15"
+        stroke="var(--mui-palette-primary-lighter)"
+        strokeWidth="10"
         style={{}}
       />
     </g>
