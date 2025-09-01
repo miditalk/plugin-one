@@ -66,13 +66,13 @@ class PluginAudioProcessor  : public AudioProcessor
         inputGain (addToLayout<AudioParameterFloat> (layout,
                                                      ID::inputGain,
                                                      "Input Gain",
-                                                     NormalisableRange<float> { -24.0f, 24.0f, 0.5f, 0.1f },
+                                                     NormalisableRange<float> { -24.0f, 24.0f, 0.5f, 1.0f },
                                                      0.0f,
                                                      AudioParameterFloatAttributes{}.withLabel ("dB"))),
         outputGain (addToLayout<AudioParameterFloat> (layout,
                                                      ID::outputGain,
                                                      "Output Gain",
-                                                     NormalisableRange<float> { -24.0f, 24.0f, 0.5f, 0.1f },
+                                                     NormalisableRange<float> { -24.0f, 24.0f, 0.5f, 1.0f },
                                                      0.0f,
                                                      AudioParameterFloatAttributes{}.withLabel ("dB")))
         {

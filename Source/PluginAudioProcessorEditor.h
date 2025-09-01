@@ -105,6 +105,14 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
 
 static ZipFile* getZipFile()
 {
+    static auto stream = createAssetInputStream ("webviewplugin-gui_1.0.0.zip", AssertAssetExists::no);
+
+    if (stream == nullptr)
+        return nullptr;
+
+    static ZipFile f { stream.get(), false };
+    return &f;
+/*
     const auto resourceDir = File::getSpecialLocation (File::currentExecutableFile)
         .getParentDirectory().getParentDirectory().getChildFile ("Resources");
     const auto resourceFile = resourceDir.getChildFile ("webviewplugin-gui_1.0.0.zip");
@@ -117,7 +125,7 @@ static ZipFile* getZipFile()
     
     static ZipFile f { stream.get(), false };
     return &f;
-    
+*/
 }
 
 static const char* getMimeForExtension (const String& extension)
