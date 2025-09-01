@@ -56,11 +56,6 @@ export default function JuceSlider({
           width: '100%',
           aspectRatio: 1,
           color: 'var(--mui-palette-primary-main)',
-          '--guide-width': '10%',
-          '--guide-height': '3%',
-          '--distance-thumb': '50%',
-          '--distance-guide': '70%',
-          '--distance-rail': '75%',
         }}
       >
         <motion.div

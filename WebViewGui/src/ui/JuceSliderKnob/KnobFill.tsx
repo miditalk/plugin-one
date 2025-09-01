@@ -5,16 +5,29 @@ export interface KnobProps {
 export default function Component({
   value
 }: KnobProps) {
+  const angle = (value * 270) - 180;
+  const radian = angle * Math.PI / 180;
+  const distance = 90;
+  const x1 = distance * Math.cos(radian);
+  const y1 = distance * Math.sin(radian);
+
   return (
-    <path
-      d="
-        M 50 120
-        L 50 -80
-        A 50 50 0 0 0 -50 -80"
-      fill="none"
-      stroke="black"
-      stroke-width="45"
-      stroke-linecap="round"
-    />
+    <g
+      transform="
+        translate(100 100)
+        rotate(-45)
+      "
+    >
+      <path
+        d={`
+          M ${-distance} 0
+          A ${distance} ${distance} 0 ${angle < 0 ? 0 : 1} 1 ${x1} ${y1}
+        `}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="15"
+        style={{}}
+      />
+    </g>
   );
 }

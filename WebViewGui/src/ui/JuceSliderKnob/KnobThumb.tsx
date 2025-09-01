@@ -12,15 +12,14 @@ export default function Component({
         rotate(${(value * 270) + 45})
       `}
     >
-      <rect
-        width={5}
-        height={80}
-        rx={2.5}
-        ry={2.5}
-        fill="var(--mui-palette-primary-moreDark)"
-        style={{
-          zIndex: 300
-        }}
+      <line
+        x1={0}
+        y1={0}
+        x2={0}
+        y2={70}
+        strokeWidth="5"
+        strokeLinecap="round"
+        stroke="var(--mui-palette-primary-moreDark)"
       />
     </g>
   );

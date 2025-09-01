@@ -3,11 +3,8 @@ export default function Component() {
     <circle
       cx={100}
       cy={100}
-      r={80}
+      r={70}
       fill="var(--mui-palette-primary-lighten)"
-      style={{
-        zIndex: 200
-      }}
     />
   );
 }
