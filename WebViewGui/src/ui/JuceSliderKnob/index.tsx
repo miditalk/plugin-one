@@ -24,12 +24,14 @@ export default function JuceSlider({
   const defaultTimer = valueTouchViewTimer;
   const [view, setView] = useState<'name' | 'value'>('name');
   const [timer, setTimer] = useState(0);
-  const [value, setValue] = useState(sliderState.getNormalisedValue());
+  const [value, setValue] = useState<number>(0.5); // sliderState.getNormalisedValue()
   const [properties, setProperties] = useState(sliderState.properties);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
-    sliderState.setNormalisedValue(newValue);
-    setValue(newValue);
+    if (typeof newValue === 'number') {
+      sliderState.setNormalisedValue(newValue);
+      setValue(newValue);
+    }
   };
 
   const mouseDown = () => {

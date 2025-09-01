@@ -29,7 +29,7 @@ export default function JuceSlider({
   dragRange = 150,
   ...props
 }: KnobProps) {
-  const handleValue = useMotionValue(props.value);
+  const handleValue = useMotionValue(props.value * (1-dragRange));
   const progressScaleValue = useTransform(handleValue, [0, -dragRange], [0, 1]);
   const dragControls = useDragControls();
 
@@ -79,7 +79,7 @@ export default function JuceSlider({
           }}
           style={{
             y: handleValue,
-            display: 'none',
+            display:'none',
           }}
         />
 
