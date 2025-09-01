@@ -3,6 +3,7 @@ import * as Juce from 'juce-framework-frontend';
 import Grid from '@mui/material/Grid';
 
 import JuceKnob from '@/src/ui/Control/Slider/JuceKnob';
+import JuceButtons from '@/src/ui/Control/ComboBox/JuceButtons';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
@@ -38,7 +39,7 @@ export default function App() {
         <JuceKnob identifier="inputGainSlider" title="Input Gain" subDigit={1} />
       </Grid>
       <Grid container size={4}>
-        <JuceKnob identifier="driveSlider" title="Output" subDigit={0} />
+        <JuceButtons identifier="saturationType" />
       </Grid>
       <Grid container size={4}>
         <JuceKnob identifier="outputGainSlider" title="Output Gain" subDigit={1} />
