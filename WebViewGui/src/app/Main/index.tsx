@@ -2,7 +2,7 @@ import * as Juce from 'juce-framework-frontend';
 
 import Grid from '@mui/material/Grid';
 
-import JuceSliderKnob from '@/ui/JuceSliderKnob';
+import JuceSliderKnob from '@/src/ui/Control/JuceSliderKnob';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 
