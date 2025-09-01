@@ -7,7 +7,7 @@ import Box from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
-import { toFixedDigits, valueTouchViewTimer } from '@/src/define';
+import { toFixedDigits } from '@/src/define';
 import { LabelTypographySx } from '@/ui/Style';
 
 import Knob from './Knob';
@@ -27,10 +27,6 @@ export default function JuceSlider({
 }: JuceSliderProps) {
   const sliderState = Juce.getSliderState(identifier);
 
-  const defaultTimer = valueTouchViewTimer;
-  const [mount, setMount] = useState(false);
-  const [view, setView] = useState<'name' | 'value'>('name');
-  const [timer, setTimer] = useState(0);
   const [value, setValue] = useState<number>(sliderState.getNormalisedValue());
   const [properties, setProperties] = useState(sliderState.properties);
 
@@ -69,32 +65,6 @@ export default function JuceSlider({
     };
   });
 
-  useEffect(() => {
-    setMount(true);
-  }, []);
-
-  useEffect(() => {
-    if (mount) {
-      setView('value');
-    }
-    if (timer !== defaultTimer) {
-      setTimer(defaultTimer);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
-
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      if (timer <= 0) {
-        setView('name');
-      } else setTimer(timer - 100);
-    }, 100);
-
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [mount, timer]);
-
   function calculateValue() {
     return sliderState.getScaledValue();
   }
@@ -106,8 +76,15 @@ export default function JuceSlider({
           sliderState.properties.parameterIndex,
       }}
     >
-      {sliderState.getNormalisedValue()}<br />
-      {sliderState.getScaledValue()}
+      <Typography
+        textAlign="center"
+        sx={{
+          ...LabelTypographySx,
+          mt: '1.5em',
+        }}
+      >
+        {sliderState.getScaledValue().toFixed(subDigit)} {properties.label}
+      </Typography>
       <Knob
         aria-label={title}
         value={value}
@@ -126,10 +103,7 @@ export default function JuceSlider({
           mt: '-1.5em',
         }}
       >
-        &nbsp;
-        {view === 'name' && properties.name}
-        {view === 'value' && `${sliderState.getScaledValue().toFixed(subDigit)} ${properties.label}`}
-        &nbsp;
+        {properties.name}
       </Typography>
     </Box>
   );
