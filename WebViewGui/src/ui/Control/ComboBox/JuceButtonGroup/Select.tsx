@@ -4,6 +4,11 @@ import Typography from '@mui/material/Typography';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { type SelectProps } from '@mui/material/Select';
+import { styled } from '@mui/material/styles';
+
+const StyledToggleButton = styled(ToggleButton)({
+
+});
 
 export interface JuceComboBoxProps
   extends Omit<
@@ -32,10 +37,9 @@ export default function JuceComboBox({
       sx={{
         '& .MuiButtonBase-root': {
           px: 2,
-          py: 2.5,
+          py: 2.2,
           color: 'var(--mui-palette-primary-light)',
           border: 'none',
-          background: 'unset',
           '& .button': {
             backgroundColor: 'var(--mui-palette-primary-darker)',
             fontWeight: 'var(--mui-fontWeight-lg)',
@@ -47,21 +51,17 @@ export default function JuceComboBox({
               inset 0em 0.1em 0.4em rgba(255,255,255,0.3)
             `,
           },
-          '&:hover': {
-            backgroundColor: 'none',
-            '& .button': {
-              // backgroundColor: 'var(--mui-palette-primary-lighter)',
-            },
+          '&:hover, &.Mui-selected, &.Mui-selected:hover': {
+            backgroundColor: 'transparent',
           },
           '&.Mui-selected': {
-            backgroundColor: 'transparent',
             color: 'var(--mui-palette-black)',
             '& .button': {
               boxShadow: 'none',
               backgroundColor: 'var(--mui-palette-primary-lightest)',
               borderColor: 'var(--mui-palette-primary-light)',
             }
-          }
+          },
         }
       }}
     >
@@ -70,12 +70,9 @@ export default function JuceComboBox({
         value={props.value}
         exclusive
         onChange={handleChange}
-        sx={{
-          width: 'fit-content'
-        }}
       >
         {choices.map((choice: number | string, i: number) => (
-          <ToggleButton
+          <StyledToggleButton
             key={i}
             value={i}
             disableRipple
@@ -89,7 +86,7 @@ export default function JuceComboBox({
                 {choice}
               </Typography>
             </Stack>
-          </ToggleButton>
+          </StyledToggleButton>
         ))}
       </ToggleButtonGroup>
     </Stack>
