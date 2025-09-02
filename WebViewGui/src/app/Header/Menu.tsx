@@ -70,16 +70,9 @@ export default function Page() {
         }}
       >
         <ListSubheader>Scale</ListSubheader>
-        <MenuItem onClick={handleClose}>50%</MenuItem>
-        <MenuItem onClick={handleClose}>75%</MenuItem>
-        <MenuItem onClick={handleClose}>100%</MenuItem>
-        <MenuItem onClick={handleClose}>125%</MenuItem>
-        <MenuItem onClick={handleClose}>150%</MenuItem>
+        <MenuItem>100%</MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>Open Manual</MenuItem>
-        <MenuItem onClick={handleClose}>About</MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>System Infomation</MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>Deactivate</MenuItem>
       </Menu>

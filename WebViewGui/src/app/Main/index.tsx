@@ -42,6 +42,7 @@ export default function App() {
       <Grid container size={3}>
         <JuceKnob
           identifier="inputGainSlider"
+          title="Input"
           defaultValue={0.5}
           subDigit={1}
         />
@@ -50,18 +51,24 @@ export default function App() {
         <Stack
           direction="row"
           alignItems="center"
+          sx={{ width: '100%' }}
         >
           <JuceKnob
             identifier="saturationDriveSlider"
+            title="Drive"
             defaultValue={0.5}
             subDigit={1}
           />
-          <JuceButtons identifier="saturationTypeCombo" />
+          <JuceButtons
+            identifier="saturationTypeCombo"
+            hideTitle
+          />
         </Stack>
       </Grid>
       <Grid container size={3}>
         <JuceKnob
           identifier="outputGainSlider"
+          title="Output"
           defaultValue={0.5}
           subDigit={1}
         />

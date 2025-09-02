@@ -15,10 +15,12 @@ import Select from './Select';
 
 type JuceComboBoxProps = {
   identifier: string,
+  hideTitle?: boolean
 }
 
 export default function JuceComboBox({
-  identifier
+  identifier,
+  hideTitle = false
 }: JuceComboBoxProps) {
   const comboBoxState = Juce.getComboBoxState(identifier);
 
@@ -59,16 +61,18 @@ export default function JuceComboBox({
         choices={properties.choices}
         onChange={handleChange}
       />
-      <Typography
-        className="cursorDefault"
-        textAlign="center"
-        sx={{
-          ...LabelTypographySx,
-          mt: '0.5em'
-        }}
-      >
-        {properties.name}
-      </Typography>
+      {!hideTitle &&
+        <Typography
+          className="cursorDefault"
+          textAlign="center"
+          sx={{
+            ...LabelTypographySx,
+            mt: '0.5em'
+          }}
+        >
+          {properties.name}
+        </Typography>
+      }
     </Box>
   );
 }

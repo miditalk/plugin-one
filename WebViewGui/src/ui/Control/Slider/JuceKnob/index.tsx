@@ -14,14 +14,18 @@ import Knob from './Knob';
 
 type JuceSliderProps = {
   identifier: string,
+  title?: string,
   subDigit?: number
   defaultValue?: number
+  hideTitle?: boolean
 }
 
 export default function JuceSlider({
   identifier,
+  title,
   defaultValue = 0,
-  subDigit = toFixedDigits
+  subDigit = toFixedDigits,
+  hideTitle = false
 }: JuceSliderProps) {
   const sliderState = Juce.getSliderState(identifier);
 
@@ -101,16 +105,18 @@ export default function JuceSlider({
         onMouseDown={mouseDown}
         onDoubleClick={doubleClick}
       />
-      <Typography
-        className="cursorDefault"
-        textAlign="center"
-        sx={{
-          ...LabelTypographySx,
-          mt: '-0.5em',
-        }}
-      >
-        {properties.name}
-      </Typography>
+      {!hideTitle &&
+        <Typography
+          className="cursorDefault"
+          textAlign="center"
+          sx={{
+            ...LabelTypographySx,
+            mt: '-0.5em',
+          }}
+        >
+          {title || properties.name}
+        </Typography>
+      }
     </Box>
   );
 }
