@@ -54,6 +54,7 @@ export default function JuceComboBox({
             },
           },
           '&.Mui-selected': {
+            backgroundColor: 'transparent',
             color: 'var(--mui-palette-black)',
             '& .button': {
               boxShadow: 'none',

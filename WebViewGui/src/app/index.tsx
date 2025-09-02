@@ -8,7 +8,6 @@ import '@fontsource/pretendard/700.css';
 
 import Main from './Main';
 import Header from './Header';
-import Footer from './Footer';
 import Provider from './Provider';
 
 export default function App() {
@@ -24,7 +23,6 @@ export default function App() {
         <Stack>
           <Header />
           <Main />
-          <Footer />
         </Stack>
       </Box>
     </Provider>
