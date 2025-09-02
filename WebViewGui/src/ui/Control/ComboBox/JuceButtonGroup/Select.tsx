@@ -48,7 +48,7 @@ export default function JuceComboBox({
             `,
           },
           '&:hover': {
-            background: 'unset',
+            background: 'none',
             '& .button': {
               // backgroundColor: 'var(--mui-palette-primary-lighter)',
             },

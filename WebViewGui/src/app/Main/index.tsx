@@ -42,7 +42,6 @@ export default function App() {
       <Grid container size={3}>
         <JuceKnob
           identifier="inputGainSlider"
-          title="Input Gain"
           defaultValue={0.5}
           subDigit={1}
         />
@@ -54,7 +53,6 @@ export default function App() {
         >
           <JuceKnob
             identifier="saturationDriveSlider"
-            title="Saturation Drive"
             defaultValue={0.5}
             subDigit={1}
           />
@@ -64,7 +62,6 @@ export default function App() {
       <Grid container size={3}>
         <JuceKnob
           identifier="outputGainSlider"
-          title="Output Gain"
           defaultValue={0.5}
           subDigit={1}
         />

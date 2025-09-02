@@ -14,14 +14,12 @@ import Knob from './Knob';
 
 type JuceSliderProps = {
   identifier: string,
-  title: string,
   subDigit?: number
   defaultValue?: number
 }
 
 export default function JuceSlider({
   identifier,
-  title,
   defaultValue = 0,
   subDigit = toFixedDigits
 }: JuceSliderProps) {
@@ -93,7 +91,6 @@ export default function JuceSlider({
         {sliderState.getScaledValue().toFixed(subDigit)} {properties.label}
       </Typography>
       <Knob
-        aria-label={title}
         value={value}
         scale={calculateValue}
         onChange={handleChange}

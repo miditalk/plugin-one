@@ -131,6 +131,13 @@ export const themeVars = {
         },
       },
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+        },
+      },
+    },
     MuiTypography: {
       styleOverrides: {
         root: {

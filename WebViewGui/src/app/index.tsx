@@ -1,3 +1,4 @@
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
@@ -17,7 +18,7 @@ export default function App() {
         sx={{
           display: 'flex',
           minHeight: '100dvh',
-          overflow: 'hidden'
+          overflow: 'hidden',
         }}
       >
         <Stack>

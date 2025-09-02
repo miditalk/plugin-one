@@ -10,6 +10,8 @@ import Button from '@mui/material/Button';
 
 import { useAboutStore } from '@/src/store/AboutStore';
 
+import Menu from './Menu';
+
 const visitWebsite = Juce.getNativeFunction('visitWebsite');
 
 export default function App() {
@@ -17,11 +19,13 @@ export default function App() {
 
   return (
     <AppBar
-      color="info"
+      color="primary"
+      enableColorOnDark
       sx={{
         position: 'static',
-        px: 2,
+        px: 1,
         py: 1,
+        backgroundColor: 'var(--mui-palette-primary-darker)',
       }}
     >
       <Stack
@@ -36,25 +40,35 @@ export default function App() {
           onClick={() => setOpen(true)}
           variant="text"
           sx={{
-            px: 0,
             color: 'var(--mui-palette-white)',
             fontWeight: 'var(--mui-fontWeight-xl)',
           }}
+          disableRipple
         >
           {PluginName}
         </Button>
 
-        <Button
-          onClick={() => visitWebsite(CompanyWebsite)}
-          variant="text"
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="end"
           sx={{
-            px: 0,
-            color: 'var(--mui-palette-white)',
-            fontWeight: 'var(--mui-fontWeight-xl)',
+            minHeight: 'var(--Header-minHeight)'
           }}
+          spacing={2}
         >
-          {CompanyName}
-        </Button>
+          <Button
+            onClick={() => visitWebsite(CompanyWebsite)}
+            sx={{
+              color: 'var(--mui-palette-white)',
+              fontWeight: 'var(--mui-fontWeight-xl)',
+            }}
+            disableRipple
+          >
+            {CompanyName}
+          </Button>
+          <Menu />
+        </Stack>
       </Stack>
     </AppBar>
   );
