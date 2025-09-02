@@ -1,4 +1,5 @@
 import MuiProvider from './MuiProvider';
+import AboutProvider from './AboutProvider';
 import SnackbarProvider from './SnackbarProvider';
 
 type ProviderProps = {
@@ -11,6 +12,7 @@ export default function Provider({
   return (
     <MuiProvider>
       {children}
+      <AboutProvider />
       <SnackbarProvider />
     </MuiProvider>
   );

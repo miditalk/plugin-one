@@ -1,14 +1,6 @@
-import { CompanyName, CompanyWebsite } from '@/src/define';
-
-import * as Juce from 'juce-framework-frontend';
-
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-
-const visitWebsite = Juce.getNativeFunction('visitWebsite');
 
 export default function App() {
   return (
@@ -32,21 +24,7 @@ export default function App() {
           minHeight: 'var(--Footer-minHeight)'
         }}
       >
-        <Button
-          onClick={() => visitWebsite(CompanyWebsite)}
-          variant="text"
-          sx={{
-            color: 'var(--mui-palette-white)',
-            fontWeight: 'var(--mui-fontWeight-xl)',
-          }}
-        >
-          {CompanyName}
-        </Button>
-        <Box>
-          <Typography>
-            v1.0.0
-          </Typography>
-        </Box>
+        <Box />
       </Stack>
     </AppBar>
   );

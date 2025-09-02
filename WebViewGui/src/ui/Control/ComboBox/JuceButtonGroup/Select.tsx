@@ -43,7 +43,7 @@ export default function JuceComboBox({
             border: '0.1em solid var(--mui-palette-grey)',
             px: '0.8em',
             boxShadow: `
-              0em 0.2em 0.4em rgba(0,0,0,0.5),
+              0em 0.3em 0.4em rgba(0,0,0,0.5),
               inset 0em 0.1em 0.4em rgba(255,255,255,0.3)
             `,
           },

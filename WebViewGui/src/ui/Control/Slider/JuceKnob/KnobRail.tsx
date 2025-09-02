@@ -4,7 +4,7 @@ export default function Component() {
       <defs>
         <filter id="dropshadow" x="-40%" y="-40%" width="180%" height="180%">
           <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blurredAlpha" />
-          <feOffset in="blurredAlpha" dx="2" dy="3" result="offsetShadow" />
+          <feOffset in="blurredAlpha" dx="0" dy="10" result="offsetShadow" />
           <feFlood floodColor="#000" floodOpacity="0.5" result="shadowColor" />
           <feComposite in="shadowColor" in2="offsetShadow" operator="in" result="coloredShadow" />
           <feMerge>

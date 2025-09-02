@@ -1,7 +1,5 @@
 import { create } from 'zustand';
 
-// State
-
 interface SnackbarState {
   open: boolean; // 열기 여부
   message: string;
