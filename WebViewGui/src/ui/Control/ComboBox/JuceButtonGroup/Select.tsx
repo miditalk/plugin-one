@@ -38,12 +38,12 @@ export default function JuceComboBox({
           borderRadius: '0.5em',
           border: '0.2em solid var(--mui-palette-black)',
           padding: '0.8em 1.5em',
-          boxShadow: '0em 0.2em 0.4em rgba(0,0,0,1), inset 0em 0.1em 0.2em rgba(255,255,255,0.5)',
+          boxShadow: '0em 0.2em 0.4em rgba(0,0,0,0.5), inset 0em 0.1em 0.2em rgba(255,255,255,0.5)',
           '&:hover': {
             backgroundColor: 'var(--mui-palette-primary-main)',
           },
           '&.Mui-selected': {
-            boxShadow: '0em 0em 0em rgba(0,0,0,1)',
+            boxShadow: 'none',
             backgroundColor: 'var(--mui-palette-primary-lighten)',
           },
         }
