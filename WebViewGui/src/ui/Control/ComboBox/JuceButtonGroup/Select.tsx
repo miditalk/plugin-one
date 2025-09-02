@@ -36,14 +36,15 @@ export default function JuceComboBox({
           color: 'var(--mui-palette-white)',
           fontWeight: 'var(--mui-fontWeight-lg)',
           borderRadius: '0.5em',
-          border: '0.2em solid var(--mui-palette-black)',
+          border: '0.15em solid var(--mui-palette-black)',
           padding: '0.8em 1.5em',
-          boxShadow: '0em 0.2em 0.4em rgba(0,0,0,0.5), inset 0em 0.1em 0.2em rgba(255,255,255,0.5)',
+          boxShadow: '0em 0.2em 0.4em rgba(0,0,0,0.5), inset 0em 0.1em 0.4em rgba(255,255,255,0.3)',
           '&:hover': {
             backgroundColor: 'var(--mui-palette-primary-main)',
           },
           '&.Mui-selected': {
             boxShadow: 'none',
+            borderColor: 'var(--mui-palette-primary-light)',
             backgroundColor: 'var(--mui-palette-primary-lighten)',
           },
         }
