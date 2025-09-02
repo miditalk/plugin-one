@@ -30,6 +30,7 @@ export default function JuceComboBox({
     <Stack
       alignItems="center"
       sx={{
+        pt: 8,
         '& .MuiButtonBase-root': {
           mb: '-0.3em',
           backgroundColor: 'var(--mui-palette-primary-darken)',

@@ -31,7 +31,7 @@ export default function App() {
         '& .MuiGrid-root': {
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }
       }}
     >

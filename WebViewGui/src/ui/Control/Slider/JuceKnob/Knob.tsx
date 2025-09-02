@@ -32,6 +32,10 @@ function sliderToBox({
   defaultValue,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChange,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onChangeCommitted,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  scale,
   ...props
 }: KnobProps): BoxProps {
   return {

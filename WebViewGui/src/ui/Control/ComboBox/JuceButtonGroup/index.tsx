@@ -27,7 +27,6 @@ export default function JuceComboBox({
 
   const handleChange = (event: SelectChangeEvent, nextValue: string | number) => {
     if (nextValue !== null) {
-      console.log(nextValue);
       comboBoxState.setChoiceIndex(nextValue);
       setValue(nextValue);
     }
