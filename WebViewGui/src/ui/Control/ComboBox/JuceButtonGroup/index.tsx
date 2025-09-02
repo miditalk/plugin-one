@@ -26,8 +26,11 @@ export default function JuceComboBox({
   const [properties, setProperties] = useState(comboBoxState.properties);
 
   const handleChange = (event: SelectChangeEvent, nextValue: string | number) => {
-    comboBoxState.setChoiceIndex(nextValue);
-    setValue(nextValue);
+    if (nextValue !== null) {
+      console.log(nextValue);
+      comboBoxState.setChoiceIndex(nextValue);
+      setValue(nextValue);
+    }
   };
 
   useEffect(() => {

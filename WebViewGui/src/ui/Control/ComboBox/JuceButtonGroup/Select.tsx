@@ -29,6 +29,27 @@ export default function JuceComboBox({
   return (
     <Stack
       alignItems="center"
+      sx={{
+        '& .MuiButtonBase-root': {
+          mb: '-0.3em',
+          backgroundColor: 'var(--mui-palette-primary-darken)',
+          color: 'var(--mui-palette-white)',
+          fontWeight: 'var(--mui-fontWeight-lg)',
+          borderRadius: '0.5em',
+          border: '0.2em solid var(--mui-palette-black)',
+          padding: '0.8em 1.5em',
+          boxShadow: '0em 0.2em 0.4em rgba(0,0,0,1)',
+          transition: 'all 0.1s ease-in-out',
+          '&:hover': {
+            backgroundColor: 'var(--mui-palette-primary-main)',
+          },
+          '&.Mui-selected': {
+            boxShadow: '0em 0em 0em rgba(0,0,0,1)',
+            transform: 'translateY(0.2em)',
+            backgroundColor: 'var(--mui-palette-primary-lighten)',
+          },
+        }
+      }}
     >
       <ToggleButtonGroup
         orientation="vertical"
@@ -36,7 +57,7 @@ export default function JuceComboBox({
         exclusive
         onChange={handleChange}
         sx={{
-          width:'fit-content'
+          width: 'fit-content'
         }}
       >
         {choices.map((choice: number | string, i: number) => (
