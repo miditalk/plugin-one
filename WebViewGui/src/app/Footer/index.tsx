@@ -38,7 +38,6 @@ export default function App() {
           sx={{
             color: 'var(--mui-palette-white)',
             fontWeight: 'var(--mui-fontWeight-xl)',
-            textTransform: 'unset'
           }}
         >
           {CompanyName}
