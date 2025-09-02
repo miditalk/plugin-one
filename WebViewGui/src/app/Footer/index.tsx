@@ -1,3 +1,5 @@
+import { CompanyName, CompanyWebsite } from '@/src/define';
+
 import * as Juce from 'juce-framework-frontend';
 
 import AppBar from '@mui/material/AppBar';
@@ -28,13 +30,14 @@ export default function App() {
         justifyContent="space-between"
       >
         <Button
-          onClick={() => visitWebsite('https://joeunsoo.com')}
+          onClick={() => visitWebsite(CompanyWebsite)}
           variant="text"
           sx={{
-            color:'var(--mui-palette-white)'
+            color:'var(--mui-palette-white)',
+            textTransform: 'unset'
           }}
         >
-          JoEunsoo
+          {CompanyName}
         </Button>
         <Box>
           <Typography>
