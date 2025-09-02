@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import * as Juce from 'juce-framework-frontend';
 
-import Box from '@mui/material/Container';
+import Box, { type BoxProps } from '@mui/material/Box';
 
 import type { SelectChangeEvent } from '@mui/material/Select';
 
@@ -13,14 +13,16 @@ import { LabelTypographySx } from '@/src/ui/Style';
 
 import Select from './Select';
 
-type JuceComboBoxProps = {
+interface JuceComboBoxProps extends BoxProps {
   identifier: string,
   hideTitle?: boolean
 }
 
 export default function JuceComboBox({
   identifier,
-  hideTitle = false
+  hideTitle = false,
+  sx,
+  ...props
 }: JuceComboBoxProps) {
   const comboBoxState = Juce.getComboBoxState(identifier);
 
@@ -55,6 +57,10 @@ export default function JuceComboBox({
         [controlParameterIndexAnnotation]:
           comboBoxState.properties.parameterIndex,
       }}
+      sx={{
+        ...sx
+      }}
+      {...props}
     >
       <Select
         value={value}

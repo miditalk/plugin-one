@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import * as Juce from 'juce-framework-frontend';
 
-import Box from '@mui/material/Container';
+import Box, { type BoxProps } from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
@@ -12,7 +12,7 @@ import { LabelTypographySx } from '@/ui/Style';
 
 import Knob from './Knob';
 
-type JuceSliderProps = {
+interface JuceSliderProps extends BoxProps {
   identifier: string,
   title?: string,
   subDigit?: number
@@ -25,7 +25,9 @@ export default function JuceSlider({
   title,
   defaultValue = 0,
   subDigit = toFixedDigits,
-  hideTitle = false
+  hideTitle = false,
+  sx,
+  ...props
 }: JuceSliderProps) {
   const sliderState = Juce.getSliderState(identifier);
 
@@ -85,6 +87,11 @@ export default function JuceSlider({
         [controlParameterIndexAnnotation]:
           sliderState.properties.parameterIndex,
       }}
+      sx={{
+        width: '7em',
+        ...sx
+      }}
+      {...props}
     >
       <Typography
         textAlign="center"

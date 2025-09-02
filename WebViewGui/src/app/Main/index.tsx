@@ -51,13 +51,18 @@ export default function App() {
         <Stack
           direction="row"
           alignItems="center"
+          justifyContent="center"
           sx={{ width: '100%' }}
+          spacing={2}
         >
           <JuceKnob
             identifier="saturationDriveSlider"
             title="Drive"
             defaultValue={0.5}
             subDigit={1}
+            sx={{
+              flexShrink:0
+            }}
           />
           <JuceButtons
             identifier="saturationTypeCombo"
