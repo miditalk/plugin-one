@@ -10,8 +10,10 @@
 
 #pragma once
 
+#include <JuceHeader.h>
 #include "NamespaceParameterId.h"
 #include "SpectralBars.h"
+#include "Saturation.h"
 
 //==============================================================================
 class PluginAudioProcessor  : public AudioProcessor
@@ -52,34 +54,59 @@ class PluginAudioProcessor  : public AudioProcessor
     {
         public:
         explicit Parameters (AudioProcessorValueTreeState::ParameterLayout& layout)
-        : cutoffFreqHz (addToLayout<AudioParameterFloat> (layout,
-                                                          ID::cutoffFreqHz,
-                                                          "Cutoff",
-                                                          NormalisableRange<float> { 200.0f, 14000.0f, 1.0f, 0.5f },
-                                                          11000.0f,
-                                                          AudioParameterFloatAttributes{}.withLabel ("Hz"))),
-        filterType (addToLayout<AudioParameterChoice> (layout,
-                                                       ID::filterType,
-                                                       "Filter type",
-                                                       StringArray { "Low-pass", "High-pass", "Band-pass" },
-                                                       0)),
+        :
+        saturationDrive (addToLayout<AudioParameterFloat> (layout,
+                                                           ID::saturationDrive,
+                                                           "Saturation Drive",
+                                                           NormalisableRange<float> { 0.0f, 100.0f, 1.0f, 1.0f },
+                                                           50.0f,
+                                                           "%",
+                                                           juce::AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) {
+            return juce::String(value, 1) + " %";  // << 표시될 문자열
+        },
+                                                           [](const juce::String& text) {
+            return text.dropLastCharacters(2).getFloatValue(); // "12 %" → 12
+        }
+                                                           )),
+        saturationType (addToLayout<AudioParameterChoice> (layout,
+                                                           ID::saturationType,
+                                                           "Saturation Type",
+                                                           StringArray { "Tube", "Tape", "Transistor" },
+                                                           0)),
         inputGain (addToLayout<AudioParameterFloat> (layout,
                                                      ID::inputGain,
                                                      "Input Gain",
                                                      NormalisableRange<float> { -24.0f, 24.0f, 0.5f, 1.0f },
                                                      0.0f,
-                                                     AudioParameterFloatAttributes{}.withLabel ("dB"))),
+                                                     "dB",
+                                                     juce::AudioProcessorParameter::genericParameter,
+                                                     [](float value, int) {
+            return juce::String(value, 1) + " dB";  // << 표시될 문자열
+        },
+                                                     [](const juce::String& text) {
+            return text.dropLastCharacters(3).getFloatValue(); // "12 dB" → 12
+        }
+                                                     )),
         outputGain (addToLayout<AudioParameterFloat> (layout,
                                                       ID::outputGain,
                                                       "Output Gain",
                                                       NormalisableRange<float> { -24.0f, 24.0f, 0.5f, 1.0f },
                                                       0.0f,
-                                                      AudioParameterFloatAttributes{}.withLabel ("dB")))
+                                                      "dB",
+                                                      juce::AudioProcessorParameter::genericParameter,
+                                                      [](float value, int) {
+            return juce::String(value, 1) + " dB";  // << 표시될 문자열
+        },
+                                                      [](const juce::String& text) {
+            return text.dropLastCharacters(3).getFloatValue(); // "12 dB" → 12
+        }
+                                                      ))
         {
         }
         
-        AudioParameterFloat&  cutoffFreqHz;
-        AudioParameterChoice& filterType;
+        AudioParameterFloat& saturationDrive;
+        AudioParameterChoice& saturationType;
         AudioParameterFloat& inputGain;
         AudioParameterFloat& outputGain;
         
@@ -114,7 +141,7 @@ class PluginAudioProcessor  : public AudioProcessor
     
     SpectralBars spectralBars;
     
-    dsp::LadderFilter<float> filter;
+    SaturationProcessor saturation;
     dsp::Gain<float> inputGain;
     dsp::Gain<float> outputGain;
     
@@ -146,8 +173,8 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     if (channels == 0)
         return;
     
-    filter.prepare ({ sampleRate, (uint32_t) samplesPerBlock, (uint32_t) channels });
-    filter.reset();
+    saturation.prepare ({ sampleRate, (uint32_t) samplesPerBlock, (uint32_t) channels });
+    saturation.reset();
     inputGain.setGainDecibels(0.0f);
     inputGain.reset();
     outputGain.setGainDecibels(0.0f);
@@ -177,32 +204,35 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
-    filter.setCutoffFrequencyHz (parameters.cutoffFreqHz.get());
     inputGain.setGainDecibels(parameters.inputGain.get());
     outputGain.setGainDecibels(parameters.outputGain.get());
     
-    const auto filterMode = [this]
+    saturation.setDrive(parameters.saturationDrive.get());
+    const auto SaturationMode = [this]
     {
-        switch (parameters.filterType.getIndex())
+        switch (parameters.saturationType.getIndex())
         {
             case 0:
-                return dsp::LadderFilter<float>::Mode::LPF12;
+                return SaturationType::Tube;
                 
             case 1:
-                return dsp::LadderFilter<float>::Mode::HPF12;
+                return SaturationType::Tape;
+                
+            case 2:
+                return SaturationType::Transistor;
                 
             default:
-                return dsp::LadderFilter<float>::Mode::BPF12;
+                return SaturationType::Tape;
         }
     }();
     
-    filter.setMode (filterMode);
+    saturation.setType(SaturationMode);
     
     auto outBlock = dsp::AudioBlock<float> { buffer }.getSubsetChannelBlock (0, (size_t) getTotalNumOutputChannels());
     
     inputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
     
-    filter.process (dsp::ProcessContextReplacing<float> (outBlock));
+    saturation.process(dsp::ProcessContextReplacing<float> (outBlock));
     
     outputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
     

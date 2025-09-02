@@ -28,12 +28,16 @@ export default function App() {
         direction="row"
         alignItems="center"
         justifyContent="space-between"
+        sx={{
+          minHeight: 'var(--Footer-minHeight)'
+        }}
       >
         <Button
           onClick={() => visitWebsite(CompanyWebsite)}
           variant="text"
           sx={{
-            color:'var(--mui-palette-white)',
+            color: 'var(--mui-palette-white)',
+            fontWeight: 'var(--mui-fontWeight-xl)',
             textTransform: 'unset'
           }}
         >

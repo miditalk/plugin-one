@@ -14,8 +14,8 @@ namespace ID
 {
 #define PARAMETER_ID(str) static const ParameterID str { #str, 1 };
 
-PARAMETER_ID (cutoffFreqHz)
-PARAMETER_ID (filterType)
+PARAMETER_ID (saturationDrive)
+PARAMETER_ID (saturationType)
 PARAMETER_ID (inputGain)
 PARAMETER_ID (outputGain)
 

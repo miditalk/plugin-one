@@ -31,6 +31,8 @@ function sliderToBox({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   defaultValue,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onMouseDown,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChange,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChangeCommitted,

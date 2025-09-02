@@ -70,9 +70,9 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     private:
     PluginAudioProcessor& processorRef;
     
+    WebSliderRelay       saturationDriveSliderRelay    { "saturationDriveSlider" };
+    WebComboBoxRelay     saturationTypeComboRelay { "saturationTypeCombo" };
     WebSliderRelay       inputGainSliderRelay    { "inputGainSlider" };
-    WebSliderRelay       cutoffSliderRelay    { "cutoffSlider" };
-    WebComboBoxRelay     filterTypeComboRelay { "filterTypeCombo" };
     WebSliderRelay       outputGainSliderRelay    { "outputGainSlider" };
     
     WebControlParameterIndexReceiver controlParameterIndexReceiver;
@@ -82,9 +82,9 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withWinWebView2Options (WebBrowserComponent::Options::WinWebView2{}
                                      .withUserDataFolder (File::getSpecialLocation (File::SpecialLocationType::tempDirectory)))
             .withNativeIntegrationEnabled()
+            .withOptionsFrom (saturationDriveSliderRelay)
+            .withOptionsFrom (saturationTypeComboRelay)
             .withOptionsFrom (inputGainSliderRelay)
-            .withOptionsFrom (cutoffSliderRelay)
-            .withOptionsFrom (filterTypeComboRelay)
             .withOptionsFrom (outputGainSliderRelay)
             .withOptionsFrom (controlParameterIndexReceiver)
             .withNativeFunction ("visitWebsite", [](auto& var, auto complete) {
@@ -98,8 +98,8 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             },
                                    URL { localDevServerAddress }.getOrigin()) };
     
-    WebSliderParameterAttachment       cutoffAttachment;
-    WebComboBoxParameterAttachment     filterTypeAttachment;
+    WebSliderParameterAttachment       saturationDriveAttachment;
+    WebComboBoxParameterAttachment     saturationTypeAttachment;
     WebSliderParameterAttachment       inputGainAttachment;
     WebSliderParameterAttachment       outputGainAttachment;
     
@@ -239,11 +239,11 @@ bool SinglePageBrowser::pageAboutToLoad (const String& newURL)
 //==============================================================================
 WebViewPluginAudioProcessorEditor::WebViewPluginAudioProcessorEditor (PluginAudioProcessor& p)
 : AudioProcessorEditor (&p), processorRef (p),
-cutoffAttachment (*processorRef.state.getParameter (ID::cutoffFreqHz.getParamID()),
-                  cutoffSliderRelay,
-                  processorRef.state.undoManager),
-filterTypeAttachment (*processorRef.state.getParameter (ID::filterType.getParamID()),
-                      filterTypeComboRelay,
+saturationDriveAttachment (*processorRef.state.getParameter (ID::saturationDrive.getParamID()),
+                      saturationDriveSliderRelay,
+                      processorRef.state.undoManager),
+saturationTypeAttachment (*processorRef.state.getParameter (ID::saturationType.getParamID()),
+                      saturationTypeComboRelay,
                       processorRef.state.undoManager),
 inputGainAttachment (*processorRef.state.getParameter (ID::inputGain.getParamID()),
                      inputGainSliderRelay,

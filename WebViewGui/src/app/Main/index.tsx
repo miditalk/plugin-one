@@ -1,6 +1,7 @@
 import * as Juce from 'juce-framework-frontend';
 
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 
 import JuceKnob from '@/src/ui/Control/Slider/JuceKnob';
 import JuceButtons from '@/src/ui/Control/ComboBox/JuceButtonGroup';
@@ -28,6 +29,9 @@ export default function App() {
           borderRight: 'var(--Grid-borderWidth) solid',
           borderColor: 'divider',
         },
+        '& > div:last-child': {
+          borderRight: 'none',
+        },
         '& .MuiGrid-root': {
           flexDirection: 'column',
           alignItems: 'center',
@@ -35,7 +39,7 @@ export default function App() {
         }
       }}
     >
-      <Grid container size={4}>
+      <Grid container size={3}>
         <JuceKnob
           identifier="inputGainSlider"
           title="Input Gain"
@@ -43,10 +47,21 @@ export default function App() {
           subDigit={1}
         />
       </Grid>
-      <Grid container size={4}>
-        <JuceButtons identifier="filterTypeCombo" />
+      <Grid container size={6}>
+        <Stack
+          direction="row"
+          alignItems="center"
+        >
+          <JuceKnob
+            identifier="saturationDriveSlider"
+            title="Saturation Drive"
+            defaultValue={0.5}
+            subDigit={1}
+          />
+          <JuceButtons identifier="saturationTypeCombo" />
+        </Stack>
       </Grid>
-      <Grid container size={4}>
+      <Grid container size={3}>
         <JuceKnob
           identifier="outputGainSlider"
           title="Output Gain"

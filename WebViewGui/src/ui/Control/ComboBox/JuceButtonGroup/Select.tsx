@@ -47,6 +47,7 @@ export default function JuceComboBox({
             boxShadow: 'none',
             borderColor: 'var(--mui-palette-primary-light)',
             backgroundColor: 'var(--mui-palette-primary-lighten)',
+          color: 'var(--mui-palette-black)',
           },
         }
       }}

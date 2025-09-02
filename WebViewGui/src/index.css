@@ -1,4 +1,6 @@
 :root {
   --Background-Color: #242424;
+  --Header-minHeight: 2em;
+  --Footer-minHeight: 2em;
   font-size: 2.5vw
 }
