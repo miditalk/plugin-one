@@ -1,5 +1,4 @@
 export const noDragSx = {
-  cursor: 'default',
   userSelect: 'none',
 };
 

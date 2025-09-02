@@ -72,7 +72,7 @@ class PluginAudioProcessor  : public AudioProcessor
         saturationType (addToLayout<AudioParameterChoice> (layout,
                                                            ID::saturationType,
                                                            "Saturation Type",
-                                                           StringArray { "Tube", "Tape", "Transistor" },
+                                                           StringArray { "Tube", "Tape", "Transistor", "Polynomial" },
                                                            0)),
         inputGain (addToLayout<AudioParameterFloat> (layout,
                                                      ID::inputGain,
@@ -214,12 +214,12 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         {
             case 0:
                 return SaturationType::Tube;
-                
             case 1:
                 return SaturationType::Tape;
-                
             case 2:
                 return SaturationType::Transistor;
+            case 3:
+                return SaturationType::Polynomial;
                 
             default:
                 return SaturationType::Tape;

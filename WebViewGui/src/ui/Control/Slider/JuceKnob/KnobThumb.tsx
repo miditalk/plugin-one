@@ -16,7 +16,7 @@ export default function Component({
         x1={0}
         y1={0}
         x2={0}
-        y2={40}
+        y2={50}
         strokeWidth="5"
         strokeLinecap="round"
         stroke="var(--mui-palette-white)"

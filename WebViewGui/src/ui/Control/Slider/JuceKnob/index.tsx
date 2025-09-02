@@ -105,6 +105,7 @@ export default function JuceSlider({
         onDoubleClick={doubleClick}
       />
       <Typography
+        className="defaultCursor"
         textAlign="center"
         sx={{
           ...LabelTypographySx,

@@ -4,3 +4,7 @@
   --Footer-minHeight: 2em;
   font-size: 2.5vw
 }
+
+.defaultCursor {
+  cursor: default;
+}

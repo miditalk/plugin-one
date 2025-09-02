@@ -24,6 +24,7 @@ export default function Component() {
             <feMergeNode in="composite2" />
           </feMerge>
         </filter>
+
       </defs>
 
       <g filter="url(#dropshadow)">
@@ -35,12 +36,13 @@ export default function Component() {
           filter="url(#innerglow)"
         />
       </g>
+
       <circle
         cx={100}
         cy={100}
         r={55}
         fill="var(--mui-palette-primary-main)"
-        stroke="var(--mui-palette-primary-light)"
+        stroke="var(--mui-palette-primary-darker)"
         strokeWidth={3}
       />
     </>

@@ -1,9 +1,9 @@
 import Stack from '@mui/material/Stack';
-
-import { type SelectProps } from '@mui/material/Select';
-
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { type SelectProps } from '@mui/material/Select';
 
 export interface JuceComboBoxProps
   extends Omit<
@@ -30,25 +30,37 @@ export default function JuceComboBox({
     <Stack
       alignItems="center"
       sx={{
-        pt: 8,
         '& .MuiButtonBase-root': {
-          mb: '-0.3em',
-          backgroundColor: 'var(--mui-palette-primary-darken)',
-          color: 'var(--mui-palette-white)',
-          fontWeight: 'var(--mui-fontWeight-lg)',
-          borderRadius: '0.5em',
-          border: '0.15em solid var(--mui-palette-black)',
-          padding: '0.8em 1.5em',
-          boxShadow: '0em 0.2em 0.4em rgba(0,0,0,0.5), inset 0em 0.1em 0.4em rgba(255,255,255,0.3)',
+          px: 2,
+          py: 2.5,
+          color: 'var(--mui-palette-primary-light)',
+          border: 'none',
+          background: 'unset',
+          '& .button': {
+            backgroundColor: 'var(--mui-palette-primary-darker)',
+            fontWeight: 'var(--mui-fontWeight-lg)',
+            borderRadius: '0.5em',
+            border: '0.1em solid var(--mui-palette-grey)',
+            px: '0.8em',
+            boxShadow: `
+              0em 0.2em 0.4em rgba(0,0,0,0.5),
+              inset 0em 0.1em 0.4em rgba(255,255,255,0.3)
+            `,
+          },
           '&:hover': {
-            backgroundColor: 'var(--mui-palette-primary-main)',
+            background: 'unset',
+            '& .button': {
+              // backgroundColor: 'var(--mui-palette-primary-lighter)',
+            },
           },
           '&.Mui-selected': {
-            boxShadow: 'none',
-            borderColor: 'var(--mui-palette-primary-light)',
-            backgroundColor: 'var(--mui-palette-primary-lighten)',
-          color: 'var(--mui-palette-black)',
-          },
+            color: 'var(--mui-palette-black)',
+            '& .button': {
+              boxShadow: 'none',
+              backgroundColor: 'var(--mui-palette-primary-lightest)',
+              borderColor: 'var(--mui-palette-primary-light)',
+            }
+          }
         }
       }}
     >
@@ -65,8 +77,17 @@ export default function JuceComboBox({
           <ToggleButton
             key={i}
             value={i}
+            disableRipple
           >
-            {choice}
+            <Stack
+              direction="row"
+              spacing={2}
+            >
+              <Box className="button" />
+              <Typography>
+                {choice}
+              </Typography>
+            </Stack>
           </ToggleButton>
         ))}
       </ToggleButtonGroup>

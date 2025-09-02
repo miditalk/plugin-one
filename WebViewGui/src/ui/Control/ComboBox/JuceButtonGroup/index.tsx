@@ -60,10 +60,11 @@ export default function JuceComboBox({
         onChange={handleChange}
       />
       <Typography
+        className="defaultCursor"
         textAlign="center"
         sx={{
           ...LabelTypographySx,
-          mt: '1.0em'
+          mt: '0.5em'
         }}
       >
         {properties.name}
