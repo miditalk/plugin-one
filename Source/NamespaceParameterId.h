@@ -14,6 +14,7 @@ namespace ID
 {
 #define PARAMETER_ID(str) static const ParameterID str { #str, 1 };
 
+PARAMETER_ID (bypass)
 PARAMETER_ID (saturationDrive)
 PARAMETER_ID (saturationType)
 PARAMETER_ID (inputGain)

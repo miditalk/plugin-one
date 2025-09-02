@@ -1,0 +1,60 @@
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import ToggleButton, { type ToggleButtonProps as MuiToggleButtonProps } from '@mui/material/ToggleButton';
+
+export interface ToggleButtonProps
+  extends MuiToggleButtonProps {
+  label: string | number
+}
+
+export default function JuceComboBox({
+  label,
+  ...props
+}: ToggleButtonProps) {
+
+  return (
+    <ToggleButton
+      disableRipple
+      sx={{
+        px: 2,
+        py: 2.2,
+        color: 'var(--mui-palette-primary-light)',
+        border: 'none',
+        '& .button': {
+          backgroundColor: 'var(--mui-palette-primary-darker)',
+          fontWeight: 'var(--mui-fontWeight-lg)',
+          borderRadius: '0.5em',
+          border: '0.1em solid var(--mui-palette-grey)',
+          px: '0.8em',
+          boxShadow: `
+              0em 0.3em 0.4em rgba(0,0,0,0.5),
+              inset 0em 0.1em 0.4em rgba(255,255,255,0.3)
+            `,
+        },
+        '&:hover, &.Mui-selected, &.Mui-selected:hover': {
+          backgroundColor: 'transparent',
+        },
+        '&.Mui-selected': {
+          color: 'var(--mui-palette-black)',
+          '& .button': {
+            boxShadow: 'none',
+            backgroundColor: 'var(--mui-palette-primary-lightest)',
+            borderColor: 'var(--mui-palette-primary-light)',
+          }
+        },
+      }}
+      {...props}
+    >
+      <Stack
+        direction="row"
+        spacing={2}
+      >
+        <Box className="button" />
+        <Typography>
+          {label}
+        </Typography>
+      </Stack>
+    </ToggleButton>
+  );
+}

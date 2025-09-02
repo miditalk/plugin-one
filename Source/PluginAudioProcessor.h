@@ -55,6 +55,7 @@ class PluginAudioProcessor  : public AudioProcessor
         public:
         explicit Parameters (AudioProcessorValueTreeState::ParameterLayout& layout)
         :
+        bypass (addToLayout<AudioParameterBool> (layout, ID::bypass, "Bypass", false)),
         saturationDrive (addToLayout<AudioParameterFloat> (layout,
                                                            ID::saturationDrive,
                                                            "Saturation Drive",
@@ -105,6 +106,7 @@ class PluginAudioProcessor  : public AudioProcessor
         {
         }
         
+        AudioParameterBool&   bypass;
         AudioParameterFloat& saturationDrive;
         AudioParameterChoice& saturationType;
         AudioParameterFloat& inputGain;
@@ -230,12 +232,13 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     
     auto outBlock = dsp::AudioBlock<float> { buffer }.getSubsetChannelBlock (0, (size_t) getTotalNumOutputChannels());
     
-    inputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
-    
-    saturation.process(dsp::ProcessContextReplacing<float> (outBlock));
-    
-    outputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
-    
+    if (!parameters.bypass.get()) {
+        inputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
+        
+        saturation.process(dsp::ProcessContextReplacing<float> (outBlock));
+        
+        outputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
+    }
     spectralBars.push (Span { buffer.getReadPointer (0), (size_t) buffer.getNumSamples() });
     
     {

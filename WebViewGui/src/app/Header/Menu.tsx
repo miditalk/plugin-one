@@ -69,7 +69,9 @@ export default function Page() {
           }
         }}
       >
-        <ListSubheader>Scale</ListSubheader>
+        <ListSubheader className="cursorDefault">
+          Scale
+        </ListSubheader>
         <MenuItem>100%</MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>Open Manual</MenuItem>

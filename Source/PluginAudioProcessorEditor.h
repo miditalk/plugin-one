@@ -70,6 +70,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     private:
     PluginAudioProcessor& processorRef;
     
+    WebToggleButtonRelay bypassToggleRelay      { "bypassToggle" };
     WebSliderRelay       saturationDriveSliderRelay    { "saturationDriveSlider" };
     WebComboBoxRelay     saturationTypeComboRelay { "saturationTypeCombo" };
     WebSliderRelay       inputGainSliderRelay    { "inputGainSlider" };
@@ -82,6 +83,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withWinWebView2Options (WebBrowserComponent::Options::WinWebView2{}
                                      .withUserDataFolder (File::getSpecialLocation (File::SpecialLocationType::tempDirectory)))
             .withNativeIntegrationEnabled()
+            .withOptionsFrom (bypassToggleRelay)
             .withOptionsFrom (saturationDriveSliderRelay)
             .withOptionsFrom (saturationTypeComboRelay)
             .withOptionsFrom (inputGainSliderRelay)
@@ -98,6 +100,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             },
                                    URL { localDevServerAddress }.getOrigin()) };
     
+    WebToggleButtonParameterAttachment bypassAttachment;
     WebSliderParameterAttachment       saturationDriveAttachment;
     WebComboBoxParameterAttachment     saturationTypeAttachment;
     WebSliderParameterAttachment       inputGainAttachment;
@@ -239,6 +242,9 @@ bool SinglePageBrowser::pageAboutToLoad (const String& newURL)
 //==============================================================================
 WebViewPluginAudioProcessorEditor::WebViewPluginAudioProcessorEditor (PluginAudioProcessor& p)
 : AudioProcessorEditor (&p), processorRef (p),
+bypassAttachment (*processorRef.state.getParameter (ID::bypass.getParamID()),
+                bypassToggleRelay,
+                processorRef.state.undoManager),
 saturationDriveAttachment (*processorRef.state.getParameter (ID::saturationDrive.getParamID()),
                       saturationDriveSliderRelay,
                       processorRef.state.undoManager),

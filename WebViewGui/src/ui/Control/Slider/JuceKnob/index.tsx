@@ -94,6 +94,7 @@ export default function JuceSlider({
       {...props}
     >
       <Typography
+        className="cursorDefault"
         textAlign="center"
         sx={{
           ...LabelTypographySx,

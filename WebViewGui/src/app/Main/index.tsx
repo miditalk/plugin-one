@@ -7,6 +7,7 @@ import JuceKnob from '@/src/ui/Control/Slider/JuceKnob';
 import JuceButtons from '@/src/ui/Control/ComboBox/JuceButtonGroup';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
+import JuceToggleButton from '@/src/ui/Control/ToggleButton/JuceToggleButton';
 
 export default function App() {
   const controlParameterIndexUpdater = new Juce.ControlParameterIndexUpdater(
@@ -40,19 +41,28 @@ export default function App() {
       }}
     >
       <Grid container size={3}>
-        <JuceKnob
-          identifier="inputGainSlider"
-          title="Input"
-          defaultValue={0.5}
-          subDigit={1}
-        />
+        <Stack
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          spacing={2}
+        >
+          <JuceKnob
+            identifier="inputGainSlider"
+            title="Input"
+            defaultValue={0.5}
+            subDigit={1}
+          />
+          <JuceToggleButton
+            identifier="bypassToggle"
+          />
+        </Stack>
       </Grid>
       <Grid container size={6}>
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="center"
-          sx={{ width: '100%' }}
           spacing={2}
         >
           <JuceKnob

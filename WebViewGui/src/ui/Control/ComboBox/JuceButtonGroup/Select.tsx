@@ -1,14 +1,8 @@
 import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { type SelectProps } from '@mui/material/Select';
-import { styled } from '@mui/material/styles';
 
-const StyledToggleButton = styled(ToggleButton)({
-
-});
+import StyledToggleButton from '@/src/ui/StyledToggleButton';
 
 export interface JuceComboBoxProps
   extends Omit<
@@ -75,18 +69,8 @@ export default function JuceComboBox({
           <StyledToggleButton
             key={i}
             value={i}
-            disableRipple
-          >
-            <Stack
-              direction="row"
-              spacing={2}
-            >
-              <Box className="button" />
-              <Typography>
-                {choice}
-              </Typography>
-            </Stack>
-          </StyledToggleButton>
+            label={choice}
+          />
         ))}
       </ToggleButtonGroup>
     </Stack>
