@@ -6,6 +6,13 @@
   letter-spacing: -0.007em;
 }
 
+body, #root {
+  height: 100dvh;
+  padding:0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 .cursorDefault {
   cursor: default;
 }
