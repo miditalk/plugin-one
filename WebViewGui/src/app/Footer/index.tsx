@@ -1,7 +1,12 @@
+import * as Juce from 'juce-framework-frontend';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+
+const visitWebsite = Juce.getNativeFunction('visitWebsite');
 
 export default function App() {
   return (
@@ -19,13 +24,18 @@ export default function App() {
     >
       <Stack
         direction="row"
+        alignItems="center"
         justifyContent="space-between"
       >
-        <Box>
-          <Typography>
-            JoEunsoo
-          </Typography>
-        </Box>
+        <Button
+          onClick={() => visitWebsite('https://joeunsoo.com')}
+          variant="text"
+          sx={{
+            color:'var(--mui-palette-white)'
+          }}
+        >
+          JoEunsoo
+        </Button>
         <Box>
           <Typography>
             v1.0.0

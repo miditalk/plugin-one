@@ -87,8 +87,13 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withOptionsFrom (filterTypeComboRelay)
             .withOptionsFrom (outputGainSliderRelay)
             .withOptionsFrom (controlParameterIndexReceiver)
-            .withResourceProvider ([this] (const auto& url)
-                                   {
+            .withNativeFunction ("visitWebsite", [](auto& var, auto complete) {
+                const URL newUrl = URL (var[0].toString());
+                if (newUrl.isWellFormed())
+                    newUrl.launchInDefaultBrowser();
+                complete ("done");
+            })
+            .withResourceProvider ([this] (const auto& url) {
                 return getResource (url);
             },
                                    URL { localDevServerAddress }.getOrigin()) };
@@ -118,7 +123,6 @@ static ZipFile* getZipFile()
     static ZipFile f { stream.get(), false };
     return &f;
 #else
-
     static auto stream = createAssetInputStream ("webviewplugin-gui_1.0.0.zip", AssertAssetExists::no);
     
     if (stream == nullptr)
@@ -249,7 +253,7 @@ outputGainAttachment (*processorRef.state.getParameter (ID::outputGain.getParamI
                       processorRef.state.undoManager)
 {
     addAndMakeVisible (webComponent);
-
+    
 #if DEBUG
     webComponent.goToURL (localDevServerAddress);
 #else
