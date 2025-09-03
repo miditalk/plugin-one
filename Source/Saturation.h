@@ -20,12 +20,12 @@ enum class SaturationType
     Transistor,
     Exponential,
     Arctangent,
-    Sine,
+    Sine, //
     Logarithmic,
-    Sigmoid,
-    TanhVariant,
-    Second,
-    Third
+    Sigmoid, //
+    TanhVariant, //
+    Second, //
+    Third //
 };
 
 template <typename SampleType>
@@ -94,14 +94,12 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
         return x;
     }
     
-    // ---------------- Tube ----------------
     float tube(SampleType x) const
     {
         float g = 2.0f * drive + 1.0f;
         return std::tanh(g * x);
     }
     
-    // ---------------- Tape ----------------
     float tape(SampleType x) const
     {
         float g = 2.0f * drive + 1.0f;
@@ -109,7 +107,6 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
         return juce::jlimit(-1.0f, 1.0f, y);
     }
     
-    // ---------------- Transistor ----------------
     float transistor(SampleType x) const
     {
         float g = 5.0f * drive + 1.0f;
@@ -118,7 +115,6 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
         return g * x - std::pow(g * x, 3) / 3.0f;
     }
     
-    // Exponential
     float exponential(SampleType x) const
     {
         float g = 4.0f * drive + 1.0f;
@@ -126,34 +122,30 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
                             (x >= 0.0f ? 1.0f : -1.0f) * (1.0f - std::exp(-std::abs(g * x))));
     }
     
-    // Arctangent
     float arctangent(SampleType x) const
     {
         float g = 5.0f * drive + 1.0f;
         return (2.0f / juce::MathConstants<float>::pi) * std::atan(g * x);
     }
     
-    // Sine Shaper
     float sine(SampleType x) const
     {
         float g = juce::jmap(drive, 1.0f, 4.0f);
         return std::sin(g * x);
     }
     
-    // ------------- Logarithmic -------------
     float logarithmic(SampleType x) const
     {
         float g = 10.0f * drive + 1.0f;
         return std::log(1.0f + g * std::abs(x)) / std::log(1.0f + g) * (x >= 0 ? 1.0f : -1.0f);
     }
     
-    // ------------- Sigmoid (Logistic) -------------
     float sigmoid(SampleType x) const
     {
         float g = 6.0f * drive + 1.0f;
         return (2.0f / (1.0f + std::exp(-g * x))) - 1.0f;
     }
-
+    
     float tanhvariant(float x) const
     {
         if (drive <= 0.0f) {
@@ -161,13 +153,16 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
         }
         return std::tanh(drive * x) / std::tanh(drive);
     }
-
+    
     float second(SampleType x) const
     {
-        SampleType signX = (x >= 0.0f) ? 1.0f : -1.0f;
-        return x + drive * x * x * signX;
+        return x + drive * x * x;
+        /*
+         SampleType signX = (x >= 0.0f) ? 1.0f : -1.0f;
+         return x + drive * x * x * signX;
+         */
     }
-
+    
     float third(SampleType x) const
     {
         return x - drive * x * x * x;
