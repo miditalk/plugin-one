@@ -1,115 +1,14 @@
 /*
- ==============================================================================
- 
- PluginAudioProcessorEditor.h
- Created: 31 Aug 2025 10:18:34pm
- Author:  JoEunsoo
- 
- ==============================================================================
- */
+  ==============================================================================
 
-#pragma once
+    PluginAudioEditor.cpp
+    Created: 3 Sep 2025 11:11:07am
+    Author:  JoEunsoo
 
-#include "PluginAudioProcessor.h"
+  ==============================================================================
+*/
 
-extern const String localDevServerAddress;
-
-std::optional<WebBrowserComponent::Resource> getResource (const String& url);
-
-//==============================================================================
-struct SinglePageBrowser : WebBrowserComponent
-{
-    using WebBrowserComponent::WebBrowserComponent;
-    
-    // Prevent page loads from navigating away from our single page web app
-    bool pageAboutToLoad (const String& newURL) override;
-};
-
-//==============================================================================
-class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private Timer
-{
-    public:
-    explicit WebViewPluginAudioProcessorEditor (PluginAudioProcessor&);
-    
-    std::optional<WebBrowserComponent::Resource> getResource (const String& url);
-    
-    //==============================================================================
-    void paint (Graphics&) override;
-    void resized() override;
-    
-    int getControlParameterIndex (Component&) override
-    {
-        return controlParameterIndexReceiver.getControlParameterIndex();
-    }
-    
-    void timerCallback() override
-    {
-        static constexpr size_t numFramesBuffered = 5;
-        
-        SpinLock::ScopedLockType lock { processorRef.spectrumDataLock };
-        
-        Array<var> frame;
-        
-        for (size_t i = 1; i < processorRef.spectrumData.size(); ++i)
-            frame.add (processorRef.spectrumData[i]);
-        
-        spectrumDataFrames.push_back (std::move (frame));
-        
-        while (spectrumDataFrames.size() > numFramesBuffered)
-            spectrumDataFrames.pop_front();
-        
-        static int64 callbackCounter = 0;
-        
-        if (   spectrumDataFrames.size() == numFramesBuffered
-            && callbackCounter++ % (int64) numFramesBuffered)
-        {
-            webComponent.emitEventIfBrowserIsVisible ("spectrumData", var{});
-        }
-    }
-    
-    private:
-    PluginAudioProcessor& processorRef;
-    
-    WebToggleButtonRelay bypassToggleRelay      { "bypassToggle" };
-    WebSliderRelay       saturationDriveSliderRelay    { "saturationDriveSlider" };
-    WebComboBoxRelay     saturationTypeComboRelay { "saturationTypeCombo" };
-    WebSliderRelay       inputGainSliderRelay    { "inputGainSlider" };
-    WebSliderRelay       outputGainSliderRelay    { "outputGainSlider" };
-    
-    WebControlParameterIndexReceiver controlParameterIndexReceiver;
-    
-    SinglePageBrowser webComponent { WebBrowserComponent::Options{}
-            .withBackend (WebBrowserComponent::Options::Backend::webview2)
-            .withWinWebView2Options (WebBrowserComponent::Options::WinWebView2{}
-                                     .withUserDataFolder (File::getSpecialLocation (File::SpecialLocationType::tempDirectory)))
-            .withNativeIntegrationEnabled()
-            .withOptionsFrom (bypassToggleRelay)
-            .withOptionsFrom (saturationDriveSliderRelay)
-            .withOptionsFrom (saturationTypeComboRelay)
-            .withOptionsFrom (inputGainSliderRelay)
-            .withOptionsFrom (outputGainSliderRelay)
-            .withOptionsFrom (controlParameterIndexReceiver)
-            .withNativeFunction ("visitWebsite", [](auto& var, auto complete) {
-                const URL newUrl = URL (var[0].toString());
-                if (newUrl.isWellFormed())
-                    newUrl.launchInDefaultBrowser();
-                complete ("done");
-            })
-            .withResourceProvider ([this] (const auto& url) {
-                return getResource (url);
-            },
-                                   URL { localDevServerAddress }.getOrigin()) };
-    
-    WebToggleButtonParameterAttachment bypassAttachment;
-    WebSliderParameterAttachment       saturationDriveAttachment;
-    WebComboBoxParameterAttachment     saturationTypeAttachment;
-    WebSliderParameterAttachment       inputGainAttachment;
-    WebSliderParameterAttachment       outputGainAttachment;
-    
-    std::deque<Array<var>> spectrumDataFrames;
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WebViewPluginAudioProcessorEditor)
-};
+#include "PluginAudioEditor.h"
 
 static ZipFile* getZipFile()
 {
@@ -207,23 +106,7 @@ std::optional<WebBrowserComponent::Resource> WebViewPluginAudioProcessorEditor::
         MemoryInputStream stream { testData, numElementsInArray (testData) - 1, false };
         return WebBrowserComponent::Resource { streamToVector (stream), String { "text/html" } };
     }
-    
-    if (urlToRetrive == "spectrumData.json")
-    {
-        Array<var> frames;
-        
-        for (const auto& frame : spectrumDataFrames)
-            frames.add (frame);
-        
-        DynamicObject::Ptr d (new DynamicObject());
-        d->setProperty ("timeResolutionMs", getTimerInterval());
-        d->setProperty ("frames", std::move (frames));
-        
-        const auto s = JSON::toString (d.get());
-        MemoryInputStream stream { s.getCharPointer(), s.getNumBytesAsUTF8(), false };
-        return WebBrowserComponent::Resource { streamToVector (stream), String { "application/json" } };
-    }
-    
+
     return std::nullopt;
 }
 
@@ -243,14 +126,20 @@ bool SinglePageBrowser::pageAboutToLoad (const String& newURL)
 WebViewPluginAudioProcessorEditor::WebViewPluginAudioProcessorEditor (PluginAudioProcessor& p)
 : AudioProcessorEditor (&p), processorRef (p),
 bypassAttachment (*processorRef.state.getParameter (ID::bypass.getParamID()),
-                bypassToggleRelay,
-                processorRef.state.undoManager),
+                  bypassToggleRelay,
+                  processorRef.state.undoManager),
 saturationDriveAttachment (*processorRef.state.getParameter (ID::saturationDrive.getParamID()),
-                      saturationDriveSliderRelay,
-                      processorRef.state.undoManager),
+                           saturationDriveSliderRelay,
+                           processorRef.state.undoManager),
 saturationTypeAttachment (*processorRef.state.getParameter (ID::saturationType.getParamID()),
-                      saturationTypeComboRelay,
-                      processorRef.state.undoManager),
+                          saturationTypeComboRelay,
+                          processorRef.state.undoManager),
+emphasisAttachment (*processorRef.state.getParameter (ID::emphasis.getParamID()),
+                    emphasisSliderRelay,
+                    processorRef.state.undoManager),
+tiltAttachment (*processorRef.state.getParameter (ID::tilt.getParamID()),
+                tiltSliderRelay,
+                processorRef.state.undoManager),
 inputGainAttachment (*processorRef.state.getParameter (ID::inputGain.getParamID()),
                      inputGainSliderRelay,
                      processorRef.state.undoManager),

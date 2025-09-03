@@ -1,8 +1,9 @@
 #pragma once
 
+#include <JuceHeader.h>
 #include "DemoUtilities.h"
 #include "PluginAudioProcessor.h"
-#include "PluginAudioProcessorEditor.h"
+#include "PluginAudioEditor.h"
 
 class PluginAudioProcessorWrapper  : public PluginAudioProcessor
 {

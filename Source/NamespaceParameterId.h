@@ -17,6 +17,8 @@ namespace ID
 PARAMETER_ID (bypass)
 PARAMETER_ID (saturationDrive)
 PARAMETER_ID (saturationType)
+PARAMETER_ID (emphasis)
+PARAMETER_ID (tilt)
 PARAMETER_ID (inputGain)
 PARAMETER_ID (outputGain)
 

@@ -31,7 +31,7 @@ export default function JuceComboBox({
       sx={{
         '& .MuiButtonBase-root': {
           px: 2,
-          py: 2.2,
+          py: 2,
           color: 'var(--mui-palette-primary-light)',
           border: 'none',
           '& .button': {

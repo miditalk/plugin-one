@@ -21,10 +21,8 @@ export default function App() {
   return (
     <Grid
       container
-      spacing={2}
       sx={{
         flexGrow: 1,
-        userSelect: 'none',
         '--Grid-borderWidth': '1px',
         '& > div': {
           borderRight: 'var(--Grid-borderWidth) solid',
@@ -34,13 +32,14 @@ export default function App() {
           borderRight: 'none',
         },
         '& .MuiGrid-root': {
+          display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
         }
       }}
     >
-      <Grid container size={3}>
+      <Grid size={2.5}>
         <Stack
           direction="column"
           alignItems="center"
@@ -58,12 +57,11 @@ export default function App() {
           />
         </Stack>
       </Grid>
-      <Grid container size={6}>
+      <Grid size={4.5}>
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="center"
-          spacing={2}
         >
           <JuceKnob
             identifier="saturationDriveSlider"
@@ -71,7 +69,7 @@ export default function App() {
             defaultValue={0.5}
             subDigit={1}
             sx={{
-              flexShrink:0
+              flexShrink: 0
             }}
           />
           <JuceButtons
@@ -80,7 +78,34 @@ export default function App() {
           />
         </Stack>
       </Grid>
-      <Grid container size={3}>
+      <Grid
+        size={2.5}
+      >
+        <Stack
+          justifyContent="center"
+          spacing={2}
+        >
+          <JuceKnob
+            identifier="emphasisSlider"
+            title="Emphasis"
+            defaultValue={0.5}
+            subDigit={1}
+            sx={{
+              flexShrink: 0
+            }}
+          />
+          <JuceKnob
+            identifier="tiltSlider"
+            title="Tone/Tilt"
+            defaultValue={0.5}
+            subDigit={1}
+          />
+        </Stack>
+
+      </Grid>
+      <Grid
+        size={2.5}
+      >
         <JuceKnob
           identifier="outputGainSlider"
           title="Output"

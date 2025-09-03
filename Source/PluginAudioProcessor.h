@@ -12,8 +12,8 @@
 
 #include <JuceHeader.h>
 #include "NamespaceParameterId.h"
-#include "SpectralBars.h"
 #include "Saturation.h"
+#include "TiltEQ.h"
 
 //==============================================================================
 class PluginAudioProcessor  : public AudioProcessor
@@ -73,8 +73,45 @@ class PluginAudioProcessor  : public AudioProcessor
         saturationType (addToLayout<AudioParameterChoice> (layout,
                                                            ID::saturationType,
                                                            "Saturation Type",
-                                                           StringArray { "Tube", "Tape", "Transistor", "Polynomial" },
+                                                           StringArray {
+            "Tube",
+            "Tape",
+            "Transistor",
+            "Polynomial",
+            "Exponential",
+            "Arctangent",
+            "Sine",
+            "Cubic"
+        },
                                                            0)),
+        emphasis (addToLayout<AudioParameterFloat> (layout,
+                                                     ID::emphasis,
+                                                     "Emphasis",
+                                                     NormalisableRange<float> { -6.0f, 6.0f, 0.5f, 1.0f },
+                                                     0.0f,
+                                                     "dB",
+                                                     juce::AudioProcessorParameter::genericParameter,
+                                                     [](float value, int) {
+            return juce::String(value, 1) + " dB";  // << 표시될 문자열
+        },
+                                                     [](const juce::String& text) {
+            return text.dropLastCharacters(3).getFloatValue(); // "12 dB" → 12
+        }
+                                                     )),
+        tilt (addToLayout<AudioParameterFloat> (layout,
+                                                     ID::tilt,
+                                                     "Tone/Tilt",
+                                                     NormalisableRange<float> { -6.0f, 6.0f, 0.5f, 1.0f },
+                                                     0.0f,
+                                                     "dB",
+                                                     juce::AudioProcessorParameter::genericParameter,
+                                                     [](float value, int) {
+            return juce::String(value, 1) + " dB";  // << 표시될 문자열
+        },
+                                                     [](const juce::String& text) {
+            return text.dropLastCharacters(3).getFloatValue(); // "12 dB" → 12
+        }
+                                                     )),
         inputGain (addToLayout<AudioParameterFloat> (layout,
                                                      ID::inputGain,
                                                      "Input Gain",
@@ -109,6 +146,8 @@ class PluginAudioProcessor  : public AudioProcessor
         AudioParameterBool&   bypass;
         AudioParameterFloat& saturationDrive;
         AudioParameterChoice& saturationType;
+        AudioParameterFloat& emphasis;
+        AudioParameterFloat& tilt;
         AudioParameterFloat& inputGain;
         AudioParameterFloat& outputGain;
         
@@ -134,130 +173,20 @@ class PluginAudioProcessor  : public AudioProcessor
             return ref;
         }
     };
-    
+
+    double sampleRate = 44100.0;
+
     Parameters parameters;
     AudioProcessorValueTreeState state;
-    
-    std::vector<float> spectrumData = [] { return std::vector<float> (16, 0.0f); }();
-    SpinLock spectrumDataLock;
-    
-    SpectralBars spectralBars;
     
     SaturationProcessor saturation;
     dsp::Gain<float> inputGain;
     dsp::Gain<float> outputGain;
     
+    TiltEQ<float> tiltEQ;
+
     private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)
+    
 };
-
-//==============================================================================
-PluginAudioProcessor::PluginAudioProcessor (AudioProcessorValueTreeState::ParameterLayout layout)
-: AudioProcessor (BusesProperties()
-#if ! JucePlugin_IsMidiEffect
-#if ! JucePlugin_IsSynth
-                  .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
-#endif
-                  .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
-#endif
-                  ),
-parameters (layout),
-state (*this, nullptr, "STATE", std::move (layout))
-{
-}
-
-//==============================================================================
-void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
-{
-    const auto channels = std::max (getTotalNumInputChannels(), getTotalNumOutputChannels());
-    
-    if (channels == 0)
-        return;
-    
-    saturation.prepare ({ sampleRate, (uint32_t) samplesPerBlock, (uint32_t) channels });
-    saturation.reset();
-    inputGain.setGainDecibels(0.0f);
-    inputGain.reset();
-    outputGain.setGainDecibels(0.0f);
-    outputGain.reset();
-}
-
-bool PluginAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
-{
-    if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::mono()
-        && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
-        return false;
-    
-    if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
-        return false;
-    
-    return true;
-}
-
-void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
-                                         juce::MidiBuffer&)
-{
-    juce::ScopedNoDenormals noDenormals;
-    
-    const auto totalNumInputChannels  = getTotalNumInputChannels();
-    const auto totalNumOutputChannels = getTotalNumOutputChannels();
-    
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
-    
-    inputGain.setGainDecibels(parameters.inputGain.get());
-    outputGain.setGainDecibels(parameters.outputGain.get());
-    
-    saturation.setDrive(parameters.saturationDrive.get());
-    const auto SaturationMode = [this]
-    {
-        switch (parameters.saturationType.getIndex())
-        {
-            case 0:
-                return SaturationType::Tube;
-            case 1:
-                return SaturationType::Tape;
-            case 2:
-                return SaturationType::Transistor;
-            case 3:
-                return SaturationType::Polynomial;
-                
-            default:
-                return SaturationType::Tape;
-        }
-    }();
-    
-    saturation.setType(SaturationMode);
-    
-    auto outBlock = dsp::AudioBlock<float> { buffer }.getSubsetChannelBlock (0, (size_t) getTotalNumOutputChannels());
-    
-    if (!parameters.bypass.get()) {
-        inputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
-        
-        saturation.process(dsp::ProcessContextReplacing<float> (outBlock));
-        
-        outputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
-    }
-    spectralBars.push (Span { buffer.getReadPointer (0), (size_t) buffer.getNumSamples() });
-    
-    {
-        const SpinLock::ScopedTryLockType lock (spectrumDataLock);
-        
-        if (! lock.isLocked())
-            return;
-        
-        spectralBars.compute ({ spectrumData.data(), spectrumData.size() });
-    }
-}
-
-//==============================================================================
-void PluginAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
-{
-    juce::ignoreUnused (destData);
-}
-
-void PluginAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
-{
-    juce::ignoreUnused (data, sizeInBytes);
-}

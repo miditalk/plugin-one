@@ -88,7 +88,7 @@ export default function JuceSlider({
           sliderState.properties.parameterIndex,
       }}
       sx={{
-        width: '7em',
+        width: '6em',
         ...sx
       }}
       {...props}
