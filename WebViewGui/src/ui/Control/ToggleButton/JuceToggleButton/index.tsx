@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import * as Juce from 'juce-framework-frontend';
 
-import Box from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 

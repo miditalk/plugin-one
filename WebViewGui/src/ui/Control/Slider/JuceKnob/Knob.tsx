@@ -71,7 +71,6 @@ export default function JuceSlider({
       {...sliderToBox(props)}
     >
       <Box
-        className="slider-container"
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onMouseDown={(e: any) => {
           if (props.onMouseDown) {

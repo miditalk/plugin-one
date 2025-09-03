@@ -65,10 +65,6 @@ export default function JuceComboBox({
         value={props.value}
         exclusive
         onChange={handleChange}
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-        }}
       >
         {choices.map((choice: number | string, i: number) => (
           <StyledToggleButton

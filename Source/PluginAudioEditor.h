@@ -52,8 +52,6 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     
     WebToggleButtonRelay bypassToggleRelay      { "bypassToggle" };
     WebSliderRelay       saturationDriveSliderRelay    { "saturationDriveSlider" };
-    WebSliderRelay       saturationHarmonicsSliderRelay    { "saturationHarmonicsSlider" };
-    WebComboBoxRelay     saturationTypeComboRelay { "saturationTypeCombo" };
     WebSliderRelay       emphasisSliderRelay    { "emphasisSlider" };
     WebSliderRelay       tiltSliderRelay    { "tiltSlider" };
     WebSliderRelay       inputGainSliderRelay    { "inputGainSlider" };
@@ -68,8 +66,6 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withNativeIntegrationEnabled()
             .withOptionsFrom (bypassToggleRelay)
             .withOptionsFrom (saturationDriveSliderRelay)
-            .withOptionsFrom (saturationHarmonicsSliderRelay)
-            .withOptionsFrom (saturationTypeComboRelay)
             .withOptionsFrom (emphasisSliderRelay)
             .withOptionsFrom (tiltSliderRelay)
             .withOptionsFrom (inputGainSliderRelay)
@@ -88,8 +84,6 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     
     WebToggleButtonParameterAttachment bypassAttachment;
     WebSliderParameterAttachment       saturationDriveAttachment;
-    WebSliderParameterAttachment       saturationHarmonicsAttachment;
-    WebComboBoxParameterAttachment     saturationTypeAttachment;
     WebSliderParameterAttachment       emphasisAttachment;
     WebSliderParameterAttachment       tiltAttachment;
     WebSliderParameterAttachment       inputGainAttachment;

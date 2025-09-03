@@ -110,13 +110,6 @@ export const themeVars = {
   },
 
   components: {
-    MuiStack: {
-      styleOverrides: {
-        root: {
-          flexGrow: 1,
-        },
-      },
-    },
     MuiButton: {
       styleOverrides: {
         root: {

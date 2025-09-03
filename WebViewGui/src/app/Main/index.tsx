@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 
 import JuceKnob from '@/src/ui/Control/Slider/JuceKnob';
-import JuceButtons from '@/src/ui/Control/ComboBox/JuceButtonGroup';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 import JuceToggleButton from '@/src/ui/Control/ToggleButton/JuceToggleButton';
@@ -39,72 +38,21 @@ export default function App() {
         }
       }}
     >
-      <Grid size={2}>
-        <Stack
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          spacing={2}
-        >
-          <JuceKnob
-            identifier="inputGainSlider"
-            title="Input"
-            defaultValue={0.5}
-            subDigit={1}
-          />
-          <JuceKnob
-            identifier="outputGainSlider"
-            title="Output"
-            defaultValue={0.5}
-            subDigit={1}
-          />
-          <JuceToggleButton
-            identifier="bypassToggle"
-          />
-        </Stack>
-      </Grid>
-      <Grid size={6}>
+      <Grid size={7}>
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="center"
         >
-          <Stack
-            justifyContent="center"
-            spacing={2}
-          >
-            <JuceKnob
-              identifier="saturationDriveSlider"
-              title="Drive"
-              defaultValue={0.5}
-              subDigit={1}
-              sx={{
-                flexShrink: 0
-              }}
-            />
-            <JuceKnob
-              identifier="saturationHarmonicsSlider"
-              title="Harmonics"
-              defaultValue={0.5}
-              subDigit={1}
-              sx={{
-                flexShrink: 0
-              }}
-            />
-          </Stack>
-          <JuceButtons
-            identifier="saturationTypeCombo"
-            hideTitle
+          <JuceKnob
+            identifier="saturationDriveSlider"
+            title="Drive"
+            defaultValue={0.5}
+            subDigit={1}
+            sx={{
+              flexShrink: 0
+            }}
           />
-        </Stack>
-      </Grid>
-      <Grid
-        size={2}
-      >
-        <Stack
-          justifyContent="center"
-          spacing={2}
-        >
           <JuceKnob
             identifier="emphasisSlider"
             title="Emphasis"
@@ -121,11 +69,34 @@ export default function App() {
             subDigit={1}
           />
         </Stack>
-
       </Grid>
-      <Grid
-        size={2}
-      >
+      <Grid size={5}>
+        <Stack
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          spacing={2}
+        >
+          <Stack
+            direction="row"
+          >
+            <JuceKnob
+              identifier="inputGainSlider"
+              title="Input"
+              defaultValue={0.5}
+              subDigit={1}
+            />
+            <JuceKnob
+              identifier="outputGainSlider"
+              title="Output"
+              defaultValue={0.5}
+              subDigit={1}
+            />
+          </Stack>
+          <JuceToggleButton
+            identifier="bypassToggle"
+          />
+        </Stack>
       </Grid>
     </Grid>
   );

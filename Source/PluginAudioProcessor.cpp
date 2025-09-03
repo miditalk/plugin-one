@@ -84,21 +84,6 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     outputGain.setGainDecibels(parameters.outputGain.get());
     
     saturation.setDrive(parameters.saturationDrive.get());
-    saturation.setHarmonics(parameters.saturationHarmonics.get());
-    const auto SaturationMode = [this]
-    {
-        switch (parameters.saturationType.getIndex())
-        {
-            case 0:
-                return SaturationType::Off;
-            case 1:
-                return SaturationType::TanhVariant;
-            default:
-                return SaturationType::Off;
-        }
-    }();
-    
-    saturation.setType(SaturationMode);
 
     preEQ.setGain(parameters.emphasis.get());
     postEQ.setGain(0-parameters.emphasis.get());

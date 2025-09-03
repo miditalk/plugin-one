@@ -12,12 +12,6 @@
 #include <JuceHeader.h>
 #include <cmath>
 
-enum class SaturationType
-{
-    Off,
-    TanhVariant
-};
-
 template <typename SampleType>
 class SaturationProcessor : public juce::dsp::ProcessorBase
 {
@@ -53,14 +47,10 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
     // =====================================
     // 파라미터
     // =====================================
-    void setType(SaturationType newType) { type = newType; }
     void setDrive(SampleType value) { drive = juce::jlimit(0.0f, 1.0f, value / 100.0f); }
-    void setHarmonics(SampleType value) { harmonics = juce::jlimit(0.0f, 1.0f, value / 100.0f); }
     
     private:
-    SaturationType type { SaturationType::TanhVariant };
     SampleType drive { 0.5f };
-    SampleType harmonics { 0.5f };
     double sampleRate { 44100.0 };
     
     // =====================================
@@ -68,17 +58,11 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
     // =====================================
     float processSample(SampleType x) const
     {
-        switch (type)
-        {
-            case SaturationType::Off:       return x;
-            case SaturationType::TanhVariant: return tanhvariant(x);
-        }
-        return x;
+        return tanhvariant(x);
     }
     
     float tanhvariant(float x0) const
     {
-        
         float x = x0;
         float y = x;
         if (drive > 0.0f) {
@@ -91,12 +75,6 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
             y /= 4.0f; // -12 dB 빼기
         }
 
-        if (harmonics > 0.0f) {
-            float harmonicBoost = harmonics * 0.5f; // 0~0.5 정도 추천
-            y += harmonicBoost * std::pow(y, 3); // 작은 신호에 약간의 3차 하모닉스 추가
-            y *= (1.0f - (harmonics * 0.05f));
-        }
-
-        return juce::jlimit(-1.0f, 1.0f, y); // 최종 클리핑
+        return y;
     }
 };

@@ -72,28 +72,6 @@ class PluginAudioProcessor  : public AudioProcessor
             return text.dropLastCharacters(2).getFloatValue(); // "12 %" → 12
         }
                                                            )),
-        saturationHarmonics (addToLayout<AudioParameterFloat> (layout,
-                                                               ID::saturationHarmonics,
-                                                               "Saturation Harmonics",
-                                                               NormalisableRange<float> { 0.0f, 100.0f, 1.0f, 1.0f },
-                                                               50.0f,
-                                                               "%",
-                                                               juce::AudioProcessorParameter::genericParameter,
-                                                               [](float value, int) {
-            return juce::String(value, 1) + " %";  // << 표시될 문자열
-        },
-                                                               [](const juce::String& text) {
-            return text.dropLastCharacters(2).getFloatValue(); // "12 %" → 12
-        }
-                                                               )),
-        saturationType (addToLayout<AudioParameterChoice> (layout,
-                                                           ID::saturationType,
-                                                           "Saturation Type",
-                                                           StringArray {
-            "Off",
-            "One",
-        },
-                                                           0)),
         emphasis (addToLayout<AudioParameterFloat> (layout,
                                                     ID::emphasis,
                                                     "Emphasis",
@@ -155,8 +133,6 @@ class PluginAudioProcessor  : public AudioProcessor
         
         AudioParameterBool&   bypass;
         AudioParameterFloat& saturationDrive;
-        AudioParameterFloat& saturationHarmonics;
-        AudioParameterChoice& saturationType;
         AudioParameterFloat& emphasis;
         AudioParameterFloat& tilt;
         AudioParameterFloat& inputGain;

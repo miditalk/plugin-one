@@ -21,7 +21,7 @@ export default function App() {
           overflow: 'hidden',
         }}
       >
-        <Stack>
+        <Stack sx={{ flexGrow: 1 }}>
           <Header />
           <Main />
         </Stack>

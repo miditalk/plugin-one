@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import * as Juce from 'juce-framework-frontend';
 
-import Box from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
