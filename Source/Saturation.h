@@ -18,14 +18,7 @@ enum class SaturationType
     Tube,
     Tape,
     Transistor,
-    Exponential,
-    Arctangent,
-    Sine, //
-    Logarithmic,
-    Sigmoid, //
-    TanhVariant, //
-    Second, //
-    Third //
+    TanhVariant,
 };
 
 template <typename SampleType>
@@ -82,89 +75,43 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
             case SaturationType::Tube:       return tube(x);
             case SaturationType::Tape:       return tape(x);
             case SaturationType::Transistor: return transistor(x);
-            case SaturationType::Exponential:return exponential(x);
-            case SaturationType::Arctangent: return arctangent(x);
-            case SaturationType::Sine:       return sine(x);
-            case SaturationType::Logarithmic: return logarithmic(x);
-            case SaturationType::Sigmoid:     return sigmoid(x);
             case SaturationType::TanhVariant: return tanhvariant(x);
-            case SaturationType::Second: return second(x);
-            case SaturationType::Third: return third(x);
         }
         return x;
     }
     
-    float tube(SampleType x) const
+    float tube(SampleType x0) const
     {
+        float x = x0; // 입력 보정
         float g = 2.0f * drive + 1.0f;
         return std::tanh(g * x);
     }
     
-    float tape(SampleType x) const
+    float tape(SampleType x0) const
     {
+        float x = x0; // 입력 보정
         float g = 2.0f * drive + 1.0f;
         float y = g * x - std::pow(g * x, 3) / 3.0f;
         return juce::jlimit(-1.0f, 1.0f, y);
     }
     
-    float transistor(SampleType x) const
+    float transistor(SampleType x0) const
     {
+        float x = x0; // 입력 보정
         float g = 5.0f * drive + 1.0f;
         if (x > 1.0f / g)  return  2.0f / 3.0f;
         if (x < -1.0f / g) return -2.0f / 3.0f;
         return g * x - std::pow(g * x, 3) / 3.0f;
     }
     
-    float exponential(SampleType x) const
-    {
-        float g = 4.0f * drive + 1.0f;
-        return juce::jlimit(-1.0f, 1.0f,
-                            (x >= 0.0f ? 1.0f : -1.0f) * (1.0f - std::exp(-std::abs(g * x))));
-    }
-    
-    float arctangent(SampleType x) const
-    {
-        float g = 5.0f * drive + 1.0f;
-        return (2.0f / juce::MathConstants<float>::pi) * std::atan(g * x);
-    }
-    
-    float sine(SampleType x) const
-    {
-        float g = juce::jmap(drive, 1.0f, 4.0f);
-        return std::sin(g * x);
-    }
-    
-    float logarithmic(SampleType x) const
-    {
-        float g = 10.0f * drive + 1.0f;
-        return std::log(1.0f + g * std::abs(x)) / std::log(1.0f + g) * (x >= 0 ? 1.0f : -1.0f);
-    }
-    
-    float sigmoid(SampleType x) const
-    {
-        float g = 6.0f * drive + 1.0f;
-        return (2.0f / (1.0f + std::exp(-g * x))) - 1.0f;
-    }
-    
-    float tanhvariant(float x) const
+    float tanhvariant(float x0) const
     {
         if (drive <= 0.0f) {
-            return x;
+            return x0;
         }
-        return std::tanh(drive * x) / std::tanh(drive);
+        float x = x0;
+        // float x = x0 * (1.0f + (drive * 1.0f)); // 입력 보정
+        return (std::tanh(drive * x) / std::tanh(drive));
     }
     
-    float second(SampleType x) const
-    {
-        return x + drive * x * x;
-        /*
-         SampleType signX = (x >= 0.0f) ? 1.0f : -1.0f;
-         return x + drive * x * x * signX;
-         */
-    }
-    
-    float third(SampleType x) const
-    {
-        return x - drive * x * x * x;
-    }
 };

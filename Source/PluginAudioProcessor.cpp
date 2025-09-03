@@ -95,21 +95,7 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
             case 3:
                 return SaturationType::Transistor;
             case 4:
-                return SaturationType::Exponential;
-            case 5:
-                return SaturationType::Arctangent;
-            case 6:
-                return SaturationType::Sine;
-            case 7:
-                return SaturationType::Logarithmic;
-            case 8:
-                return SaturationType::Sigmoid;
-            case 9:
                 return SaturationType::TanhVariant;
-            case 10:
-                return SaturationType::Second;
-            case 11:
-                return SaturationType::Third;
             default:
                 return SaturationType::Off;
         }
