@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "NamespaceParameterId.h"
+#include "DcOffsetFilter.h"
 #include "Saturation.h"
 #include "TiltEQ.h"
 
@@ -74,20 +75,24 @@ class PluginAudioProcessor  : public AudioProcessor
                                                            ID::saturationType,
                                                            "Saturation Type",
                                                            StringArray {
+            "Off",
             "Tube",
             "Tape",
             "Transistor",
-            "Polynomial",
             "Exponential",
             "Arctangent",
             "Sine",
-            "Cubic"
+            "Logarithmic",
+            "Sigmoid",
+            "TanhVariant",
+            "2nd",
+            "3nd",
         },
                                                            0)),
         emphasis (addToLayout<AudioParameterFloat> (layout,
                                                      ID::emphasis,
                                                      "Emphasis",
-                                                     NormalisableRange<float> { -6.0f, 6.0f, 0.5f, 1.0f },
+                                                     NormalisableRange<float> { -12.0f, 12.0f, 0.5f, 1.0f },
                                                      0.0f,
                                                      "dB",
                                                      juce::AudioProcessorParameter::genericParameter,
@@ -101,7 +106,7 @@ class PluginAudioProcessor  : public AudioProcessor
         tilt (addToLayout<AudioParameterFloat> (layout,
                                                      ID::tilt,
                                                      "Tone/Tilt",
-                                                     NormalisableRange<float> { -6.0f, 6.0f, 0.5f, 1.0f },
+                                                     NormalisableRange<float> { -12.0f, 12.0f, 0.5f, 1.0f },
                                                      0.0f,
                                                      "dB",
                                                      juce::AudioProcessorParameter::genericParameter,
@@ -179,11 +184,16 @@ class PluginAudioProcessor  : public AudioProcessor
     Parameters parameters;
     AudioProcessorValueTreeState state;
     
-    SaturationProcessor saturation;
+    SaturationProcessor<float> saturation;
     dsp::Gain<float> inputGain;
     dsp::Gain<float> outputGain;
     
-    TiltEQ<float> tiltEQ;
+    TiltEQProcessor<float> tiltEQ;
+    
+    TiltEQProcessor<float> preEQ;
+    TiltEQProcessor<float> postEQ;
+    
+    DcOffsetFilter<float> dcBlocker;
 
     private:
     //==============================================================================

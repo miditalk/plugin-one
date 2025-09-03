@@ -13,10 +13,10 @@
 
 // TiltEQ DSP
 template <typename SampleType>
-class TiltEQ : public juce::dsp::ProcessorBase
+class TiltEQProcessor : public juce::dsp::ProcessorBase
 {
 public:
-    TiltEQ() {}
+    TiltEQProcessor() {}
 
     void prepare(const juce::dsp::ProcessSpec& spec) override
     {
@@ -40,16 +40,16 @@ public:
         auto tiltGain = juce::Decibels::decibelsToGain(tiltDb);
 
         *lowShelf.state = *juce::dsp::IIR::Coefficients<SampleType>::makeLowShelf(
-            sampleRate, 1000.0f, 0.23f, 1.0f / tiltGain);
+            sampleRate, 1000.0f, 0.35f, 1.0f / tiltGain);
 
         *highShelf.state = *juce::dsp::IIR::Coefficients<SampleType>::makeHighShelf(
-            sampleRate, 1000.0f, 0.23f, tiltGain);
+            sampleRate, 1000.0f, 0.35f, tiltGain);
 
         lowShelf.process(context);
         highShelf.process(context);
     }
 
-    void setTilt(float db) { tiltDb = db; }
+    void setGain(float db) { tiltDb = db; }
 
 private:
     double sampleRate = 44100.0;

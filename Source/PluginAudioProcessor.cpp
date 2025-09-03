@@ -38,10 +38,15 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
         { sampleRate, (uint32_t) samplesPerBlock, (uint32_t) channels };
 
     sampleRate = spec.sampleRate;
+    
+    dcBlocker.prepare(spec);
+    dcBlocker.reset();
 
     saturation.prepare (spec);
     saturation.reset();
 
+    preEQ.prepare(spec);
+    postEQ.prepare(spec);
     tiltEQ.prepare(spec);
 
     inputGain.setGainDecibels(0.0f);
@@ -82,13 +87,13 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         switch (parameters.saturationType.getIndex())
         {
             case 0:
-                return SaturationType::Tube;
+                return SaturationType::Off;
             case 1:
-                return SaturationType::Tape;
+                return SaturationType::Tube;
             case 2:
-                return SaturationType::Transistor;
+                return SaturationType::Tape;
             case 3:
-                return SaturationType::Polynomial;
+                return SaturationType::Transistor;
             case 4:
                 return SaturationType::Exponential;
             case 5:
@@ -96,25 +101,41 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
             case 6:
                 return SaturationType::Sine;
             case 7:
-                return SaturationType::Cubic;
-                
+                return SaturationType::Logarithmic;
+            case 8:
+                return SaturationType::Sigmoid;
+            case 9:
+                return SaturationType::TanhVariant;
+            case 10:
+                return SaturationType::Second;
+            case 11:
+                return SaturationType::Third;
             default:
-                return SaturationType::Tape;
+                return SaturationType::Off;
         }
     }();
     
     saturation.setType(SaturationMode);
 
-    tiltEQ.setTilt(parameters.tilt.get());
+    preEQ.setGain(parameters.emphasis.get());
+    postEQ.setGain(0-parameters.emphasis.get());
+    tiltEQ.setGain(parameters.tilt.get());
 
     auto outBlock = dsp::AudioBlock<float> { buffer }.getSubsetChannelBlock (0, (size_t) getTotalNumOutputChannels());
     
     if (!parameters.bypass.get()) {
+
         inputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
         
+        preEQ.process(dsp::ProcessContextReplacing<float> (outBlock));
+
         saturation.process(dsp::ProcessContextReplacing<float> (outBlock));
+        
+        postEQ.process(dsp::ProcessContextReplacing<float> (outBlock));
 
         tiltEQ.process(dsp::ProcessContextReplacing<float> (outBlock));
+        
+        dcBlocker.process(dsp::ProcessContextReplacing<float> (outBlock));
 
         outputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
     }

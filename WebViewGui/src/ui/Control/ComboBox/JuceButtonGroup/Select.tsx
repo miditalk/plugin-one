@@ -27,11 +27,12 @@ export default function JuceComboBox({
 
   return (
     <Stack
+      direction="row"
       alignItems="center"
       sx={{
         '& .MuiButtonBase-root': {
           px: 2,
-          py: 2,
+          py: 1,
           color: 'var(--mui-palette-primary-light)',
           border: 'none',
           '& .button': {
@@ -64,6 +65,10 @@ export default function JuceComboBox({
         value={props.value}
         exclusive
         onChange={handleChange}
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+        }}
       >
         {choices.map((choice: number | string, i: number) => (
           <StyledToggleButton
