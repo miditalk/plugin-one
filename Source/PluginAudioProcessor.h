@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "NamespaceParameterId.h"
+#include "AntiAliasingFilter.h"
 #include "DcOffsetFilter.h"
 #include "Saturation.h"
 #include "TiltEQ.h"
@@ -71,45 +72,56 @@ class PluginAudioProcessor  : public AudioProcessor
             return text.dropLastCharacters(2).getFloatValue(); // "12 %" → 12
         }
                                                            )),
+        saturationHarmonics (addToLayout<AudioParameterFloat> (layout,
+                                                               ID::saturationHarmonics,
+                                                               "Saturation Harmonics",
+                                                               NormalisableRange<float> { 0.0f, 100.0f, 1.0f, 1.0f },
+                                                               50.0f,
+                                                               "%",
+                                                               juce::AudioProcessorParameter::genericParameter,
+                                                               [](float value, int) {
+            return juce::String(value, 1) + " %";  // << 표시될 문자열
+        },
+                                                               [](const juce::String& text) {
+            return text.dropLastCharacters(2).getFloatValue(); // "12 %" → 12
+        }
+                                                               )),
         saturationType (addToLayout<AudioParameterChoice> (layout,
                                                            ID::saturationType,
                                                            "Saturation Type",
                                                            StringArray {
             "Off",
-            "Tube",
-            "Tape",
-            "Transistor",
-            "TanhVariant",
+            "One",
         },
                                                            0)),
         emphasis (addToLayout<AudioParameterFloat> (layout,
-                                                     ID::emphasis,
-                                                     "Emphasis",
-                                                     NormalisableRange<float> { -12.0f, 12.0f, 0.5f, 1.0f },
-                                                     0.0f,
-                                                     "dB",
-                                                     juce::AudioProcessorParameter::genericParameter,
-                                                     [](float value, int) {
+                                                    ID::emphasis,
+                                                    "Emphasis",
+                                                    NormalisableRange<float> { -12.0f, 12.0f, 0.5f, 1.0f },
+                                                    0.0f,
+                                                    "dB",
+                                                    juce::AudioProcessorParameter::genericParameter,
+                                                    [](float value, int) {
             return juce::String(value, 1) + " dB";  // << 표시될 문자열
         },
-                                                     [](const juce::String& text) {
+                                                    [](const juce::String& text) {
             return text.dropLastCharacters(3).getFloatValue(); // "12 dB" → 12
         }
-                                                     )),
+                                                    )),
         tilt (addToLayout<AudioParameterFloat> (layout,
-                                                     ID::tilt,
-                                                     "Tone/Tilt",
-                                                     NormalisableRange<float> { -12.0f, 12.0f, 0.5f, 1.0f },
-                                                     0.0f,
-                                                     "dB",
-                                                     juce::AudioProcessorParameter::genericParameter,
-                                                     [](float value, int) {
+                                                ID::tilt,
+                                                "Tone/Tilt",
+                                                NormalisableRange<float> { -12.0f, 12.0f, 0.5f, 1.0f },
+                                                0.0f,
+                                                "dB",
+                                                juce::AudioProcessorParameter::genericParameter,
+                                                [](float value, int) {
             return juce::String(value, 1) + " dB";  // << 표시될 문자열
         },
-                                                     [](const juce::String& text) {
+                                                [](const juce::String& text) {
             return text.dropLastCharacters(3).getFloatValue(); // "12 dB" → 12
         }
-                                                     )),
+                                                )),
         inputGain (addToLayout<AudioParameterFloat> (layout,
                                                      ID::inputGain,
                                                      "Input Gain",
@@ -143,6 +155,7 @@ class PluginAudioProcessor  : public AudioProcessor
         
         AudioParameterBool&   bypass;
         AudioParameterFloat& saturationDrive;
+        AudioParameterFloat& saturationHarmonics;
         AudioParameterChoice& saturationType;
         AudioParameterFloat& emphasis;
         AudioParameterFloat& tilt;
@@ -171,9 +184,9 @@ class PluginAudioProcessor  : public AudioProcessor
             return ref;
         }
     };
-
+    
     double sampleRate = 44100.0;
-
+    
     Parameters parameters;
     AudioProcessorValueTreeState state;
     
@@ -187,7 +200,8 @@ class PluginAudioProcessor  : public AudioProcessor
     TiltEQProcessor<float> postEQ;
     
     DcOffsetFilter<float> dcBlocker;
-
+    AntiAliasingFilter antiAliasingFilter;
+    
     private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)

@@ -25,7 +25,7 @@ public:
         sampleRate = spec.sampleRate;
     }
 
-    void process (const juce::dsp::ProcessContextReplacing<float>& context) override
+    void process (const juce::dsp::ProcessContextReplacing<SampleType>& context) override
     {
         auto& block = context.getOutputBlock();
         auto numChannels = block.getNumChannels();

@@ -53,13 +53,10 @@ export default function App() {
             subDigit={1}
           />
           <JuceKnob
-            identifier="saturationDriveSlider"
-            title="Drive"
+            identifier="outputGainSlider"
+            title="Output"
             defaultValue={0.5}
             subDigit={1}
-            sx={{
-              flexShrink: 0
-            }}
           />
           <JuceToggleButton
             identifier="bypassToggle"
@@ -72,6 +69,29 @@ export default function App() {
           alignItems="center"
           justifyContent="center"
         >
+          <Stack
+            justifyContent="center"
+            spacing={2}
+          >
+            <JuceKnob
+              identifier="saturationDriveSlider"
+              title="Drive"
+              defaultValue={0.5}
+              subDigit={1}
+              sx={{
+                flexShrink: 0
+              }}
+            />
+            <JuceKnob
+              identifier="saturationHarmonicsSlider"
+              title="Harmonics"
+              defaultValue={0.5}
+              subDigit={1}
+              sx={{
+                flexShrink: 0
+              }}
+            />
+          </Stack>
           <JuceButtons
             identifier="saturationTypeCombo"
             hideTitle
@@ -106,12 +126,6 @@ export default function App() {
       <Grid
         size={2}
       >
-        <JuceKnob
-          identifier="outputGainSlider"
-          title="Output"
-          defaultValue={0.5}
-          subDigit={1}
-        />
       </Grid>
     </Grid>
   );

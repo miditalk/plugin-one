@@ -41,6 +41,8 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     
     dcBlocker.prepare(spec);
     dcBlocker.reset();
+    antiAliasingFilter.prepare(spec);
+    antiAliasingFilter.reset();
 
     saturation.prepare (spec);
     saturation.reset();
@@ -82,6 +84,7 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     outputGain.setGainDecibels(parameters.outputGain.get());
     
     saturation.setDrive(parameters.saturationDrive.get());
+    saturation.setHarmonics(parameters.saturationHarmonics.get());
     const auto SaturationMode = [this]
     {
         switch (parameters.saturationType.getIndex())
@@ -89,12 +92,6 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
             case 0:
                 return SaturationType::Off;
             case 1:
-                return SaturationType::Tube;
-            case 2:
-                return SaturationType::Tape;
-            case 3:
-                return SaturationType::Transistor;
-            case 4:
                 return SaturationType::TanhVariant;
             default:
                 return SaturationType::Off;
@@ -124,6 +121,8 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         dcBlocker.process(dsp::ProcessContextReplacing<float> (outBlock));
 
         outputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
+
+        antiAliasingFilter.process(dsp::ProcessContextReplacing<float> (outBlock));
     }
 
 }

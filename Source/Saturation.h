@@ -15,10 +15,7 @@
 enum class SaturationType
 {
     Off,
-    Tube,
-    Tape,
-    Transistor,
-    TanhVariant,
+    TanhVariant
 };
 
 template <typename SampleType>
@@ -57,11 +54,13 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
     // 파라미터
     // =====================================
     void setType(SaturationType newType) { type = newType; }
-    void setDrive(SampleType newDrive) { drive = juce::jlimit(0.0f, 1.0f, newDrive / 100.0f); }
+    void setDrive(SampleType value) { drive = juce::jlimit(0.0f, 1.0f, value / 100.0f); }
+    void setHarmonics(SampleType value) { harmonics = juce::jlimit(0.0f, 1.0f, value / 100.0f); }
     
     private:
-    SaturationType type { SaturationType::Tube };
+    SaturationType type { SaturationType::TanhVariant };
     SampleType drive { 0.5f };
+    SampleType harmonics { 0.5f };
     double sampleRate { 44100.0 };
     
     // =====================================
@@ -72,46 +71,32 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
         switch (type)
         {
             case SaturationType::Off:       return x;
-            case SaturationType::Tube:       return tube(x);
-            case SaturationType::Tape:       return tape(x);
-            case SaturationType::Transistor: return transistor(x);
             case SaturationType::TanhVariant: return tanhvariant(x);
         }
         return x;
     }
     
-    float tube(SampleType x0) const
-    {
-        float x = x0; // 입력 보정
-        float g = 2.0f * drive + 1.0f;
-        return std::tanh(g * x);
-    }
-    
-    float tape(SampleType x0) const
-    {
-        float x = x0; // 입력 보정
-        float g = 2.0f * drive + 1.0f;
-        float y = g * x - std::pow(g * x, 3) / 3.0f;
-        return juce::jlimit(-1.0f, 1.0f, y);
-    }
-    
-    float transistor(SampleType x0) const
-    {
-        float x = x0; // 입력 보정
-        float g = 5.0f * drive + 1.0f;
-        if (x > 1.0f / g)  return  2.0f / 3.0f;
-        if (x < -1.0f / g) return -2.0f / 3.0f;
-        return g * x - std::pow(g * x, 3) / 3.0f;
-    }
-    
     float tanhvariant(float x0) const
     {
-        if (drive <= 0.0f) {
-            return x0;
-        }
+        
         float x = x0;
-        // float x = x0 * (1.0f + (drive * 1.0f)); // 입력 보정
-        return (std::tanh(drive * x) / std::tanh(drive));
+        float y = x;
+        if (drive > 0.0f) {
+            x = x0;
+            x *= (1.0f - (drive * 0.1f)); // 입력보정
+            x *= 4.0f; // 12 dB 밀어넣기
+
+            y = (std::tanh(drive * x) / std::tanh(drive));
+            
+            y /= 4.0f; // -12 dB 빼기
+        }
+
+        if (harmonics > 0.0f) {
+            float harmonicBoost = harmonics * 0.5f; // 0~0.5 정도 추천
+            y += harmonicBoost * std::pow(y, 3); // 작은 신호에 약간의 3차 하모닉스 추가
+            y *= (1.0f - (harmonics * 0.05f));
+        }
+
+        return juce::jlimit(-1.0f, 1.0f, y); // 최종 클리핑
     }
-    
 };

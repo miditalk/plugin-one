@@ -24,7 +24,6 @@ export default function App() {
       sx={{
         position: 'static',
         px: 1,
-        py: 1,
         backgroundColor: 'var(--mui-palette-primary-darker)',
       }}
     >

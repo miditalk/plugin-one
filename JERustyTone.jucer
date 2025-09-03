@@ -9,6 +9,8 @@
               pluginName="JE Rusty Tone">
   <MAINGROUP id="eUJieJ" name="JERustyTone">
     <GROUP id="{35A8EC3B-9539-F605-D986-D2058D0701EB}" name="Source">
+      <FILE id="ZuKSjA" name="AntiAliasingFilter.h" compile="0" resource="0"
+            file="Source/AntiAliasingFilter.h"/>
       <FILE id="EbAnGz" name="DcOffsetFilter.h" compile="0" resource="0"
             file="Source/DcOffsetFilter.h"/>
       <FILE id="loxmGH" name="TiltEQ.h" compile="0" resource="0" file="Source/TiltEQ.h"/>
