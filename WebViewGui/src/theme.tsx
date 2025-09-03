@@ -8,9 +8,9 @@ import {
 } from '@mui/material/styles';
 import { noDragSx } from '@/ui/Style';
 
-const primaryMain = '#525960';
+const primaryMain = '#535355';
 const secondryMain = '#7A2E2E';
-const greyMain = '#2C3036';
+const greyMain = '#4f5763';
 
 export const themeVars = {
   cssVariables: true,
@@ -106,9 +106,11 @@ export const themeVars = {
       darkest: darken(greyMain, 0.85),
       contrastText: getContrastRatio(greyMain, '#fff') > 2.5 ? '#fff' : '#111',
     },
-    white: '#ffffff',
-    black: '#000000',
-    grey: '#666666',
+    common: {
+      white: '#ffffff',
+      black: '#000000',
+      grey: '#666666',
+    }
   },
 
   components: {

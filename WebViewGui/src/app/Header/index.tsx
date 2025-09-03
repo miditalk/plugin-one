@@ -39,7 +39,7 @@ export default function App() {
           onClick={() => setOpen(true)}
           variant="text"
           sx={{
-            color: 'var(--mui-palette-white)',
+            color: 'var(--mui-palette-common-white)',
             fontWeight: 'var(--mui-fontWeight-xl)',
           }}
           disableRipple
@@ -59,7 +59,7 @@ export default function App() {
           <Button
             onClick={() => visitWebsite(CompanyWebsite)}
             sx={{
-              color: 'var(--mui-palette-white)',
+              color: 'var(--mui-palette-common-white)',
               fontWeight: 'var(--mui-fontWeight-xl)',
             }}
             disableRipple

@@ -25,7 +25,7 @@ export default function Page() {
       <IconButton
         onClick={handleClick}
         sx={{
-          color: 'var(--mui-palette-white)',
+          color: 'var(--mui-palette-common-white)',
         }}
         disableRipple
       >
@@ -44,7 +44,7 @@ export default function Page() {
         sx={{
           '& .MuiPaper-root': {
             backgroundColor: 'var(--mui-palette-primary-darken)',
-            color: 'var(--mui-palette-white)',
+            color: 'var(--mui-palette-common-white)',
             '& .MuiList-root': {
               py: 0,
             },

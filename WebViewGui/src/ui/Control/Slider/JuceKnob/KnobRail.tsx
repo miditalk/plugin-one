@@ -3,9 +3,9 @@ export default function Component() {
     <>
       <defs>
         <filter id="dropshadow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blurredAlpha" />
+          <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blurredAlpha" />
           <feOffset in="blurredAlpha" dx="0" dy="10" result="offsetShadow" />
-          <feFlood floodColor="#000" floodOpacity="0.5" result="shadowColor" />
+          <feFlood floodColor="#000" floodOpacity="0.8" result="shadowColor" />
           <feComposite in="shadowColor" in2="offsetShadow" operator="in" result="coloredShadow" />
           <feMerge>
             <feMergeNode in="coloredShadow" />
@@ -31,7 +31,7 @@ export default function Component() {
         <circle
           cx={100}
           cy={100}
-          r={65}
+          r={60}
           fill="var(--mui-palette-primary-darker)"
           filter="url(#innerglow)"
         />
@@ -40,10 +40,8 @@ export default function Component() {
       <circle
         cx={100}
         cy={100}
-        r={55}
+        r={50}
         fill="var(--mui-palette-primary-main)"
-        stroke="var(--mui-palette-primary-darker)"
-        strokeWidth={3}
       />
     </>
   );
