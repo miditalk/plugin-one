@@ -42,7 +42,11 @@ export default function App() {
         <Stack
           direction="row"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-evenly"
+          sx={{
+            flexGrow: 1,
+            width:'100%'
+          }}
         >
           <JuceKnob
             identifier="saturationDriveSlider"
@@ -79,6 +83,8 @@ export default function App() {
         >
           <Stack
             direction="row"
+            alignItems="center"
+            justifyContent="center"
           >
             <JuceKnob
               identifier="inputGainSlider"

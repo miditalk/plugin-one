@@ -65,8 +65,10 @@ export const themeVars = {
   },
 
   palette: {
+    mode: 'light',
     background: {
       default: '#f2f2f2',
+      // default: 'var(--mui-palette-primary-darker)',
     },
     primary: {
       main: primaryMain,
