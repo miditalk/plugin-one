@@ -19,7 +19,7 @@ export default function Component({
         y2={65}
         strokeWidth="7"
         strokeLinecap="round"
-        stroke="var(--mui-palette-common-white)"
+        stroke="var(--mui-palette-primary-lightest)"
       />
     </g>
   );

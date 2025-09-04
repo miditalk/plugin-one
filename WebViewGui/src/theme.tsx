@@ -59,16 +59,15 @@ export const themeVars = {
     xl4: '2.25rem',
     xl5: '2.55rem',
   },
-
   shape: {
     // borderRadius: 4,
   },
-
   palette: {
-    mode: 'light',
+    // mode: 'dark',
     background: {
-      default: '#f2f2f2',
-      // default: 'var(--mui-palette-primary-darker)',
+      // default: '#f2f2f2',
+      default: 'var(--mui-palette-primary-darken)',
+      paper: 'var(--mui-palette-primary-darken)',
     },
     primary: {
       main: primaryMain,
@@ -110,7 +109,14 @@ export const themeVars = {
       white: '#ffffff',
       black: '#000000',
       grey: '#666666',
-    }
+    },
+    text: {
+      primary: 'var(--mui-palette-primary-lighter)',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+      disabled: 'rgba(255, 255, 255, 0.5)',
+      icon: 'rgba(255, 255, 255, 0.5)',
+    },
+    divider: 'rgba(255, 255, 255, 0.12)'
   },
 
   components: {
