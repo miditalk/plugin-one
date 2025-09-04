@@ -69,12 +69,12 @@ class SaturationProcessor : public juce::dsp::ProcessorBase
             x = x0;
             x *= (1.0f - (drive * 0.1f)); // 입력보정
             x *= 4.0f; // 12 dB 밀어넣기
-
+            
             y = (std::tanh(drive * x) / std::tanh(drive));
             
             y /= 4.0f; // -12 dB 빼기
         }
-
+        
         return y;
     }
 };
