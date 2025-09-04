@@ -66,8 +66,8 @@ export const themeVars = {
     // mode: 'dark',
     background: {
       // default: '#f2f2f2',
-      default: 'var(--mui-palette-primary-darken)',
-      paper: 'var(--mui-palette-primary-darken)',
+      default: darken(primaryMain, 0.35),
+      paper: darken(primaryMain, 0.35),
     },
     primary: {
       main: primaryMain,
@@ -111,12 +111,12 @@ export const themeVars = {
       grey: '#666666',
     },
     text: {
-      primary: 'var(--mui-palette-primary-lightest)',
+      primary: lighten(primaryMain, 0.85),
       secondary: 'rgba(255, 255, 255, 0.7)',
       disabled: 'rgba(255, 255, 255, 0.5)',
       icon: 'rgba(255, 255, 255, 0.5)',
     },
-    divider: 'var(--mui-palette-primary-darker)'
+    divider: darken(primaryMain, 0.65),
   },
 
   components: {
