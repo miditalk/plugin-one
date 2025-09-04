@@ -38,14 +38,16 @@ export default function App() {
         }
       }}
     >
-      <Grid size={7}>
+      <Grid size={6}>
         <Stack
           direction="row"
           alignItems="center"
-          justifyContent="space-evenly"
+          justifyContent="center"
           sx={{
-            flexGrow: 1,
-            width:'100%'
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            columnGap: 8,
+            rowGap: 2,
           }}
         >
           <JuceKnob
@@ -74,37 +76,36 @@ export default function App() {
           />
         </Stack>
       </Grid>
-      <Grid size={5}>
+      <Grid size={6}>
         <Stack
-          direction="column"
+          direction="row"
           alignItems="center"
           justifyContent="center"
-          spacing={2}
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            columnGap: 8,
+            rowGap: 2,
+          }}
         >
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <JuceKnob
-              identifier="inputGainSlider"
-              title="Input"
-              defaultValue={0.5}
-              subDigit={1}
-            />
-            <JuceKnob
-              identifier="outputGainSlider"
-              title="Output"
-              defaultValue={0.5}
-              subDigit={1}
-            />
-            <JuceKnob
-              identifier="dryWetSlider"
-              title="Dry/Wet"
-              defaultValue={1.0}
-              subDigit={1}
-            />
-          </Stack>
+          <JuceKnob
+            identifier="inputGainSlider"
+            title="Input"
+            defaultValue={0.5}
+            subDigit={1}
+          />
+          <JuceKnob
+            identifier="outputGainSlider"
+            title="Output"
+            defaultValue={0.5}
+            subDigit={1}
+          />
+          <JuceKnob
+            identifier="dryWetSlider"
+            title="Dry/Wet"
+            defaultValue={1.0}
+            subDigit={1}
+          />
           <JuceToggleButton
             identifier="bypassToggle"
           />

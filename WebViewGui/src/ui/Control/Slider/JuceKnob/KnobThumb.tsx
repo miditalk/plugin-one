@@ -14,9 +14,9 @@ export default function Component({
     >
       <line
         x1={0}
-        y1={15}
+        y1={30}
         x2={0}
-        y2={50}
+        y2={65}
         strokeWidth="7"
         strokeLinecap="round"
         stroke="var(--mui-palette-common-white)"

@@ -81,7 +81,6 @@ export default function JuceSlider({
         sx={{
           position: 'relative',
           width: '100%',
-          aspectRatio: 200 / 160,
           color: 'var(--mui-palette-primary-main)',
         }}
       >
@@ -107,7 +106,7 @@ export default function JuceSlider({
         />
 
         <svg
-          viewBox="0 10 200 170"
+          viewBox="15 15 170 170"
         >
           <KnobRail />
           <KnobThumb value={props.value} />

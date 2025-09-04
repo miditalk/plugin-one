@@ -88,20 +88,11 @@ export default function JuceSlider({
           sliderState.properties.parameterIndex,
       }}
       sx={{
-        width: '8em',
+        width: '6.5em',
         ...sx
       }}
       {...props}
     >
-      <Typography
-        className="cursorDefault"
-        textAlign="center"
-        sx={{
-          ...LabelTypographySx,
-        }}
-      >
-        {sliderState.getScaledValue().toFixed(subDigit)} {properties.label}
-      </Typography>
       <Knob
         value={value}
         scale={calculateValue}
@@ -125,6 +116,15 @@ export default function JuceSlider({
           {title || properties.name}
         </Typography>
       }
+      <Typography
+        className="cursorDefault"
+        textAlign="center"
+        sx={{
+          ...LabelTypographySx,
+        }}
+      >
+        {sliderState.getScaledValue().toFixed(subDigit)} {properties.label}
+      </Typography>
     </Box>
   );
 }
