@@ -111,12 +111,12 @@ export const themeVars = {
       grey: '#666666',
     },
     text: {
-      primary: 'var(--mui-palette-primary-lighter)',
+      primary: 'var(--mui-palette-primary-lightest)',
       secondary: 'rgba(255, 255, 255, 0.7)',
       disabled: 'rgba(255, 255, 255, 0.5)',
       icon: 'rgba(255, 255, 255, 0.5)',
     },
-    divider: 'rgba(255, 255, 255, 0.12)'
+    divider: 'var(--mui-palette-primary-darker)'
   },
 
   components: {
