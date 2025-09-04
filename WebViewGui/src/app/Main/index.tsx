@@ -98,6 +98,12 @@ export default function App() {
               defaultValue={0.5}
               subDigit={1}
             />
+            <JuceKnob
+              identifier="dryWetSlider"
+              title="Dry/Wet"
+              defaultValue={1.0}
+              subDigit={1}
+            />
           </Stack>
           <JuceToggleButton
             identifier="bypassToggle"

@@ -142,6 +142,9 @@ inputGainAttachment (*processorRef.state.getParameter (ID::inputGain.getParamID(
                      processorRef.state.undoManager),
 outputGainAttachment (*processorRef.state.getParameter (ID::outputGain.getParamID()),
                       outputGainSliderRelay,
+                      processorRef.state.undoManager),
+dryWetAttachment (*processorRef.state.getParameter (ID::dryWet.getParamID()),
+                      dryWetSliderRelay,
                       processorRef.state.undoManager)
 {
     addAndMakeVisible (webComponent);

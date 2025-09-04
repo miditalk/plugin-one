@@ -127,7 +127,21 @@ class PluginAudioProcessor  : public AudioProcessor
                                                       [](const juce::String& text) {
             return text.dropLastCharacters(3).getFloatValue(); // "12 dB" → 12
         }
-                                                      ))
+                                                      )),
+        dryWet (addToLayout<AudioParameterFloat> (layout,
+                                                           ID::dryWet,
+                                                           "Dry/Wet",
+                                                           NormalisableRange<float> { 0.0f, 100.0f, 1.0f, 1.0f },
+                                                           100.0f,
+                                                           "%",
+                                                           juce::AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) {
+            return juce::String(value, 1) + " %";  // << 표시될 문자열
+        },
+                                                           [](const juce::String& text) {
+            return text.dropLastCharacters(2).getFloatValue(); // "12 %" → 12
+        }
+                                                           ))
         {
         }
         
@@ -137,6 +151,7 @@ class PluginAudioProcessor  : public AudioProcessor
         AudioParameterFloat& tilt;
         AudioParameterFloat& inputGain;
         AudioParameterFloat& outputGain;
+        AudioParameterFloat& dryWet;
         
         private:
         template <typename Param>
@@ -177,7 +192,9 @@ class PluginAudioProcessor  : public AudioProcessor
     
     DcOffsetFilter<float> dcBlocker;
     AntiAliasingFilter antiAliasingFilter;
-    
+
+    juce::dsp::DryWetMixer<float> dryWetMixer;
+
     private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)

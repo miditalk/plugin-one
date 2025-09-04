@@ -25,5 +25,7 @@ PARAMETER_ID (tilt)
 PARAMETER_ID (inputGain)
 PARAMETER_ID (outputGain)
 
+PARAMETER_ID (dryWet)
+
 #undef PARAMETER_ID
 }

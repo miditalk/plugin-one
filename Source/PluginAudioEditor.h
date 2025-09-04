@@ -56,6 +56,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     WebSliderRelay       tiltSliderRelay    { "tiltSlider" };
     WebSliderRelay       inputGainSliderRelay    { "inputGainSlider" };
     WebSliderRelay       outputGainSliderRelay    { "outputGainSlider" };
+    WebSliderRelay       dryWetSliderRelay    { "dryWetSlider" };
     
     WebControlParameterIndexReceiver controlParameterIndexReceiver;
     
@@ -70,6 +71,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withOptionsFrom (tiltSliderRelay)
             .withOptionsFrom (inputGainSliderRelay)
             .withOptionsFrom (outputGainSliderRelay)
+            .withOptionsFrom (dryWetSliderRelay)
             .withOptionsFrom (controlParameterIndexReceiver)
             .withNativeFunction ("visitWebsite", [](auto& var, auto complete) {
                 const URL newUrl = URL (var[0].toString());
@@ -88,6 +90,7 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     WebSliderParameterAttachment       tiltAttachment;
     WebSliderParameterAttachment       inputGainAttachment;
     WebSliderParameterAttachment       outputGainAttachment;
+    WebSliderParameterAttachment       dryWetAttachment;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WebViewPluginAudioProcessorEditor)
 };

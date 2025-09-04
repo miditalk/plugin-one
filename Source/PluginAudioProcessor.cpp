@@ -55,6 +55,10 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     inputGain.reset();
     outputGain.setGainDecibels(0.0f);
     outputGain.reset();
+
+    dryWetMixer.setMixingRule (juce::dsp::DryWetMixingRule::linear);
+    dryWetMixer.prepare (spec);
+    dryWetMixer.setWetMixProportion (1.0f);
 }
 
 bool PluginAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
@@ -88,12 +92,16 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     preEQ.setGain(parameters.emphasis.get());
     postEQ.setGain(0-parameters.emphasis.get());
     tiltEQ.setGain(parameters.tilt.get());
+    
+    dryWetMixer.setWetMixProportion (parameters.dryWet.get() / 100.0f);
 
     auto outBlock = dsp::AudioBlock<float> { buffer }.getSubsetChannelBlock (0, (size_t) getTotalNumOutputChannels());
     
     if (!parameters.bypass.get()) {
 
         inputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
+        
+        dryWetMixer.pushDrySamples (outBlock); // Dry 신호 저장
         
         preEQ.process(dsp::ProcessContextReplacing<float> (outBlock));
 
@@ -103,8 +111,10 @@ void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
 
         tiltEQ.process(dsp::ProcessContextReplacing<float> (outBlock));
         
-        dcBlocker.process(dsp::ProcessContextReplacing<float> (outBlock));
+        dryWetMixer.mixWetSamples (outBlock); // Dry/Wet 믹스
 
+        dcBlocker.process(dsp::ProcessContextReplacing<float> (outBlock));
+        
         outputGain.process(dsp::ProcessContextReplacing<float> (outBlock));
 
         antiAliasingFilter.process(dsp::ProcessContextReplacing<float> (outBlock));
