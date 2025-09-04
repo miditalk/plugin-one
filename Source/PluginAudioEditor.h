@@ -74,8 +74,8 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withOptionsFrom (dryWetSliderRelay)
             .withOptionsFrom (controlParameterIndexReceiver)
             .withNativeFunction ("sayHello", [this](auto& var, auto complete) {
-                juce::String value = juce::String(processorRef.parameters.outputGain.get());
-                complete ("outputGain value : " + value);
+                juce::String value = juce::String(processorRef.outputGain.getGainDecibels());
+                complete ("outputGain value is " + value);
                 // complete ("Hello " + var[0].toString());
             })
             .withNativeFunction ("visitWebsite", [](auto& var, auto complete) {

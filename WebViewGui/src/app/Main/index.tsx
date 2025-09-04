@@ -7,8 +7,6 @@ import JuceKnob from '@/src/ui/Control/Slider/JuceKnob';
 
 import controlParameterIndexAnnotation from '@/src/define/controlParameterIndexAnnotation';
 import JuceToggleButton from '@/src/ui/Control/ToggleButton/JuceToggleButton';
-import FetchDataButton from './FetchDataButton';
-import CallBackendButton from './CallBackendButton';
 
 export default function App() {
   const controlParameterIndexUpdater = new Juce.ControlParameterIndexUpdater(
@@ -112,8 +110,6 @@ export default function App() {
             <JuceToggleButton
               identifier="bypassToggle"
             />
-            <FetchDataButton />
-            <CallBackendButton />
           </Stack>
         </Stack>
       </Grid>

@@ -18,6 +18,7 @@ export default function App() {
       onClick={() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sayHello('JUCE').then((result: any) => {
           setOpen(result);
 
