@@ -60,7 +60,7 @@ export default function Page() {
               borderColor: 'var(--mui-palette-primary-main)',
             },
             '& .MuiListSubheader-root': {
-              color: 'var(--mui-palette-primary-light)',
+              color: 'var(--mui-palette-text-disabled)',
               fontSize: 'var(--mui-fontSize-xs)',
               pt: 2,
               backgroundColor: 'transparent',
