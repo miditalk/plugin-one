@@ -106,7 +106,7 @@ std::optional<WebBrowserComponent::Resource> PluginAudioEditor::getResource (con
         MemoryInputStream stream { testData, numElementsInArray (testData) - 1, false };
         return WebBrowserComponent::Resource { streamToVector (stream), String { "text/html" } };
     }
-    
+
     return std::nullopt;
 }
 

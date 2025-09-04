@@ -78,6 +78,9 @@ class PluginAudioEditor  : public AudioProcessorEditor, private Timer
             .withNativeFunction ("setWindowScale", [this](auto& var, auto complete) {
                 setScale(var[0]);
             })
+            .withNativeFunction ("getWindowScale", [this](auto& var, auto complete) {
+                complete (juce::String(processorRef.windowScale));
+            })
             .withNativeFunction ("sayHello", [this](auto& var, auto complete) {
                 juce::String value = juce::String(processorRef.outputGain.getGainDecibels());
                 complete ("outputGain value is " + value);
