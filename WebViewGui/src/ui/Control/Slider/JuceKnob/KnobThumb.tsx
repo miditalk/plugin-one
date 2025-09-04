@@ -14,10 +14,10 @@ export default function Component({
     >
       <line
         x1={0}
-        y1={0}
+        y1={15}
         x2={0}
         y2={50}
-        strokeWidth="5"
+        strokeWidth="7"
         strokeLinecap="round"
         stroke="var(--mui-palette-common-white)"
       />

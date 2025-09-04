@@ -14,10 +14,10 @@ export default function Component() {
         </filter>
 
         <filter id="innerglow">
-          <feFlood floodColor="#ffffff" floodOpacity="0.1" result="flood" />
+          <feFlood floodColor="#ffffff" floodOpacity="0.3" result="flood" />
           <feComposite in="flood" in2="SourceAlpha" operator="out" result="composite1" />
-          <feOffset dx="4" dy="4" in="composite1" result="offset" />
-          <feGaussianBlur stdDeviation="2 2" in="offset" edgeMode="none" result="blur" />
+          <feOffset dx="0" dy="1" in="composite1" result="offset" />
+          <feGaussianBlur stdDeviation="0 0" in="offset" edgeMode="none" result="blur" />
           <feComposite in="blur" in2="SourceAlpha" operator="in" result="composite2" />
           <feMerge result="merge">
             <feMergeNode in="SourceGraphic" />
@@ -25,24 +25,52 @@ export default function Component() {
           </feMerge>
         </filter>
 
+        <linearGradient id="Gradient1" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="black" stopOpacity="0" />
+          <stop offset="100%" stopColor="black" stopOpacity="0.3" />
+        </linearGradient>
       </defs>
 
-      <g filter="url(#dropshadow)">
+      <circle
+        cx={100}
+        cy={100}
+        r={70}
+        fill="var(--mui-palette-primary-main)"
+      />
+
+      <circle
+        cx={100}
+        cy={100}
+        r={70}
+        fill="url(#Gradient1)"
+      />
+
+      <g>
         <circle
           cx={100}
           cy={100}
-          r={60}
+          r={62}
           fill="var(--mui-palette-primary-darker)"
-          filter="url(#innerglow)"
         />
+      </g>
+
+      <g filter="url(#dropshadow)">
+      <circle
+        cx={100}
+        cy={100}
+        r={58}
+        fill="var(--mui-palette-primary-main)"
+        filter="url(#innerglow)"
+      />
       </g>
 
       <circle
         cx={100}
         cy={100}
-        r={50}
-        fill="var(--mui-palette-primary-main)"
+        r={58}
+        fill="url(#Gradient1)"
       />
+
     </>
   );
 }
