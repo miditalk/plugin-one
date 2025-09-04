@@ -6,9 +6,9 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import ListSubheader from '@mui/material/ListSubheader';
 
 import MenuIcon from '@mui/icons-material/Menu';
+import Scale from './Scale';
 
 export default function Page() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -69,10 +69,7 @@ export default function Page() {
           }
         }}
       >
-        <ListSubheader className="cursorDefault">
-          Scale
-        </ListSubheader>
-        <MenuItem>100%</MenuItem>
+        <Scale onClick={handleClose} />
         <Divider />
         <MenuItem onClick={handleClose}>Open Manual</MenuItem>
         <Divider />

@@ -28,10 +28,10 @@ struct SinglePageBrowser : WebBrowserComponent
 };
 
 //==============================================================================
-class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private Timer
+class PluginAudioEditor  : public AudioProcessorEditor, private Timer
 {
     public:
-    explicit WebViewPluginAudioProcessorEditor (PluginAudioProcessor&);
+    explicit PluginAudioEditor (PluginAudioProcessor&);
     
     std::optional<WebBrowserComponent::Resource> getResource (const String& url);
     
@@ -46,6 +46,8 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     
     void timerCallback() override {
     }
+    
+    void setScale(int scale);
     
     private:
     PluginAudioProcessor& processorRef;
@@ -73,6 +75,9 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withOptionsFrom (outputGainSliderRelay)
             .withOptionsFrom (dryWetSliderRelay)
             .withOptionsFrom (controlParameterIndexReceiver)
+            .withNativeFunction ("setWindowScale", [this](auto& var, auto complete) {
+                setScale(var[0]);
+            })
             .withNativeFunction ("sayHello", [this](auto& var, auto complete) {
                 juce::String value = juce::String(processorRef.outputGain.getGainDecibels());
                 complete ("outputGain value is " + value);
@@ -97,5 +102,5 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
     WebSliderParameterAttachment       outputGainAttachment;
     WebSliderParameterAttachment       dryWetAttachment;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WebViewPluginAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioEditor)
 };

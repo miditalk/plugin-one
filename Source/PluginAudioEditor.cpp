@@ -75,7 +75,7 @@ static auto streamToVector (InputStream& stream)
     return result;
 }
 
-std::optional<WebBrowserComponent::Resource> WebViewPluginAudioProcessorEditor::getResource (const String& url)
+std::optional<WebBrowserComponent::Resource> PluginAudioEditor::getResource (const String& url)
 {
     const auto urlToRetrive = url == "/" ? String { "index.html" }
     : url.fromFirstOccurrenceOf ("/", false, false);
@@ -123,7 +123,7 @@ bool SinglePageBrowser::pageAboutToLoad (const String& newURL)
 }
 
 //==============================================================================
-WebViewPluginAudioProcessorEditor::WebViewPluginAudioProcessorEditor (PluginAudioProcessor& p)
+PluginAudioEditor::PluginAudioEditor (PluginAudioProcessor& p)
 : AudioProcessorEditor (&p), processorRef (p),
 bypassAttachment (*processorRef.state.getParameter (ID::bypass.getParamID()),
                   bypassToggleRelay,
@@ -155,19 +155,37 @@ dryWetAttachment (*processorRef.state.getParameter (ID::dryWet.getParamID()),
     webComponent.goToURL (WebBrowserComponent::getResourceProviderRoot());
 #endif
     
-    setSize (500, 300);
-    
+    setScale(processorRef.windowScale);
     startTimerHz (20);
 }
 
 //==============================================================================
-void WebViewPluginAudioProcessorEditor::paint (Graphics& g)
+void PluginAudioEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 }
 
-void WebViewPluginAudioProcessorEditor::resized()
+void PluginAudioEditor::resized()
 {
     webComponent.setBounds (getLocalBounds());
+}
+
+void PluginAudioEditor::setScale(int scale)
+{
+    processorRef.windowScale = scale;
+    switch (processorRef.windowScale)
+    {
+        case 100:
+            setSize(500, 300);
+            break;
+        case 150:
+            setSize(500*1.5f, 300*1.5f);
+            break;
+        case 200:
+            setSize(500*2.0f, 300*2.0f);
+            break;
+        default:
+            setSize(500, 300);
+    }
 }

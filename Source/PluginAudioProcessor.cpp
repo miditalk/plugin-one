@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginAudioProcessor.h"
 
+
 //==============================================================================
 PluginAudioProcessor::PluginAudioProcessor (AudioProcessorValueTreeState::ParameterLayout layout)
 : AudioProcessor (BusesProperties()
@@ -24,6 +25,31 @@ PluginAudioProcessor::PluginAudioProcessor (AudioProcessorValueTreeState::Parame
 parameters (layout),
 state (*this, nullptr, "STATE", std::move (layout))
 {
+    // PropertiesFile 옵션 설정
+    juce::PropertiesFile::Options options;
+    options.applicationName     = "preferences";
+    options.filenameSuffix      = ".xml";
+    options.folderName          = "JoEunsoo/RustyTone"; // macOS: ~/Library/Application Support/JoEunsoo/RustyTone.settings
+    options.osxLibrarySubFolder = "Application Support";
+    options.storageFormat       = juce::PropertiesFile::storeAsXML;
+
+    // ApplicationProperties 객체를 통해 관리
+    appProperties.setStorageParameters(options);
+
+    // PropertiesFile 가져오기
+    props = appProperties.getUserSettings();
+
+    // 값 불러오기
+    windowScale  = props->getIntValue("windowScale", 100);
+}
+
+//==============================================================================
+PluginAudioProcessor::~PluginAudioProcessor()
+{
+    // 종료 시 값 저장
+    props->setValue("windowScale", windowScale);
+
+    props->saveIfNeeded();
 }
 
 //==============================================================================

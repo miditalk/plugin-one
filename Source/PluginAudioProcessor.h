@@ -23,7 +23,8 @@ class PluginAudioProcessor  : public AudioProcessor
     public:
     //==============================================================================
     PluginAudioProcessor (AudioProcessorValueTreeState::ParameterLayout layout);
-    
+    ~PluginAudioProcessor() override;
+
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override {}
@@ -195,7 +196,12 @@ class PluginAudioProcessor  : public AudioProcessor
     
     juce::dsp::DryWetMixer<float> dryWetMixer;
     
+    int windowScale;
+
     private:
+    juce::ApplicationProperties appProperties;
+    juce::PropertiesFile* props = nullptr; // 소유권은 ApplicationProperties가 관리
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)
     
