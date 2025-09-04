@@ -1,12 +1,12 @@
 /*
-  ==============================================================================
-
-    PluginAudioEditor.cpp
-    Created: 3 Sep 2025 11:11:07am
-    Author:  JoEunsoo
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ PluginAudioEditor.cpp
+ Created: 3 Sep 2025 11:11:07am
+ Author:  JoEunsoo
+ 
+ ==============================================================================
+ */
 
 #include "PluginAudioEditor.h"
 
@@ -106,7 +106,7 @@ std::optional<WebBrowserComponent::Resource> WebViewPluginAudioProcessorEditor::
         MemoryInputStream stream { testData, numElementsInArray (testData) - 1, false };
         return WebBrowserComponent::Resource { streamToVector (stream), String { "text/html" } };
     }
-
+    
     return std::nullopt;
 }
 
@@ -144,8 +144,8 @@ outputGainAttachment (*processorRef.state.getParameter (ID::outputGain.getParamI
                       outputGainSliderRelay,
                       processorRef.state.undoManager),
 dryWetAttachment (*processorRef.state.getParameter (ID::dryWet.getParamID()),
-                      dryWetSliderRelay,
-                      processorRef.state.undoManager)
+                  dryWetSliderRelay,
+                  processorRef.state.undoManager)
 {
     addAndMakeVisible (webComponent);
     

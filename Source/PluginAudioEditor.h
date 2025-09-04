@@ -73,6 +73,11 @@ class WebViewPluginAudioProcessorEditor  : public AudioProcessorEditor, private 
             .withOptionsFrom (outputGainSliderRelay)
             .withOptionsFrom (dryWetSliderRelay)
             .withOptionsFrom (controlParameterIndexReceiver)
+            .withNativeFunction ("sayHello", [this](auto& var, auto complete) {
+                juce::String value = juce::String(processorRef.parameters.outputGain.get());
+                complete ("outputGain value : " + value);
+                // complete ("Hello " + var[0].toString());
+            })
             .withNativeFunction ("visitWebsite", [](auto& var, auto complete) {
                 const URL newUrl = URL (var[0].toString());
                 if (newUrl.isWellFormed())
