@@ -72,10 +72,6 @@ export default function Page() {
         <Scale onClick={handleClose} />
         <Divider />
         <MenuItem onClick={handleClose}>
-          Open Manual
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
           Deactivate
         </MenuItem>
       </Menu>
