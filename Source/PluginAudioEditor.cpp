@@ -13,11 +13,7 @@
 static ZipFile* getZipFile()
 {
 #if DEBUG
-    const auto resourceDir = File::getSpecialLocation (File::currentExecutableFile)
-        .getParentDirectory().getParentDirectory().getChildFile ("Resources");
-    const auto resourceFile = resourceDir.getChildFile ("gui.zip");
-    
-    static auto stream = resourceFile.createInputStream();
+    static auto stream = createAssetInputStream ("webviewplugin-gui_1.0.0.zip", AssertAssetExists::no);
     
     if (stream == nullptr)
         return nullptr;
@@ -25,7 +21,11 @@ static ZipFile* getZipFile()
     static ZipFile f { stream.get(), false };
     return &f;
 #else
-    static auto stream = createAssetInputStream ("webviewplugin-gui_1.0.0.zip", AssertAssetExists::no);
+    const auto resourceDir = File::getSpecialLocation (File::currentExecutableFile)
+        .getParentDirectory().getParentDirectory().getChildFile ("Resources");
+    const auto resourceFile = resourceDir.getChildFile ("gui.zip");
+    
+    static auto stream = resourceFile.createInputStream();
     
     if (stream == nullptr)
         return nullptr;
